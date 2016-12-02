@@ -7,6 +7,7 @@
         internal const string ProjectGroupIdFormat = "ProjectGroups-{0}";
         internal const string LibraryVariableSetIdFormat = "LibraryVariableSets-{0}";
         internal const string UserIdFormat = "users-{0}";
+        internal const string LifecycleIdFormat = "Lifecycles-{0}";
         internal const string CloneCommandApiFormat = "~/api/projects?clone={0}";
         internal const string MaintenanceConfigApi = "~/api/maintenanceconfiguration";
         internal const string VarsetVars = "~/api/variables/{0}";

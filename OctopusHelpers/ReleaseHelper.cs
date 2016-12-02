@@ -155,10 +155,10 @@ namespace OctopusHelpers
         /// <param name="octRepository"></param>
         /// <param name="project"></param>
         /// <returns></returns>
-        public static IEnumerable<ReleaseResource> GetLastDeployedReleasesFromProject(OctopusRepository octRepository, ProjectResource project)
+        public static IEnumerable<ReleaseResource> GetLastDeployedReleasesFromProjectPhase(OctopusRepository octRepository, ProjectResource project, string phaseName)
         {
             var releaseList = new List<ReleaseResource>();
-            var environmentList = EnvironmentHelper.GetProjectEnvironments(octRepository, project);
+            var environmentList = EnvironmentHelper.GetProjectEnvironments(octRepository, project, phaseName);
             foreach (var environment in environmentList)
             {
                 var lastDeployedPerEnvironment = GetLastDeployedReleaseFromProjectEnvironment(octRepository, project, environment);
@@ -216,10 +216,10 @@ namespace OctopusHelpers
         /// <param name="octRepository"></param>
         /// <param name="project"></param>
         /// <returns></returns>
-        public static IEnumerable<ReleaseResource> GetDeployedReleasesFromProject(OctopusRepository octRepository, ProjectResource project)
+        public static IEnumerable<ReleaseResource> GetDeployedReleasesFromProjectPhase(OctopusRepository octRepository, ProjectResource project, string phaseName)
         {
             var releaseList = new List<ReleaseResource>();
-            var environmentList = EnvironmentHelper.GetProjectEnvironments(octRepository, project);
+            var environmentList = EnvironmentHelper.GetProjectEnvironments(octRepository, project, phaseName);
             foreach (var environment in environmentList)
             {
                 var deployedReleases = GetDeployedReleasesFromProjectEnvironment(octRepository, project, environment);
@@ -234,11 +234,11 @@ namespace OctopusHelpers
         /// <param name="octRepository"></param>
         /// <param name="project"></param>
         /// <returns></returns>
-        public static IEnumerable<ReleaseResource> GetUndeployedReleasesFromProject(OctopusRepository octRepository, ProjectResource project)
+        public static IEnumerable<ReleaseResource> GetUndeployedReleasesFromProjectPhase(OctopusRepository octRepository, ProjectResource project, string phaseName)
         {
             var releaseList = new List<ReleaseResource>();
-            var environmentList = EnvironmentHelper.GetProjectEnvironments(octRepository, project);
-            var deployedReleases = GetDeployedReleasesFromProject(octRepository, project);
+            var environmentList = EnvironmentHelper.GetProjectEnvironments(octRepository, project, phaseName);
+            var deployedReleases = GetDeployedReleasesFromProjectPhase(octRepository, project, phaseName);
             foreach (var environment in environmentList)
             {
                 var deployedReleasesPerEnviornment = GetUndeployedReleasesFromProjectEnvironment(octRepository, project, environment);

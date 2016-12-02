@@ -43,11 +43,36 @@ namespace OctopusHelpers
         /// <param name="octRepository"></param>
         /// <param name="project"></param>
         /// <returns></returns>
-        public static IEnumerable<EnvironmentResource> GetProjectEnvironments(OctopusRepository octRepository, ProjectResource project)
+        public static IEnumerable<EnvironmentResource> GetProjectEnvironments(OctopusRepository octRepository, ProjectResource project, string phaseName)
         {
-            var projectGroup = ProjectGroupHelper.GetProjectGroupById(octRepository, project.ProjectGroupId);
+            var lifecycle = LifecycleHelper.GetProjectLifeCycle(octRepository, project);
+            return GetLifeCyclePhaseEnvironments(octRepository, lifecycle, phaseName);
+        }
+
+        /// <summary>
+        /// Gathers a list of Environments of a Lifecycle
+        /// </summary>
+        /// <param name="octRepository"></param>
+        /// <param name="lifecycle"></param>
+        /// <param name="phaseName"></param>
+        /// <returns></returns>
+        public static IEnumerable<EnvironmentResource> GetLifeCyclePhaseEnvironments(OctopusRepository octRepository, LifecycleResource lifecycle, string phaseName)
+        {
             var environmentList = new List<EnvironmentResource>();
-            foreach (var environment in projectGroup.EnvironmentIds)
+            var lifecylePhase = LifecycleHelper.GetPhaseByName(lifecycle, phaseName);
+            return GetPhaseEnvironments(octRepository, lifecylePhase);
+        }
+
+        /// <summary>
+        /// Gathers the list of Environments of a Phase
+        /// </summary>
+        /// <param name="octRepository"></param>
+        /// <param name="phase"></param>
+        /// <returns></returns>
+        public static IEnumerable<EnvironmentResource> GetPhaseEnvironments(OctopusRepository octRepository, PhaseResource phase)
+        {
+            var environmentList = new List<EnvironmentResource>();
+            foreach (var environment in phase.OptionalDeploymentTargets)
             {
                 var environmentToAdd = GetEnvironmentById(octRepository, environment);
                 environmentList.Add(environmentToAdd);
