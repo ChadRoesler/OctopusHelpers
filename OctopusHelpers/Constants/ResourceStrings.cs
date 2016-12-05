@@ -8,9 +8,11 @@
         internal const string LibraryVariableSetIdFormat = "LibraryVariableSets-{0}";
         internal const string UserIdFormat = "users-{0}";
         internal const string LifecycleIdFormat = "Lifecycles-{0}";
+        internal const string TeamIdFormat = "Teams-{0}";
         internal const string CloneCommandApiFormat = "~/api/projects?clone={0}";
         internal const string MaintenanceConfigApi = "~/api/maintenanceconfiguration";
         internal const string VarsetVars = "~/api/variables/{0}";
+        internal const string TeamUserIdFormat = "~/api/Users/{0}";
         internal const string ProjectsLink = "Projects";
         internal const string QueuedBehindLink = "QueuedBehind";
         internal const string ScriptModuleNameFormat = "Octopus.Script.Module[{0}]";

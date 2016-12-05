@@ -31,6 +31,27 @@ namespace OctopusHelpers.ExtensionMethods
         /// Gathers the 
         /// </summary>
         /// <param name="client"></param>
+        /// <param name="team"></param>
+        /// <returns></returns>
+        internal static IEnumerable<UserResource> GetTeamUsers(this IOctopusClient client, TeamResource team)
+        {
+            List<UserResource> users = new List<UserResource>();
+            foreach(var userId in team.MemberUserIds)
+            {
+                var user = client.Get<UserResource>(string.Format(ResourceStrings.TeamUserIdFormat, userId));
+                if (user != null)
+                {
+                    users.Add(user);
+                }
+            }
+            return users;
+        }
+
+        /// <summary>
+        /// Gathers the Queued Behind Task Resources
+        /// Note: these are not full TaskResources, but seem to be TaskResource-like
+        /// </summary>
+        /// <param name="client"></param>
         /// <param name="task"></param>
         /// <returns></returns>
         internal static IEnumerable<QueuedBehindTaskResource> GetQueuedBehindResources(this IOctopusClient client, TaskResource task)
