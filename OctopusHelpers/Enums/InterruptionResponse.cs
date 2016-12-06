@@ -1,5 +1,8 @@
 ﻿namespace OctopusHelpers.Enums
 {
+    /// <summary>
+    /// Interruption Response Enum for Managing an interruptiuon.
+    /// </summary>
     public enum InterruptionResponse
     {
         Retry = 0,

@@ -8,6 +8,9 @@ using OctopusHelpers.Constants;
 
 namespace OctopusHelpers.Models
 {
+    /// <summary>
+    /// Object Built for managing Deployment Tasks.
+    /// </summary>
     public class OctopusDeploymentTaskManager
     {
         private OctopusRepository octRepositoryToManage;

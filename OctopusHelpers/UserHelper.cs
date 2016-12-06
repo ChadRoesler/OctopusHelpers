@@ -7,6 +7,9 @@ using OctopusHelpers.Constants;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing User Objects.
+    /// </summary>
     public static class UserHelper
     {
         /// <summary>

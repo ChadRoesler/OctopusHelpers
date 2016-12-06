@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\OctopusHelpers.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\OctopusHelpers.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
@@ -40,8 +42,8 @@
       <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Octopus.Client, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Octopus.Client.4.2.1\lib\net45\Octopus.Client.dll</HintPath>
+    <Reference Include="Octopus.Client, Version=4.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Octopus.Client.4.2.2\lib\net45\Octopus.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -65,7 +67,6 @@
     <Compile Include="InterruptionHelper.cs" />
     <Compile Include="LifecycleHelper.cs" />
     <Compile Include="Models\OctopusDeploymentTaskManager.cs" />
-    <Compile Include="Models\QueuedBehindTaskResource.cs" />
     <Compile Include="StepHelper.cs" />
     <Compile Include="TeamHelper.cs" />
     <Compile Include="VariableHelper.cs" />
@@ -92,10 +93,20 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF "$(ConfigurationName)" == "Release" (
-nuget pack $(ProjectPath) -properties Configuration=$(ConfigurationName) -output $(ProjectDir)
+del *.nupkg
+nuget pack $(ProjectPath) -properties Configuration=$(ConfigurationName) -output $(SolutionDir)\$(OutDir)
+
+$(SolutionDir)\packages\PxtlCa.XmlCommentMarkDownGenerator.0.2.6130.564\tools\PxtlCa.XmlCommentMarkDownGenerator.exe -i $(SolutionDir)\$(OutDir)\$(TargetName).xml -o $(SolutionDir)\$(OutDir)\$(TargetName).md
 )
 </PostBuildEvent>
   </PropertyGroup>
+  <Import Project="packages\PxtlCa.XmlCommentMarkDownGenerator.0.2.6130.564\build\PxtlCa.XmlCommentMarkDownGenerator.targets" Condition="Exists('packages\PxtlCa.XmlCommentMarkDownGenerator.0.2.6130.564\build\PxtlCa.XmlCommentMarkDownGenerator.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\PxtlCa.XmlCommentMarkDownGenerator.0.2.6130.564\build\PxtlCa.XmlCommentMarkDownGenerator.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\PxtlCa.XmlCommentMarkDownGenerator.0.2.6130.564\build\PxtlCa.XmlCommentMarkDownGenerator.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

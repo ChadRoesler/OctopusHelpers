@@ -4,6 +4,9 @@ using OctopusHelpers.ExtensionMethods;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing MaintanenceConfiguration Objects.
+    /// </summary>
     public static class MaintanenceConfigurationHelper
     {
         /// <summary>

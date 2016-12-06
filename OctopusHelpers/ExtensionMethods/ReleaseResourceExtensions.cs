@@ -3,6 +3,9 @@ using Octopus.Client.Model;
 
 namespace OctopusHelpers.ExtensionMethods
 {
+    /// <summary>
+    /// Release Resourec Extentions.
+    /// </summary>
     public static class ReleaseResourceExtensions
     {
         /// <summary>

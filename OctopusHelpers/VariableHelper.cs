@@ -6,6 +6,9 @@ using Octopus.Client.Model;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing Variable Objects.
+    /// </summary>
     public static class VariableHelper
     {
         /// <summary>

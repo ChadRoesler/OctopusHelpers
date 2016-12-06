@@ -7,6 +7,9 @@ using OctopusHelpers.ExtensionMethods;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing ProjectGroup Objects.
+    /// </summary>
     public static class ProjectGroupHelper
     {
         /// <summary>

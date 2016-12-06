@@ -8,7 +8,7 @@ using OctopusHelpers.Constants;
 namespace OctopusHelpers
 {
     /// <summary>
-    /// Used for Library Variable Sets.  These are the Script Modules and Variable sets that can be shared between projects.
+    /// Helpers for managing LibraryVariableSet Objects.  These are the Script Modules and Variable sets that can be shared between projects.
     /// </summary>
     public static class LibraryVariableSetHelper
     {

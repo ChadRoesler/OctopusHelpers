@@ -8,6 +8,9 @@ using OctopusHelpers.ExtensionMethods;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing Release Objects.
+    /// </summary>
     public static class ReleaseHelper
     {
         /// <summary>

@@ -6,6 +6,9 @@ using OctopusHelpers.ExtensionMethods;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing Team Objects.
+    /// </summary>
     public static class TeamHelper
     {
         /// <summary>

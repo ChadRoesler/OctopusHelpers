@@ -1,5 +1,8 @@
 ﻿namespace OctopusHelpers.Constants
 {
+    /// <summary>
+    /// All Error string needed for this library.
+    /// </summary>
     internal class ErrorStrings
     {
         internal const string MissingPackageStep = "The Following Package Step did not have a corresponding key in the Dictionary Passed: {0}";

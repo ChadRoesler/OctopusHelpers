@@ -6,6 +6,9 @@ using OctopusHelpers.Models;
 
 namespace OctopusHelpers.ExtensionMethods
 {
+    /// <summary>
+    /// Extentions to the Client Model.
+    /// </summary>
     internal static class OctopusClientExtensions
     {
         /// <summary>
@@ -28,7 +31,7 @@ namespace OctopusHelpers.ExtensionMethods
         }
 
         /// <summary>
-        /// Gathers the 
+        /// Gathers the Users from a Team.
         /// </summary>
         /// <param name="client"></param>
         /// <param name="team"></param>
@@ -54,9 +57,9 @@ namespace OctopusHelpers.ExtensionMethods
         /// <param name="client"></param>
         /// <param name="task"></param>
         /// <returns></returns>
-        internal static IEnumerable<QueuedBehindTaskResource> GetQueuedBehindResources(this IOctopusClient client, TaskResource task)
+        internal static IEnumerable<TaskResource> GetQueuedBehindTasks(this IOctopusClient client, TaskResource task)
         {
-            var queuedBehind = client.Get<IEnumerable<QueuedBehindTaskResource>>(task.Link(ResourceStrings.QueuedBehindLink));
+            var queuedBehind = client.Get<IEnumerable<TaskResource>>(task.Link(ResourceStrings.QueuedBehindLink));
             return queuedBehind;
         }
 

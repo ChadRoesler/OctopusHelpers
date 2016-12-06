@@ -7,6 +7,9 @@ using OctopusHelpers.Enums;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing Interruption Objects.
+    /// </summary>
     public static class InterruptionHelper
     {
         /// <summary>

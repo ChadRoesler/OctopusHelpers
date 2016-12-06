@@ -7,10 +7,13 @@ using OctopusHelpers.Constants;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing Step Objects.
+    /// </summary>
     public static class StepHelper
     {
         /// <summary>
-        /// Gathers the deployment steps for the passed release and environment
+        /// Gathers the deployment steps for the passed release and environment.
         /// </summary>
         /// <param name="octRepository"></param>
         /// <param name="release"></param>
@@ -24,9 +27,9 @@ namespace OctopusHelpers
         }
 
         /// <summary>
-        /// Returns the steps that are to be skipped based on two projects step lists
+        /// Returns the steps that are to be skipped based on two projects step lists.
         /// This is used when managing octopus from octopus.
-        /// YES I KNOW
+        /// YES I KNOW.
         /// </summary>
         /// <param name="projectSteps"></param>
         /// <param name="referenceProject"></param>

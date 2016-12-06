@@ -7,6 +7,9 @@ using OctopusHelpers.Constants;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing DeploymentProcess Objects.
+    /// </summary>
     public static class DeploymentProcessHelper
     {
         /// <summary>

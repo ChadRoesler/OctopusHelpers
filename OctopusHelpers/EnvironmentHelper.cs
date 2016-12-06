@@ -5,6 +5,9 @@ using Octopus.Client.Model;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing Environment Objects.
+    /// </summary>
     public static class EnvironmentHelper
     {
         /// <summary>

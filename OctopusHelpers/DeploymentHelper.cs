@@ -9,6 +9,9 @@ using OctopusHelpers.ExtensionMethods;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing Deployment Objects.
+    /// </summary>
     public static class DeploymentHelper 
     {
         /// <summary>
@@ -143,8 +146,8 @@ namespace OctopusHelpers
         {
             var deploymentsList = new List<DeploymentResource>();
             var task = octRepository.Tasks.Get(deployment.TaskId);
-            var queuedBehind = octRepository.Client.GetQueuedBehindResources(task).Where(x => !string.IsNullOrWhiteSpace(x.DeploymentId)).Select(x => x.DeploymentId);
-            foreach(var queuedDeployment in queuedBehind)
+            var queuedBehindTask = octRepository.Client.GetQueuedBehindTasks(task).Where(x => x.Arguments.ContainsKey(ResourceStrings.DeploymentIdKey)).Select(x => x.Arguments[ResourceStrings.DeploymentIdKey].ToString());
+            foreach(var queuedDeployment in queuedBehindTask)
             {
                 deploymentsList.Add(octRepository.Deployments.Get(queuedDeployment));
             }

@@ -1,5 +1,8 @@
 ﻿namespace OctopusHelpers.Constants
 {
+    /// <summary>
+    /// All Resource Strings needed for this library.
+    /// </summary>
     internal class ResourceStrings
     {
         internal const string EnvironmentIdFormat = "environments-{0}";
