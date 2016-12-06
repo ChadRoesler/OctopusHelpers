@@ -39,7 +39,7 @@ namespace OctopusHelpers.ExtensionMethods
         internal static IEnumerable<UserResource> GetTeamUsers(this IOctopusClient client, TeamResource team)
         {
             List<UserResource> users = new List<UserResource>();
-            foreach(var userId in team.MemberUserIds)
+            foreach (var userId in team.MemberUserIds)
             {
                 var user = client.Get<UserResource>(string.Format(ResourceStrings.TeamUserIdFormat, userId));
                 if (user != null)
@@ -59,7 +59,14 @@ namespace OctopusHelpers.ExtensionMethods
         /// <returns></returns>
         internal static IEnumerable<TaskResource> GetQueuedBehindTasks(this IOctopusClient client, TaskResource task)
         {
-            var queuedBehind = client.Get<IEnumerable<TaskResource>>(task.Link(ResourceStrings.QueuedBehindLink));
+            var queuedBehind = new List<TaskResource>();
+            client.Paginate<TaskResource>(task.Link(ResourceStrings.QueuedBehindLink), new
+            {
+            }, page =>
+            {
+                queuedBehind.AddRange(page.Items);
+                return true;
+            });
             return queuedBehind;
         }
 
