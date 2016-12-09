@@ -25,6 +25,8 @@
         internal const string SelfLink = "Self";
         internal const string OctopusDeploymentLink = "/app#/deployments/{0}";
 
+        internal const string FormValuesArgException = "formValues";
+
         internal const string InterruptionGuidanceKey = "Guidance";
         internal const string InterruptionRetryValue = "Retry";
         internal const string InterruptionFailValue = "Fail";

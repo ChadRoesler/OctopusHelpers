@@ -52,7 +52,6 @@ namespace OctopusHelpers
         /// <returns></returns>
         public static DeploymentResource BuildDeployment(OctopusRepository octRepository, ReleaseResource release, EnvironmentResource environment, Dictionary<string, string> formValues, bool guidedFailure, IEnumerable<string> skippedSteps, DateTimeOffset? dateToDeploy)
         {
-            
             var machineIDs = new ReferenceCollection();
             var skippedStepIDs = new ReferenceCollection();
             var projectSteps = StepHelper.GetProjectEnvironmentDeploymentSteps(octRepository, release, environment);
@@ -70,7 +69,7 @@ namespace OctopusHelpers
                     var variableValue = formValues[variableInput.Label] ?? formValues[variableInput.Name];
                     if(string.IsNullOrWhiteSpace(variableValue) && element.IsValueRequired)
                     {
-                        throw new ArgumentException(string.Format(ErrorStrings.MissingRequiredVar, variableInput.Label ?? variableInput.Name, "formValues"));
+                        throw new ArgumentException(string.Format(ErrorStrings.MissingRequiredVar, variableInput.Label ?? variableInput.Name, ResourceStrings.FormValuesArgException));
                     }
                 }
             }
@@ -102,9 +101,7 @@ namespace OctopusHelpers
         /// <returns></returns>
         public static DeploymentResource BuildDeployment(OctopusRepository octRepository, ReleaseResource release, EnvironmentResource environment, Dictionary<string, string> formValues, bool guidedFailure, ReferenceCollection skippedSteps, DateTimeOffset? dateToDeploy)
         {
-
             var machineIDs = new ReferenceCollection();
-            var projectSteps = StepHelper.GetProjectEnvironmentDeploymentSteps(octRepository, release, environment);
             var releaseTemplate = octRepository.Releases.GetTemplate(release);
             var deploymentPromotionTarget = releaseTemplate.PromoteTo.SingleOrDefault(x => x.Id.Equals(environment.Id, StringComparison.OrdinalIgnoreCase));
             var deploymentPreview = octRepository.Releases.GetPreview(deploymentPromotionTarget);
@@ -117,7 +114,7 @@ namespace OctopusHelpers
                     var variableValue = formValues[variableInput.Label] ?? formValues[variableInput.Name];
                     if (string.IsNullOrWhiteSpace(variableValue) && element.IsValueRequired)
                     {
-                        throw new ArgumentException(string.Format(ErrorStrings.MissingRequiredVar, variableInput.Label ?? variableInput.Name, "formValues"));
+                        throw new ArgumentException(string.Format(ErrorStrings.MissingRequiredVar, variableInput.Label ?? variableInput.Name, ResourceStrings.FormValuesArgException));
                     }
                 }
             }

@@ -51,7 +51,7 @@ namespace OctopusHelpers
         public static IEnumerable<ProjectResource> GetProjectsByProjectGroupName(OctopusRepository octRepository, string projectGroupName)
         {
             var projectGroup = GetProjectGroupByName(octRepository, projectGroupName);
-            return octRepository.Client.GetProjectGroupProjects(projectGroup);
+            return octRepository.ProjectGroups.GetProjects(projectGroup);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace OctopusHelpers
         public static IEnumerable<ProjectResource> GetProjectsByProjectGroupId(OctopusRepository octRepository, string projectGroupId)
         {
             var projectGroup = GetProjectGroupById(octRepository, projectGroupId);
-            return octRepository.Client.GetProjectGroupProjects(projectGroup);
+            return octRepository.ProjectGroups.GetProjects(projectGroup);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace OctopusHelpers
         /// <returns></returns>
         public static IEnumerable<ProjectResource> GetProjectsByProjectGroup(OctopusRepository octRepository, ProjectGroupResource projectGroup)
         {
-            return octRepository.Client.GetProjectGroupProjects(projectGroup);
+            return octRepository.ProjectGroups.GetProjects(projectGroup);
         }
 
         /// <summary>

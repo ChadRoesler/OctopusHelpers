@@ -67,7 +67,7 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
-        /// Cancel the Deploy
+        /// Cancel the Deploy.
         /// </summary>
         public void CancelDeploy()
         {

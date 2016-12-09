@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Octopus.Client;
 using Octopus.Client.Model;
+using Octopus.Client.Repositories;
 using OctopusHelpers.Constants;
 using OctopusHelpers.Models;
 
@@ -11,25 +12,6 @@ namespace OctopusHelpers.ExtensionMethods
     /// </summary>
     internal static class OctopusClientExtensions
     {
-        /// <summary>
-        /// Correctly Returns all Projects in a ProjectGroup.
-        /// </summary>
-        /// <param name="client"></param>
-        /// <param name="projectGroup"></param>
-        /// <returns></returns>
-        internal static IEnumerable<ProjectResource> GetProjectGroupProjects(this IOctopusClient client, ProjectGroupResource projectGroup)
-        {
-            List<ProjectResource> projects = new List<ProjectResource>();
-            client.Paginate<ProjectResource>(projectGroup.Link(ResourceStrings.ProjectsLink), new
-            {
-            }, page =>
-            {
-                projects.AddRange(page.Items);
-                return true;
-            });
-            return projects;
-        }
-
         /// <summary>
         /// Gathers the Users from a Team.
         /// </summary>
