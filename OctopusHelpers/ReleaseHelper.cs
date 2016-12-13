@@ -21,13 +21,7 @@ namespace OctopusHelpers
         /// <returns></returns>
         public static IEnumerable<ReleaseResource> GetProjectReleases(OctopusRepository octRepository, ProjectResource project)
         {
-            var releaseList = new List<ReleaseResource>();
-            var projectReleases = octRepository.Projects.GetReleases(project);
-            if (projectReleases != null && projectReleases.TotalResults > 0)
-            {
-                releaseList.AddRange(projectReleases.Items.ToList());
-            }
-            return releaseList;
+            return octRepository.Client.GetAllReleases(project);
         }
 
         /// <summary>

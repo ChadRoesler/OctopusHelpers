@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using Octopus.Client;
 using Octopus.Client.Model;
-using Octopus.Client.Repositories;
 using OctopusHelpers.Constants;
-using OctopusHelpers.Models;
 
 namespace OctopusHelpers.ExtensionMethods
 {
@@ -50,6 +48,25 @@ namespace OctopusHelpers.ExtensionMethods
                 return true;
             });
             return queuedBehind;
+        }
+
+        /// <summary>
+        /// Gets all Releases for a project rather than one page's woth.
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="project"></param>
+        /// <returns></returns>
+        internal static IEnumerable<ReleaseResource> GetAllReleases(this IOctopusClient client, ProjectResource project)
+        {
+            var releases = new List<ReleaseResource>();
+            client.Paginate<ReleaseResource>(project.Link(ResourceStrings.ReleaseLink), new
+            {
+            }, page =>
+            {
+                releases.AddRange(page.Items);
+                return true;
+            });
+            return releases;
         }
 
         /// <summary>
