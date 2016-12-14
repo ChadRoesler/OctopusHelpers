@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Octopus.Client;
 using Octopus.Client.Model;
 using OctopusHelpers.Constants;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing LifeCycle Objects.
+    /// </summary>
     public static class LifecycleHelper
     {
         /// <summary>
@@ -55,7 +55,6 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns the Phase of a Lifecycle by Name.
         /// </summary>
-        /// <param name="octRepository"></param>
         /// <param name="lifecycle"></param>
         /// <param name="phaseName"></param>
         /// <returns></returns>
