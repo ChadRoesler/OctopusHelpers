@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using Octopus.Client;
 using Octopus.Client.Model;
@@ -62,7 +62,5 @@ namespace OctopusHelpers
         {
             return lifecycle.Phases.Where(x => x.Name.Equals(phaseName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
         }
-
-        
     }
 }
