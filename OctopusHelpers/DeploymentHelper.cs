@@ -143,7 +143,7 @@ namespace OctopusHelpers
         {
             var deploymentsList = new List<DeploymentResource>();
             var task = octRepository.Tasks.Get(deployment.TaskId);
-            var queuedBehindTask = octRepository.Client.GetQueuedBehindTasks(task).Where(x => x.Arguments.ContainsKey(ResourceStrings.DeploymentIdKey)).Select(x => x.Arguments[ResourceStrings.DeploymentIdKey].ToString());
+            var queuedBehindTask = octRepository.Tasks.GetQueuedBehindTasks(task).Where(x => x.Arguments.ContainsKey(ResourceStrings.DeploymentIdKey)).Select(x => x.Arguments[ResourceStrings.DeploymentIdKey].ToString());
             foreach(var queuedDeployment in queuedBehindTask)
             {
                 deploymentsList.Add(octRepository.Deployments.Get(queuedDeployment));

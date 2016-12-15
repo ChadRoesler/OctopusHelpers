@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Removal of GetProjectGroupProjects, my fix was added most recent release of the client lib.</releaseNotes>
+    <releaseNotes>Multiple Updates, new client lib contains my enhancements.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Octopus</tags>
   </metadata>

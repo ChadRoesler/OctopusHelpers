@@ -31,45 +31,6 @@ namespace OctopusHelpers.ExtensionMethods
         }
 
         /// <summary>
-        /// Gathers the Queued Behind Task Resources
-        /// Note: these are not full TaskResources, but seem to be TaskResource-like
-        /// </summary>
-        /// <param name="client"></param>
-        /// <param name="task"></param>
-        /// <returns></returns>
-        internal static IEnumerable<TaskResource> GetQueuedBehindTasks(this IOctopusClient client, TaskResource task)
-        {
-            var queuedBehind = new List<TaskResource>();
-            client.Paginate<TaskResource>(task.Link(ResourceStrings.QueuedBehindLink), new
-            {
-            }, page =>
-            {
-                queuedBehind.AddRange(page.Items);
-                return true;
-            });
-            return queuedBehind;
-        }
-
-        /// <summary>
-        /// Gets all Releases for a project rather than one page's woth.
-        /// </summary>
-        /// <param name="client"></param>
-        /// <param name="project"></param>
-        /// <returns></returns>
-        internal static IEnumerable<ReleaseResource> GetAllReleases(this IOctopusClient client, ProjectResource project)
-        {
-            var releases = new List<ReleaseResource>();
-            client.Paginate<ReleaseResource>(project.Link(ResourceStrings.ReleaseLink), new
-            {
-            }, page =>
-            {
-                releases.AddRange(page.Items);
-                return true;
-            });
-            return releases;
-        }
-
-        /// <summary>
         /// Clones one project from another.
         /// </summary>
         /// <param name="client"></param>

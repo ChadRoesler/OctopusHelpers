@@ -44,8 +44,8 @@
       <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Octopus.Client, Version=4.2.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Octopus.Client.4.2.5\lib\net45\Octopus.Client.dll</HintPath>
+    <Reference Include="Octopus.Client, Version=4.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Octopus.Client.4.3.1\lib\net45\Octopus.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -67,7 +67,7 @@
     <Compile Include="Enums\InterruptionResponse.cs" />
     <Compile Include="Enums\TaskManagerStatus.cs" />
     <Compile Include="InterruptionHelper.cs" />
-    <Compile Include="LifecycleHelper.cs" />
+    <Compile Include="LifcecycleHelper.cs" />
     <Compile Include="Models\OctopusDeploymentTaskManager.cs" />
     <Compile Include="StepHelper.cs" />
     <Compile Include="TeamHelper.cs" />
