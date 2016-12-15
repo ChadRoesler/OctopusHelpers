@@ -61,9 +61,9 @@ namespace OctopusHelpers
         /// <param name="projectDescription"></param>
         /// <param name="projectGroupToAddTo"></param>
         /// <returns></returns>
-        public static ProjectResource CopyProjectFromProject(OctopusRepository octRepository, ProjectResource ProjectToCopy, string projectName, string projectDescription, ProjectGroupResource projectGroupToAddTo)
+        public static ProjectResource CopyProjectFromProject(OctopusRepository octRepository, ProjectResource ProjectToCopy, string projectName, string projectDescription, ProjectGroupResource projectGroupToAddTo = null, LifecycleResource lifecycleToAdd = null)
         {
-            octRepository.Client.CloneProject(projectName, projectDescription, ProjectToCopy, projectGroupToAddTo.Id);
+            octRepository.Client.CloneProject(projectName, projectDescription, ProjectToCopy, projectGroupToAddTo.Id, lifecycleToAdd.Id);
             return GetProjectByName(octRepository, projectName);
         }
 

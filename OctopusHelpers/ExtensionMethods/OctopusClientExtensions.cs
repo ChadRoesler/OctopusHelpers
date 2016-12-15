@@ -38,13 +38,14 @@ namespace OctopusHelpers.ExtensionMethods
         /// <param name="newProjectDescription"></param>
         /// <param name="projectToClone"></param>
         /// <param name="projectGroupIdForNewProject"></param>
-        internal static void CloneProject(this IOctopusClient client, string newProjectName, string newProjectDescription, ProjectResource projectToClone, string projectGroupIdForNewProject)
+        internal static void CloneProject(this IOctopusClient client, string newProjectName, string newProjectDescription, ProjectResource projectToClone, string projectGroupIdForNewProject = null, string lifcycleId = null)
         {
             var projectToCreate = new ProjectResource
             {
                 Name = newProjectName,
                 Description = newProjectDescription,
-                ProjectGroupId = projectGroupIdForNewProject
+                ProjectGroupId = projectGroupIdForNewProject ?? projectToClone.ProjectGroupId,
+                LifecycleId = lifcycleId ?? projectToClone.LifecycleId
             };
             client.Post(string.Format(ResourceStrings.CloneCommandApiFormat, projectToClone.Id), projectToCreate);
         }
