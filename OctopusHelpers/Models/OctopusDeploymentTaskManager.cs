@@ -18,7 +18,7 @@ namespace OctopusHelpers.Models
         private TaskResource taskToManage;
         private InterruptionResource currentInterruptionToProcess;
         private InterruptionResource previousInterruptionToProcess;
-        private List<ActivityElement> activitySteps = new List<ActivityElement>();
+        private ActivityElement[] activitySteps = new ActivityElement[0];
         private Dictionary<string, string> printedLog = new Dictionary<string, string>();
         private bool CancellationSent = false;
         private bool CancellationRequested = false;
@@ -140,13 +140,13 @@ namespace OctopusHelpers.Models
         private void UpdateActivity()
         {
             UpdateTask();
-            var baseActivityLog = octRepositoryToManage.Tasks.GetDetails(taskToManage).ActivityLogs;
-            while (baseActivityLog == null || baseActivityLog.Count() == 0)
+            var baseActivityLog = octRepositoryToManage.Tasks.GetDetails(taskToManage).ActivityLogs.FirstOrDefault();
+            while (baseActivityLog == null || baseActivityLog.Children == null || baseActivityLog.Children.Count() == 0)
             {
                 var taskDetails = octRepositoryToManage.Tasks.GetDetails(taskToManage);
-                baseActivityLog = taskDetails.ActivityLogs;
+                baseActivityLog = taskDetails.ActivityLogs.FirstOrDefault();
             }
-            activitySteps = octRepositoryToManage.Tasks.GetDetails(taskToManage).ActivityLogs.ToList();
+            activitySteps = octRepositoryToManage.Tasks.GetDetails(taskToManage).ActivityLogs.FirstOrDefault().Children;
         }
 
         /// <summary>
@@ -161,10 +161,10 @@ namespace OctopusHelpers.Models
             var tabCount = new string(' ', tabIndex * 5);
             if (activityElementToProcess.Status == ActivityStatus.Failed || activityElementToProcess.Status == ActivityStatus.SuccessWithWarning || activityElementToProcess.Status == ActivityStatus.Running)
             {
-                output += activityElementToProcess.Name + ResourceStrings.Return;
+                output += activityElementToProcess.Name;
                 foreach (var activityLogElement in activityElementToProcess.LogElements)
                 {
-                    output += (string.Format(ResourceStrings.ErrorPrinting, tabCount, activityLogElement.MessageText.Replace(ResourceStrings.Return, string.Format(ResourceStrings.ErrorPrinting, ResourceStrings.Return, tabCount)))) + ResourceStrings.Return;
+                    output += (string.Format(ResourceStrings.ErrorPrinting, tabCount, activityLogElement.MessageText.Replace(ResourceStrings.Return, string.Format(ResourceStrings.ErrorPrinting, ResourceStrings.Return, tabCount))));
                 }
                 foreach (var activityElement in activityElementToProcess.Children)
                 {
@@ -184,7 +184,7 @@ namespace OctopusHelpers.Models
             var output = string.Empty;
             foreach (var activityStep in activitySteps.Where(a => a.Status == ActivityStatus.Failed || a.Status == ActivityStatus.SuccessWithWarning))
             {
-                output += GetFailures(activityStep, 0) + ResourceStrings.Return;
+                output += GetFailures(activityStep, 0);
             }
             return output.Trim();
         }
@@ -199,7 +199,7 @@ namespace OctopusHelpers.Models
             var output = string.Empty;
             foreach (var activityStep in activitySteps.Where(a => a.Status == ActivityStatus.SuccessWithWarning))
             {
-                output += GetFailures(activityStep, 0) + ResourceStrings.Return;
+                output += GetFailures(activityStep, 0);
             }
             return output.Trim();
         }
@@ -214,7 +214,7 @@ namespace OctopusHelpers.Models
             var output = string.Empty;
             foreach (var activityStep in activitySteps.Where(a => a.Status == ActivityStatus.Failed))
             {
-                output += GetFailures(activityStep, 0) + ResourceStrings.Return;
+                output += GetFailures(activityStep, 0);
             }
             return output.Trim();
         }
@@ -248,7 +248,7 @@ namespace OctopusHelpers.Models
                 if (activityStep.Status != ActivityStatus.Pending)
                 {
                     printedLog.Add(activityStep.Id, activityStep.Name);
-                    output += activityStep.Name + ResourceStrings.Return;
+                    output += activityStep.Name;
                 }
             }
             return output.Trim();
@@ -289,8 +289,8 @@ namespace OctopusHelpers.Models
         {
             UpdateActivity();
             var output = string.Empty;
-            output += activitySteps.Where(a => a.Status == ActivityStatus.Running).FirstOrDefault().Name + ResourceStrings.Return;
-            output += GetFailures(activitySteps.Where(a => a.Status == ActivityStatus.Running).FirstOrDefault().Children.LastOrDefault(), 0) + ResourceStrings.Return;
+            output += activitySteps.Where(a => a.Status == ActivityStatus.Running).FirstOrDefault().Name;
+            output += GetFailures(activitySteps.Where(a => a.Status == ActivityStatus.Running).FirstOrDefault().Children.LastOrDefault(), 0);
             return output.Trim();
         }
 
@@ -365,11 +365,7 @@ namespace OctopusHelpers.Models
                 {
                     UpdateTask();
                     UpdateInterruption();
-                    if (CancellationRequested || CancellationSent)
-                    {
-                        currentState = TaskManagerStatus.Canceling;
-                    }
-                    else if (taskToManage.HasPendingInterruptions && taskToManage.State == TaskState.Executing)
+                    if (taskToManage.HasPendingInterruptions && taskToManage.State == TaskState.Executing)
                     {
                         currentState = TaskManagerStatus.Interrupted;
                     }
