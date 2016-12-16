@@ -161,17 +161,17 @@ namespace OctopusHelpers.Models
             var tabCount = new string(' ', tabIndex * 5);
             if (activityElementToProcess.Status == ActivityStatus.Failed || activityElementToProcess.Status == ActivityStatus.SuccessWithWarning || activityElementToProcess.Status == ActivityStatus.Running)
             {
-                output += activityElementToProcess.Name;
+                output += activityElementToProcess.Name + ResourceStrings.Return;
                 foreach (var activityLogElement in activityElementToProcess.LogElements)
                 {
-                    output += (string.Format(ResourceStrings.ErrorPrinting, tabCount, activityLogElement.MessageText.Replace(ResourceStrings.Return, string.Format(ResourceStrings.ErrorPrinting, ResourceStrings.Return, tabCount))));
+                    output += (string.Format(ResourceStrings.ErrorPrinting, tabCount, activityLogElement.MessageText.Replace(ResourceStrings.Return, string.Format(ResourceStrings.ErrorPrinting, ResourceStrings.Return, tabCount)))) + ResourceStrings.Return;
                 }
                 foreach (var activityElement in activityElementToProcess.Children)
                 {
                     output += GetFailures(activityElement, tabIndex + 1);
                 }
             }
-            return output.Trim();
+            return output.TrimEnd();
         }
 
         /// <summary>
@@ -184,7 +184,7 @@ namespace OctopusHelpers.Models
             var output = string.Empty;
             foreach (var activityStep in activitySteps.Where(a => a.Status == ActivityStatus.Failed || a.Status == ActivityStatus.SuccessWithWarning))
             {
-                output += GetFailures(activityStep, 0);
+                output += GetFailures(activityStep, 0) + ResourceStrings.Return;
             }
             return output.Trim();
         }
@@ -199,7 +199,7 @@ namespace OctopusHelpers.Models
             var output = string.Empty;
             foreach (var activityStep in activitySteps.Where(a => a.Status == ActivityStatus.SuccessWithWarning))
             {
-                output += GetFailures(activityStep, 0);
+                output += GetFailures(activityStep, 0) + ResourceStrings.Return;
             }
             return output.Trim();
         }
@@ -214,7 +214,7 @@ namespace OctopusHelpers.Models
             var output = string.Empty;
             foreach (var activityStep in activitySteps.Where(a => a.Status == ActivityStatus.Failed))
             {
-                output += GetFailures(activityStep, 0);
+                output += GetFailures(activityStep, 0) + ResourceStrings.Return;
             }
             return output.Trim();
         }
@@ -227,7 +227,13 @@ namespace OctopusHelpers.Models
         {
             if(taskToManage.State == TaskState.Canceled || taskToManage.State == TaskState.Cancelling)
             {
-                return UserHelper.GetUserFromUserName(octRepositoryToManage, taskToManage.LastModifiedBy);
+                var cancellingEventList = EventHelper.GetResourceEvents(octRepositoryToManage, taskToManage.Id, ResourceStrings.CancelledTaskEventCategory).ToList();
+                if(cancellingEventList.Count() == 0)
+                {
+                    return null;
+                }
+                var cancellingEvent = cancellingEventList.OrderByDescending(x => x.LastModifiedOn).FirstOrDefault();
+                return UserHelper.GetUserFromUserId(octRepositoryToManage, cancellingEvent.UserId);
             }
             else
             {
@@ -248,7 +254,7 @@ namespace OctopusHelpers.Models
                 if (activityStep.Status != ActivityStatus.Pending)
                 {
                     printedLog.Add(activityStep.Id, activityStep.Name);
-                    output += activityStep.Name;
+                    output += activityStep.Name + ResourceStrings.Return;
                 }
             }
             return output.Trim();
@@ -289,8 +295,8 @@ namespace OctopusHelpers.Models
         {
             UpdateActivity();
             var output = string.Empty;
-            output += activitySteps.Where(a => a.Status == ActivityStatus.Running).FirstOrDefault().Name;
-            output += GetFailures(activitySteps.Where(a => a.Status == ActivityStatus.Running).FirstOrDefault().Children.LastOrDefault(), 0);
+            output += activitySteps.Where(a => a.Status == ActivityStatus.Running).FirstOrDefault().Name + ResourceStrings.Return;
+            output += GetFailures(activitySteps.Where(a => a.Status == ActivityStatus.Running).FirstOrDefault().Children.LastOrDefault(), 0) + ResourceStrings.Return;
             return output.Trim();
         }
 

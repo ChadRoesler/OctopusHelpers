@@ -11,6 +11,24 @@ namespace OctopusHelpers.ExtensionMethods
     internal static class OctopusClientExtensions
     {
         /// <summary>
+        /// Gathers the Events tied to a resource for auditing.
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="resourceId"></param>
+        /// <param name="eventCategory"></param>
+        /// <returns></returns>
+        internal static IEnumerable<EventResource> GetObjectEventList(this IOctopusClient client, string resourceId, string eventCategory)
+        {
+            var events = new List<EventResource>();
+            client.Paginate<EventResource>(string.Format(ResourceStrings.EventRegardingLink, client.RootDocument.Link(ResourceStrings.EventLink), resourceId, eventCategory), new { }, page =>
+            {
+                events.AddRange(page.Items);
+                return true;
+            });
+            return events;
+        }
+
+        /// <summary>
         /// Gathers the Users from a Team.
         /// </summary>
         /// <param name="client"></param>

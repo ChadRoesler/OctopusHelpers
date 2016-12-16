@@ -66,6 +66,7 @@
     <Compile Include="Enums\ErrorStatus.cs" />
     <Compile Include="Enums\InterruptionResponse.cs" />
     <Compile Include="Enums\TaskManagerStatus.cs" />
+    <Compile Include="EventHelper.cs" />
     <Compile Include="InterruptionHelper.cs" />
     <Compile Include="LifcecycleHelper.cs" />
     <Compile Include="Models\OctopusDeploymentTaskManager.cs" />
