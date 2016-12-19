@@ -128,7 +128,7 @@ namespace OctopusHelpers.Models
         private void UpdatePreviousInterruption()
         {
             previousInterruptionToProcess = octRepositoryToManage.Interruptions.Get(currentInterruptionToProcess.Id);
-            while (previousInterruptionToProcess.IsPending || previousInterruptionToProcess.ResponsibleUserId == null || previousInterruptionToProcess.Form == null || previousInterruptionToProcess.Form.Values[ResourceStrings.InterruptionGuidanceKey] == null)
+            while ((previousInterruptionToProcess.IsPending || previousInterruptionToProcess.ResponsibleUserId == null || previousInterruptionToProcess.Form == null || previousInterruptionToProcess.Form.Values[ResourceStrings.InterruptionGuidanceKey] == null) && Status != TaskManagerStatus.Canceled)
             {
                 previousInterruptionToProcess = octRepositoryToManage.Interruptions.Get(currentInterruptionToProcess.Id);
             }
@@ -323,7 +323,14 @@ namespace OctopusHelpers.Models
         public string GetManagedInterruptionNote()
         {
             UpdatePreviousInterruption();
-            return previousInterruptionToProcess.Form.Values[ResourceStrings.InterruptionNoteKey];
+            if (previousInterruptionToProcess != null)
+            {
+                return previousInterruptionToProcess.Form.Values[ResourceStrings.InterruptionNoteKey];
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         /// <summary>
@@ -333,7 +340,14 @@ namespace OctopusHelpers.Models
         public string GetManagedInterruptionGuidence()
         {
             UpdatePreviousInterruption();
-            return previousInterruptionToProcess.Form.Values[ResourceStrings.InterruptionGuidanceKey];
+            if (previousInterruptionToProcess != null)
+            {
+                return previousInterruptionToProcess.Form.Values[ResourceStrings.InterruptionGuidanceKey];
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         /// <summary>
@@ -343,7 +357,14 @@ namespace OctopusHelpers.Models
         public UserResource GetManagedInterruptionResponsibleUser()
         {
             UpdatePreviousInterruption();
-            return UserHelper.GetUserFromUserId(octRepositoryToManage, previousInterruptionToProcess.ResponsibleUserId);
+            if (previousInterruptionToProcess != null)
+            {
+                return UserHelper.GetUserFromUserId(octRepositoryToManage, previousInterruptionToProcess.ResponsibleUserId);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public string GetDeploymentLink()
