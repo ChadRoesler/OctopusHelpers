@@ -19,7 +19,7 @@ namespace OctopusHelpers
         /// <returns></returns>
         public static IEnumerable<EventResource> GetResourceEvents(OctopusRepository octRepository, string resourceId, string eventCategory = "")
         {
-            return octRepository.Client.GetObjectEventList(resourceId, eventCategory);
+            return octRepository.Client.GetResourceEvents(resourceId, eventCategory);
         }
     }
 }

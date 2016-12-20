@@ -18,7 +18,7 @@ namespace OctopusHelpers.ExtensionMethods
         /// <param name="resourceId"></param>
         /// <param name="eventCategory"></param>
         /// <returns></returns>
-        internal static IEnumerable<EventResource> GetObjectEventList(this IOctopusClient client, string resourceId, string eventCategory)
+        internal static IEnumerable<EventResource> GetResourceEvents(this IOctopusClient client, string resourceId, string eventCategory)
         {
             var events = new List<EventResource>();
             client.Paginate<EventResource>(string.Format(ResourceStrings.EventRegardingLink, client.RootDocument.Link(ResourceStrings.EventLink), resourceId, eventCategory), new { }, page =>
@@ -36,10 +36,10 @@ namespace OctopusHelpers.ExtensionMethods
         /// <param name="taskId"></param>
         /// <param name="pendingOnly"></param>
         /// <returns></returns>
-        internal static IEnumerable<InterruptionResource> GetTaskInterruptions(this IOctopusClient client, string taskId, bool pendingOnly)
+        internal static IEnumerable<InterruptionResource> GetResourceInterruptions(this IOctopusClient client, string resourceId, bool pendingOnly)
         {
             var interruptions = new List<InterruptionResource>();
-            client.Paginate<InterruptionResource>(string.Format(ResourceStrings.InterruptionRegardingLink, client.RootDocument.Link(ResourceStrings.EventLink), taskId, pendingOnly.ToString()), new { }, page =>
+            client.Paginate<InterruptionResource>(string.Format(ResourceStrings.InterruptionRegardingLink, client.RootDocument.Link(ResourceStrings.EventLink), resourceId, pendingOnly.ToString()), new { }, page =>
             {
                 interruptions.AddRange(page.Items);
                 return true;

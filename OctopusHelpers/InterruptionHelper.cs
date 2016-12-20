@@ -21,7 +21,7 @@ namespace OctopusHelpers
         /// <returns></returns>
         public static InterruptionResource GetPendingInterruption(OctopusRepository octRepository, TaskResource task)
         {
-            return octRepository.Client.GetTaskInterruptions(task.Id, true).FirstOrDefault();
+            return octRepository.Client.GetResourceInterruptions(task.Id, true).FirstOrDefault();
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace OctopusHelpers
         /// <returns></returns>
         public static int GetInterruptionRetryCount(OctopusRepository octRepository, TaskResource task)
         {
-            return octRepository.Client.GetTaskInterruptions(task.Id, false).Where(x => x.Form.Values[ResourceStrings.InterruptionGuidanceKey].Equals(ResourceStrings.InterruptionRetryValue)).Count();
+            return octRepository.Client.GetResourceInterruptions(task.Id, false).Where(x => x.Form.Values[ResourceStrings.InterruptionGuidanceKey].Equals(ResourceStrings.InterruptionRetryValue)).Count();
         }
 
         /// <summary>
