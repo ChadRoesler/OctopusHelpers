@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Octopus.Client;
 using Octopus.Client.Model;
 using OctopusHelpers.Constants;
@@ -26,6 +27,24 @@ namespace OctopusHelpers.ExtensionMethods
                 return true;
             });
             return events;
+        }
+
+        /// <summary>
+        /// Gathers the Interruptions tied to a Task
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="taskId"></param>
+        /// <param name="pendingOnly"></param>
+        /// <returns></returns>
+        internal static IEnumerable<InterruptionResource> GetTaskInterruptions(this IOctopusClient client, string taskId, bool pendingOnly)
+        {
+            var interruptions = new List<InterruptionResource>();
+            client.Paginate<InterruptionResource>(string.Format(ResourceStrings.InterruptionRegardingLink, client.RootDocument.Link(ResourceStrings.EventLink), taskId, pendingOnly.ToString()), new { }, page =>
+            {
+                interruptions.AddRange(page.Items);
+                return true;
+            });
+            return interruptions;
         }
 
         /// <summary>

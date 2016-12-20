@@ -15,6 +15,7 @@
         internal const string CloneCommandApiFormat = "~/api/projects?clone={0}";
         internal const string MaintenanceConfigApi = "~/api/maintenanceconfiguration";
         internal const string EventRegardingLink = "{0}?regarding={1}&eventCategories={2}";
+        internal const string InterruptionRegardingLink = "{0}?regarding={1}&pendingOnly={2}";
         internal const string VarsetVars = "~/api/variables/{0}";
         internal const string TeamUserIdFormat = "~/api/Users/{0}";
         internal const string QueuedBehindLink = "QueuedBehind";

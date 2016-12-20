@@ -4,6 +4,7 @@ using Octopus.Client;
 using Octopus.Client.Model;
 using OctopusHelpers.Constants;
 using OctopusHelpers.Enums;
+using OctopusHelpers.ExtensionMethods;
 
 namespace OctopusHelpers
 {
@@ -20,7 +21,18 @@ namespace OctopusHelpers
         /// <returns></returns>
         public static InterruptionResource GetPendingInterruption(OctopusRepository octRepository, TaskResource task)
         {
-            return octRepository.Interruptions.List(0, true, task.Id).Items.LastOrDefault();
+            return octRepository.Client.GetTaskInterruptions(task.Id, true).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gathers the count of the retried interruptions for a task.
+        /// </summary>
+        /// <param name="octRepository"></param>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        public static int GetInterruptionRetryCount(OctopusRepository octRepository, TaskResource task)
+        {
+            return octRepository.Client.GetTaskInterruptions(task.Id, false).Where(x => x.Form.Values[ResourceStrings.InterruptionGuidanceKey].Equals(ResourceStrings.InterruptionRetryValue)).Count();
         }
 
         /// <summary>
