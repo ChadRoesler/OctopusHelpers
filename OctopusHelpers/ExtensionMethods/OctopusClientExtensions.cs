@@ -39,7 +39,7 @@ namespace OctopusHelpers.ExtensionMethods
         internal static IEnumerable<InterruptionResource> GetResourceInterruptions(this IOctopusClient client, string resourceId, bool pendingOnly)
         {
             var interruptions = new List<InterruptionResource>();
-            client.Paginate<InterruptionResource>(string.Format(ResourceStrings.InterruptionRegardingLink, client.RootDocument.Link(ResourceStrings.EventLink), resourceId, pendingOnly.ToString()), new { }, page =>
+            client.Paginate<InterruptionResource>(string.Format(ResourceStrings.InterruptionRegardingLink, resourceId, pendingOnly.ToString()), new { }, page =>
             {
                 interruptions.AddRange(page.Items);
                 return true;
