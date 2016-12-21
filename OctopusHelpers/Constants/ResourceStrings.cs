@@ -26,6 +26,7 @@
         internal const string DummyReleaseVersion = "0.0.0.0";
         internal const string SelfLink = "Self";
         internal const string EventLink = "Events";
+        internal const string InterruptionLink = "Interruptions";
         internal const string OctopusDeploymentLink = "/app#/deployments/{0}";
         internal const string CancelledTaskEventCategory = "TaskCanceled";
 
