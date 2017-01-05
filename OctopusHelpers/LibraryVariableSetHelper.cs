@@ -63,6 +63,26 @@ namespace OctopusHelpers
         }
 
         /// <summary>
+        /// Returns the LibraryVariableSet Script Modules
+        /// </summary>
+        /// <param name="octRepository"></param>
+        /// <returns></returns>
+        public static IEnumerable<LibraryVariableSetResource> GetScriptModules(OctopusRepository octRepository)
+        {
+            return octRepository.LibraryVariableSets.FindAll().Where(x => x.ContentType == VariableSetContentType.ScriptModule);
+        }
+
+        /// <summary>
+        /// Returns the LibraryVariableSet Variable Sets
+        /// </summary>
+        /// <param name="octRepository"></param>
+        /// <returns></returns>
+        public static IEnumerable<LibraryVariableSetResource> GetVariableSets(OctopusRepository octRepository)
+        {
+            return octRepository.LibraryVariableSets.FindAll().Where(x => x.ContentType == VariableSetContentType.Variables);
+        }
+
+        /// <summary>
         /// Returns the names of the LibraryVariableSets
         /// </summary>
         /// <param name="octRepository"></param>

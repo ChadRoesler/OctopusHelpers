@@ -23,6 +23,17 @@ namespace OctopusHelpers
         }
 
         /// <summary>
+        /// Gathers the VariableSet From a LibraryVariableSet.
+        /// </summary>
+        /// <param name="Repository"></param>
+        /// <param name="Project"></param>
+        /// <returns></returns>
+        public static VariableSetResource GetVariableSetFromLibraryVariableSet(OctopusRepository octRepository, LibraryVariableSetResource libraryVariableSet)
+        {
+            return octRepository.VariableSets.Get(libraryVariableSet.VariableSetId);
+        }
+
+        /// <summary>
         /// Adds a Variable to a Project's VariableSet.
         /// </summary>
         /// <param name="octRepository"></param>
