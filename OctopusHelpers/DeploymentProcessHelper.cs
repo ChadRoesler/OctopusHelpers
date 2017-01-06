@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using Octopus.Client;
 using Octopus.Client.Model;
@@ -60,6 +62,41 @@ namespace OctopusHelpers
         {
             var oldDeploymentProcess = GetDeploymentProcessFromProject(octRepository, project);
             UpdateDeploymentProcessFromDeploymentProcess(octRepository, deploymentProcess, oldDeploymentProcess);
+        }
+
+        /// <summary>
+        /// Abandon all hope ye who enter here.
+        /// Updates the passed Project's Release's Deployment Process to be that of the Projects.
+        /// When you need to have old releases have the current projects process.
+        /// USE WITH CAUTION!
+        /// THIS IS A REALLY DIRTY WAY TO DO THIS, BUT SOMETIMES YOU GOTTA DO YER DIRT.
+        /// </summary>
+        /// <param name="octRepository"></param>
+        /// <param name="project"></param>
+        /// <param name="sqlConnection"></param>
+        public static void UpdateProjectReleaseDeploymentProcess(OctopusRepository octRepository, ProjectResource project, SqlConnection octDatabaseConnection)
+        {
+            var projectIdParameter = new SqlParameter(ResourceStrings.ProjectIdParameter, project.Id);
+            using (var cmd = new SqlCommand(ResourceStrings.ProjectProcessUpdate, octDatabaseConnection))
+            {
+                cmd.Parameters.Add(projectIdParameter);
+                try
+                {
+                    octDatabaseConnection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch(Exception ex)
+                {
+                    throw new Exception(string.Format(ErrorStrings.SqlError, ResourceStrings.ProjectProcessUpdate, string.Format(ResourceStrings.ParameterPairings,projectIdParameter.ParameterName, projectIdParameter.Value.ToString()), octDatabaseConnection.ConnectionString, ex.Message));
+                }
+                finally
+                {
+                    if (octDatabaseConnection.State == ConnectionState.Open)
+                    {
+                        octDatabaseConnection.Close();
+                    }
+                }
+            }
         }
     }
 }

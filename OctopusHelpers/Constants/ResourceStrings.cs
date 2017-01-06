@@ -43,5 +43,21 @@
 
         internal const string MetaStepName = "MetaStep";
         internal const string DeploymentIdKey = "DeploymentId";
+
+        /// <summary>
+        /// Abandon all hope ye who enter here.
+        /// </summary>
+        internal const string ProjectProcessUpdate = @"UPDATE	dp
+SET		dp.JSON = o.JSON
+FROM	DeploymentProcess dp
+		INNER JOIN Project p ON p.Id = dp.OwnerId
+                                AND p.DeploymentProcessId <> dp.Id
+		INNER JOIN (SELECT	dp.JSON,
+							p.Id
+					FROM	Project p
+							INNER JOIN DeploymentProcess dp on dp.Id = p.DeploymentProcessId) o ON o.Id = dp.OwnerId
+WHERE p.Id = @ProjectId";
+        internal const string ProjectIdParameter = "@ProjectId";
+        internal const string ParameterPairings = "Parameter: {0}, Value: {1}";
     }
 }

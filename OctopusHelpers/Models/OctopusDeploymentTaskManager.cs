@@ -40,6 +40,10 @@ namespace OctopusHelpers.Models
         {
             octRepositoryToManage = octRepository;
             deploymentToManage = deployment;
+            if(!string.IsNullOrWhiteSpace(deploymentToManage.TaskId))
+            {
+                taskToManage = octRepositoryToManage.Tasks.Get(deploymentToManage.TaskId);
+            }
         }
 
         /// <summary>
@@ -77,6 +81,7 @@ namespace OctopusHelpers.Models
                 if (Status == TaskManagerStatus.Executing || Status == TaskManagerStatus.Interrupted || Status == TaskManagerStatus.Queued)
                 {
                     octRepositoryToManage.Tasks.Cancel(taskToManage);
+
                     CancellationSent = true;
                 }
                 else
@@ -455,7 +460,7 @@ namespace OctopusHelpers.Models
             get
             {
                 UpdateActivity();
-                var errorState = ErrorStatus.Success;
+                var errorState = ErrorStatus.None;
                 if(activitySteps.Count(a => a.Status == ActivityStatus.SuccessWithWarning) > 0)
                 {
                     errorState = ErrorStatus.Warnings;

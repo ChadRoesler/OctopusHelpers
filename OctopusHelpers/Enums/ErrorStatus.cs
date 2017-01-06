@@ -5,7 +5,7 @@
     /// </summary>
     public enum ErrorStatus
     {
-        Success = 0,
+        None = 0,
         Warnings = 1,
         Error = 2
     }
