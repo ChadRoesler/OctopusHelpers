@@ -285,13 +285,14 @@ namespace OctopusHelpers.Models
 
         /// <summary>
         /// Gets the current count of deployments ahead of the current one.
+        /// If this returns 0 and the status is queued, then that means that it has hit the node limit of deployments
         /// </summary>
         /// <returns></returns>
         public int GetQueuedDeploymentCount()
         {
             return DeploymentHelper.GetQueuedDeployments(octRepositoryToManage, deploymentToManage).Count();
         }
-        
+
         /// <summary>
         /// Get the Step the the failure occured on for Interruptions.
         /// </summary>

@@ -12,7 +12,7 @@ namespace OctopusHelpers
     /// <summary>
     /// Helpers for managing Deployment Objects.
     /// </summary>
-    public static class DeploymentHelper 
+    public static class DeploymentHelper
     {
         /// <summary>
         /// Gathering the link needed for displaying the deployment in the front end.
@@ -23,7 +23,7 @@ namespace OctopusHelpers
         {
             return string.Format(ResourceStrings.OctopusDeploymentLink, deployment.Id);
         }
-        
+
         /// <summary>
         /// Gathers the Deployment Variables needed for a deployment
         /// </summary>
@@ -132,7 +132,7 @@ namespace OctopusHelpers
             };
             return deploymentResource;
         }
-        
+
         /// <summary>
         /// Returns a list of Queued deployements ahead of the passed Deployment, this in cludes the currently executing one.
         /// </summary>

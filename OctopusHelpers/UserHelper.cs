@@ -31,7 +31,7 @@ namespace OctopusHelpers
         /// <returns></returns>
         public static UserResource GetUserFromUserId(OctopusRepository octRepository, string userId)
         {
-            
+
             var numberOnly = new int();
             if (int.TryParse(userId, out numberOnly))
             {

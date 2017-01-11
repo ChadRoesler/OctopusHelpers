@@ -92,7 +92,7 @@ namespace OctopusHelpers
             foreach(var step in packageSteps)
             {
                 package.Add(new SelectedPackage(step, ResourceStrings.DummyPackageVersion));
-            }       
+            }
             release.SelectedPackages = package;
             release.ReleaseNotes = ResourceStrings.DummyPackageVersion;
             release.Version = ResourceStrings.DummyReleaseVersion;
@@ -166,7 +166,7 @@ namespace OctopusHelpers
             }
             return releaseList;
         }
-        
+
         /// <summary>
         /// Gathers the last deployed Release from the passed Project and Environment.
         /// </summary>
@@ -245,7 +245,7 @@ namespace OctopusHelpers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="octRepository"></param>
         /// <param name="project"></param>
