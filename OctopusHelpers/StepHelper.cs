@@ -15,7 +15,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the deployment steps for the passed release and environment.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="release"></param>
         /// <param name="environment"></param>
         /// <returns></returns>

@@ -36,7 +36,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Adds a Variable to a Project's VariableSet.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="variable"></param>
         public static void AddVariableToProjectVariableSet(OctopusRepository octRepository, ProjectResource project, VariableResource variable)
@@ -55,7 +55,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Removes a Variable to a Project's VariableSet.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="variable"></param>
         public static void RemoveVariableFromProjectVariableSet(OctopusRepository octRepository, ProjectResource project, VariableResource variable)
@@ -93,7 +93,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Replaces a VariableSet Project from a passed file.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="variableSetText"></param>
         public static void ReplaceProjectVariableSetFromFile(OctopusRepository octRepository, ProjectResource project, string variableSetText)
@@ -107,7 +107,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Outputs a VariableSet Project from a passed file.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <returns></returns>
         public static string OutputProjectVariableSetFromFile(OctopusRepository octRepository, ProjectResource project)

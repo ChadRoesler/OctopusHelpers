@@ -15,7 +15,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a Project By Name.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="projectName"></param>
         /// <returns></returns>
         public static ProjectResource GetProjectByName(OctopusRepository octRepository, string projectName)
@@ -26,7 +26,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers all Project Names.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <returns></returns>
         public static IEnumerable<string> GetProjectNames(OctopusRepository octRepository)
         {
@@ -36,7 +36,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a Project by Id.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="projectId"></param>
         /// <returns></returns>
         public static ProjectResource GetProjectById(OctopusRepository octRepository, string projectId)
@@ -55,7 +55,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Creates a new Project from another Project.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="ProjectToCopy"></param>
         /// <param name="projectName"></param>
         /// <param name="projectDescription"></param>
@@ -63,6 +63,14 @@ namespace OctopusHelpers
         /// <returns></returns>
         public static ProjectResource CopyProjectFromProject(OctopusRepository octRepository, ProjectResource ProjectToCopy, string projectName, string projectDescription, ProjectGroupResource projectGroupToAddTo = null, LifecycleResource lifecycleToAdd = null)
         {
+            if(projectGroupToAddTo == null)
+            {
+                projectGroupToAddTo = new ProjectGroupResource();
+            }
+            if(lifecycleToAdd == null)
+            {
+                lifecycleToAdd = new LifecycleResource();
+            }
             octRepository.Client.CloneProject(projectName, projectDescription, ProjectToCopy, projectGroupToAddTo.Id, lifecycleToAdd.Id);
             return GetProjectByName(octRepository, projectName);
         }
@@ -70,7 +78,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Deletes the specified Project.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="projectToDelete"></param>
         public static void DeleteProject(OctopusRepository octRepository, ProjectResource projectToDelete)
         {

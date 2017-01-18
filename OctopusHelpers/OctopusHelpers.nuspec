@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>TaskManager Alterations.  Added ability to update release deployment process.</releaseNotes>
+    <releaseNotes>Correction to cloning, added some documentation, and space cleanup.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Octopus</tags>
   </metadata>

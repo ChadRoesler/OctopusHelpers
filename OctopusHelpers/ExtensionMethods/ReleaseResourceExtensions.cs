@@ -11,8 +11,8 @@ namespace OctopusHelpers.ExtensionMethods
         /// <summary>
         /// Retrives the actuall Version as a Version Object.
         /// </summary>
-        /// <param name="currentReleaseResource"></param>
-        /// <returns></returns>
+        /// <param name="currentReleaseResource">The release resource this is tacked on to.</param>
+        /// <returns>Version object.</returns>
         public static Version GetVersionObject(this ReleaseResource currentReleaseResource)
         {
             var versionObject = new Version();

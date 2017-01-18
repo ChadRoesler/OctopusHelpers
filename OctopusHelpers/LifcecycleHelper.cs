@@ -14,7 +14,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a Lifecycle by Id.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="lifecycleId"></param>
         /// <returns></returns>
         public static LifecycleResource GetLifecycleById(OctopusRepository octRepository, string lifecycleId)
@@ -33,7 +33,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a Lifecycle by Name.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="lifecycleName"></param>
         /// <returns></returns>
         public static LifecycleResource GetLifecycleByName(OctopusRepository octRepository, string lifecycleName)
@@ -44,7 +44,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the Lifecycle from a project
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <returns></returns>
         public static LifecycleResource GetProjectLifeCycle(OctopusRepository octRepository, ProjectResource project)

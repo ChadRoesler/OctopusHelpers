@@ -17,8 +17,8 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathering the link needed for displaying the deployment in the front end.
         /// </summary>
-        /// <param name="deployment"></param>
-        /// <returns></returns>
+        /// <param name="deployment">The Deployment resource</param>
+        /// <returns>The url of the deployment passed.</returns>
         public static string GetDeploymentLinkForWeb(DeploymentResource deployment)
         {
             return string.Format(ResourceStrings.OctopusDeploymentLink, deployment.Id);
@@ -27,7 +27,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the Deployment Variables needed for a deployment
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The o</param>
         /// <param name="release"></param>
         /// <param name="environment"></param>
         /// <returns></returns>
@@ -42,7 +42,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Builds a DeploymentResource for the release and environment passed, creates what steps to skip based on a string list
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="release"></param>
         /// <param name="environment"></param>
         /// <param name="formValues"></param>
@@ -91,7 +91,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Builds a DeploymentResource for the release and environment passed, allows you to directly pass the list of skipped steps
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="release"></param>
         /// <param name="environment"></param>
         /// <param name="formValues"></param>
@@ -136,7 +136,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns a list of Queued deployements ahead of the passed Deployment, this in cludes the currently executing one.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="deployment"></param>
         /// <returns></returns>
         public static IEnumerable<DeploymentResource> GetQueuedDeployments(OctopusRepository octRepository, DeploymentResource deployment)
@@ -154,7 +154,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns the variables associated to a deployment
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="release"></param>
         /// <param name="environment"></param>
         /// <returns></returns>

@@ -17,7 +17,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the DeploymentProcessResource from a Project.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <returns></returns>
         public static DeploymentProcessResource GetDeploymentProcessFromProject(OctopusRepository octRepository, ProjectResource project)
@@ -40,7 +40,7 @@ namespace OctopusHelpers
         /// Updates the new Deployment Process with the info from another. (Look you cant update the Steps property, its read only for some reason)
         /// This ha changed but this is something ill need to look into more
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="newDeploymentProcess"></param>
         /// <param name="oldDeploymentProcess"></param>
         public static void UpdateDeploymentProcessFromDeploymentProcess(OctopusRepository octRepository, DeploymentProcessResource newDeploymentProcess, DeploymentProcessResource oldDeploymentProcess)
@@ -55,7 +55,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Updates the passed Project's Deployment Process
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="deploymentProcess"></param>
         public static void UpdateProjectDeploymentProcess(OctopusRepository octRepository, ProjectResource project, DeploymentProcessResource deploymentProcess)
@@ -71,7 +71,7 @@ namespace OctopusHelpers
         /// USE WITH CAUTION!
         /// THIS IS A REALLY DIRTY WAY TO DO THIS, BUT SOMETIMES YOU GOTTA DO YER DIRT.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="sqlConnection"></param>
         public static void UpdateProjectReleaseDeploymentProcess(OctopusRepository octRepository, ProjectResource project, SqlConnection octDatabaseConnection)

@@ -14,9 +14,9 @@ namespace OctopusHelpers.ExtensionMethods
         /// <summary>
         /// Gathers the Events tied to a resource for auditing.
         /// </summary>
-        /// <param name="client"></param>
-        /// <param name="resourceId"></param>
-        /// <param name="eventCategory"></param>
+        /// <param name="client">The Repository this is tacked on to.</param>
+        /// <param name="resourceId">The resource id of the object for events returned</param>
+        /// <param name="eventCategory">The type of category of events returned [null returns all]</param>
         /// <returns></returns>
         internal static IEnumerable<EventResource> GetResourceEvents(this IOctopusClient client, string resourceId, string eventCategory)
         {
@@ -32,9 +32,9 @@ namespace OctopusHelpers.ExtensionMethods
         /// <summary>
         /// Gathers the Interruptions tied to a Task
         /// </summary>
-        /// <param name="client"></param>
-        /// <param name="taskId"></param>
-        /// <param name="pendingOnly"></param>
+        /// <param name="client">The Repository this is tacked on to.</param>
+        /// <param name="resourceId">The resouce id to returns interruptiuons for.</param>
+        /// <param name="pendingOnly">Returns only pending interruptions.</param>
         /// <returns></returns>
         internal static IEnumerable<InterruptionResource> GetResourceInterruptions(this IOctopusClient client, string resourceId, bool pendingOnly)
         {
@@ -50,8 +50,8 @@ namespace OctopusHelpers.ExtensionMethods
         /// <summary>
         /// Gathers the Users from a Team.
         /// </summary>
-        /// <param name="client"></param>
-        /// <param name="team"></param>
+        /// <param name="client">The Repository this is tacked on to.</param>
+        /// <param name="team">The team to return the user resources from.</param>
         /// <returns></returns>
         internal static IEnumerable<UserResource> GetTeamUsers(this IOctopusClient client, TeamResource team)
         {
@@ -70,11 +70,12 @@ namespace OctopusHelpers.ExtensionMethods
         /// <summary>
         /// Clones one project from another.
         /// </summary>
-        /// <param name="client"></param>
-        /// <param name="newProjectName"></param>
-        /// <param name="newProjectDescription"></param>
-        /// <param name="projectToClone"></param>
-        /// <param name="projectGroupIdForNewProject"></param>
+        /// <param name="client">The Repository this is tacked on to.</param>
+        /// <param name="newProjectName">The new project's name.</param>
+        /// <param name="newProjectDescription">The new project's description,</param>
+        /// <param name="projectToClone">The project to clone from.</param>
+        /// <param name="projectGroupIdForNewProject">The group the project will be placed into [null will copy the group from the projectToClone].</param>
+        /// <param name="lifcycleId">The life cycle of the new project [null will copy the lifecycle from the projectToClone].</param>
         internal static void CloneProject(this IOctopusClient client, string newProjectName, string newProjectDescription, ProjectResource projectToClone, string projectGroupIdForNewProject = null, string lifcycleId = null)
         {
             var projectToCreate = new ProjectResource
@@ -90,7 +91,7 @@ namespace OctopusHelpers.ExtensionMethods
         /// <summary>
         /// Sets the MaintenanceConfiguration Resource to the server.
         /// </summary>
-        /// <param name="client"></param>
+        /// <param name="client">The Repository this is tacked on to.</param>
         /// <param name="maintenanceConfigurationResource"></param>
         internal static void SetMaintenanceConfigurationResource(this IOctopusClient client, MaintenanceConfigurationResource maintenanceConfigurationResource)
         {
@@ -100,8 +101,8 @@ namespace OctopusHelpers.ExtensionMethods
         /// <summary>
         /// Gets the MaintenanceConfiguration Resource to the server.
         /// </summary>
-        /// <param name="client"></param>
-        /// <returns></returns>
+        /// <param name="client">The Repository this is tacked on to.</param>
+        /// <returns>Returns the Octopus MaintenanceConfiguration</returns>
         internal static MaintenanceConfigurationResource GetMaintenanceConfigurationResource(this IOctopusClient client)
         {
             return client.Get<MaintenanceConfigurationResource>(ResourceStrings.MaintenanceConfigApi);

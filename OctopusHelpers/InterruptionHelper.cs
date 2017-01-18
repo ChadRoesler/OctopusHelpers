@@ -16,7 +16,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the tasks current pending interruption.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="task"></param>
         /// <returns></returns>
         public static InterruptionResource GetPendingInterruption(OctopusRepository octRepository, TaskResource task)
@@ -27,7 +27,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the count of the retried interruptions for a task.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="task"></param>
         /// <returns></returns>
         public static int GetInterruptionRetryCount(OctopusRepository octRepository, TaskResource task)
@@ -38,7 +38,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Responds to the interruption.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="interruption"></param>
         /// <param name="response"></param>
         /// <param name="note"></param>

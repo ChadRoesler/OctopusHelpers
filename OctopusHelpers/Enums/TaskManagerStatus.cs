@@ -1,10 +1,13 @@
 ﻿namespace OctopusHelpers.Enums
 {
     /// <summary>
-    /// TaskManagerStatus for gathering the status of a OctopusDeploymentTaskManager.
+    /// TaskManagerStatus for gathering the status of a OctopusDeploymentTaskManager object.
     /// </summary>
     public enum TaskManagerStatus
     {
+        /// <summary>
+        ///
+        /// </summary>
         Executing = 0,
         Completed = 1,
         Canceling = 2,

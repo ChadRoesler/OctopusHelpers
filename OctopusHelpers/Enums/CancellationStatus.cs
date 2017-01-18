@@ -1,13 +1,25 @@
 ﻿namespace OctopusHelpers.Enums
 {
     /// <summary>
-    /// Cancellation status Enum for OctopusDeploymentTaskManager.
+    /// Cancellation status enum for an OctopusDeploymentTaskManager object.
     /// </summary>
     public enum CancellationStatus
     {
+        /// <summary>
+        /// No cancellation requested.
+        /// </summary>
         None = 0,
+        /// <summary>
+        /// Cancellation Requested for managing.
+        /// </summary>
         CancellationRequested = 1,
+        /// <summary>
+        /// Cancellation sent to octopus.
+        /// </summary>
         CancellationSent = 2,
+        /// <summary>
+        /// Cancelled in octopus.
+        /// </summary>
         Canceled = 3
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace OctopusHelpers.Constants
 {
     /// <summary>
-    /// All Error string needed for this library.
+    /// Errors thrown by various helpers.
     /// </summary>
     internal class ErrorStrings
     {

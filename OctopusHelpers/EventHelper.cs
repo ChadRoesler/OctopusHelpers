@@ -13,7 +13,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers events for a given resource Id
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="resourceId"></param>
         /// <param name="eventCategory"></param>
         /// <returns></returns>

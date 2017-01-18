@@ -16,7 +16,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Get all releases of a Project.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <returns></returns>
         public static IEnumerable<ReleaseResource> GetProjectReleases(OctopusRepository octRepository, ProjectResource project)
@@ -27,7 +27,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gather a Project's Release from the passed Version.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="releaseVersion"></param>
         /// <returns></returns>
@@ -48,7 +48,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Creates a release for the passed Project.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="releaseVersion"></param>
         /// <param name="stepAndVersionDictionary"></param>
@@ -81,7 +81,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Creates a dummy release and deletes it on the passed Project for deployment process updating.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         public static void CreateDeleteDummyReleaseForProject(OctopusRepository octRepository, ProjectResource project)
         {
@@ -104,7 +104,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Deletes the passed Release.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="release"></param>
         public static void DeleteRelease(OctopusRepository octRepository, ReleaseResource release)
         {
@@ -114,7 +114,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Updates the Variables for the passed Release.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="release"></param>
         public static void UpdateReleaseVariables(OctopusRepository octRepository, ReleaseResource release)
         {
@@ -124,7 +124,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a list of deployed Releases for a passed Project and Environment. (This has to be done by ReleaseId due to not having anyother way to connect deployed releases to release resources).
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="environment"></param>
         /// <returns></returns>
@@ -149,7 +149,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a list of last deployed releases per environment.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <returns></returns>
         public static IEnumerable<ReleaseResource> GetLastDeployedReleasesFromProjectPhase(OctopusRepository octRepository, ProjectResource project, string phaseName)
@@ -170,7 +170,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the last deployed Release from the passed Project and Environment.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="environment"></param>
         /// <returns></returns>
@@ -194,7 +194,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a list of undeployed Releases from the passed Project and Environment.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="environment"></param>
         /// <returns></returns>
@@ -210,7 +210,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a list of deployed Releases from the passed Project.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <returns></returns>
         public static IEnumerable<ReleaseResource> GetDeployedReleasesFromProjectPhase(OctopusRepository octRepository, ProjectResource project, string phaseName)
@@ -228,7 +228,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a list of undeployed releases from the passed project.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <returns></returns>
         public static IEnumerable<ReleaseResource> GetUndeployedReleasesFromProjectPhase(OctopusRepository octRepository, ProjectResource project, string phaseName)
@@ -247,7 +247,7 @@ namespace OctopusHelpers
         /// <summary>
         ///
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <returns></returns>
         public static ReleaseResource GetLatestReleaseFromProject(OctopusRepository octRepository, ProjectResource project)
@@ -258,7 +258,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Update a Release's Package Step version with another version.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="release"></param>
         /// <param name="packageStepDictionary"></param>
         public static void UpdateReleasePackageVersionByStep(OctopusRepository octRepository, ReleaseResource release, Dictionary<string, Version> packageStepDictionary)

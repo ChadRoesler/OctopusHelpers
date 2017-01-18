@@ -13,7 +13,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a Environment by Name.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="environmentName"></param>
         /// <returns></returns>
         public static EnvironmentResource GetEnvironmentByName(OctopusRepository octRepository, string environmentName)
@@ -24,7 +24,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a Environment by Id.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="environmentId"></param>
         /// <returns></returns>
         public static EnvironmentResource GetEnvironmentById(OctopusRepository octRepository, string environmentId)
@@ -43,7 +43,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a list Environments of a Project.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <returns></returns>
         public static IEnumerable<EnvironmentResource> GetProjectEnvironments(OctopusRepository octRepository, ProjectResource project, string phaseName)
@@ -55,7 +55,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a list of Environments of a Lifecycle
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="lifecycle"></param>
         /// <param name="phaseName"></param>
         /// <returns></returns>
@@ -69,7 +69,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the list of Environments of a Phase
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="phase"></param>
         /// <returns></returns>
         public static IEnumerable<EnvironmentResource> GetPhaseEnvironments(OctopusRepository octRepository, PhaseResource phase)

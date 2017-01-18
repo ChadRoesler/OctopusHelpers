@@ -15,7 +15,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns the names of the LibraryVariableSet Script Modules
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <returns></returns>
         public static IEnumerable<string> GetScriptModuleNames(OctopusRepository octRepository)
         {
@@ -25,7 +25,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns the names of the LibraryVariableSet Variable Sets
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <returns></returns>
         public static IEnumerable<string> GetVariableSetNames(OctopusRepository octRepository)
         {
@@ -35,7 +35,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns the names of the LibraryVariableSets
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <returns></returns>
         public static IEnumerable<string> GetLibraryVariableSetNames(OctopusRepository octRepository)
         {
@@ -45,7 +45,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns the names of the LibraryVariableSet Script Modules
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <returns></returns>
         public static IEnumerable<string> GetScriptModuleIds(OctopusRepository octRepository)
         {
@@ -55,7 +55,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns the names of the LibraryVariableSet Variable Sets
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <returns></returns>
         public static IEnumerable<string> GetVariableSetIds(OctopusRepository octRepository)
         {
@@ -65,7 +65,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns the LibraryVariableSet Script Modules
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <returns></returns>
         public static IEnumerable<LibraryVariableSetResource> GetScriptModules(OctopusRepository octRepository)
         {
@@ -75,7 +75,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns the LibraryVariableSet Variable Sets
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <returns></returns>
         public static IEnumerable<LibraryVariableSetResource> GetVariableSets(OctopusRepository octRepository)
         {
@@ -85,7 +85,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns the names of the LibraryVariableSets
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <returns></returns>
         public static IEnumerable<string> GetLibraryVariableSetIds(OctopusRepository octRepository)
         {
@@ -95,7 +95,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a single LibraryVariableSet based on the Id.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="libraryVariableSetId"></param>
         /// <returns></returns>
         public static LibraryVariableSetResource GetLibraryVariableSetById(OctopusRepository octRepository, string libraryVariableSetId)
@@ -114,7 +114,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a single LibraryVariableSet based on the Name.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="libraryVariableSetName"></param>
         /// <returns></returns>
         public static LibraryVariableSetResource GetLibraryVariableSetByName(OctopusRepository octRepository, string libraryVariableSetName)
@@ -125,7 +125,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the LibraryVariableSets that are attached to a project and returns it as a LibraryVariableSetResources List.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <returns></returns>
         public static IEnumerable<LibraryVariableSetResource> GetLibararyVariableSetFromProject(OctopusRepository octRepository, ProjectResource project)
@@ -141,7 +141,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the LibraryVariableSet ScriptModules that are attached to a project and returns it as a LibraryVariableSetResources List.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <returns></returns>
         public static IEnumerable<LibraryVariableSetResource> GetLibararyVariableSetScriptModulesFromProject(OctopusRepository octRepository, ProjectResource project)
@@ -161,7 +161,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the LibraryVariableSet Variabless that are attached to a project and returns it as a LibraryVariableSetResources List.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <returns></returns>
         public static IEnumerable<LibraryVariableSetResource> GetLibararyVariableSetVariablesFromProject(OctopusRepository octRepository, ProjectResource project)
@@ -182,7 +182,7 @@ namespace OctopusHelpers
         /// Adds the LibraryVariableSet to the passed Project.
         /// </summary>
         /// <param name="Repository"></param>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="libraryVariableSet"></param>
         public static void AddLibararyVariableSetToProject(OctopusRepository octRepository, ProjectResource project, LibraryVariableSetResource libraryVariableSet)
         {
@@ -193,7 +193,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Removes the LibraryVariableSet to the passed Project.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="libraryVariableSet"></param>
         public static void RemoveLibararyVariableSetFromProject(OctopusRepository octRepository, ProjectResource project, LibraryVariableSetResource libraryVariableSet)
@@ -205,7 +205,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Adds only the missing LibraryVariableSets to the passed Project.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="libraryVariableSetList"></param>
         public static void AddMissingLibararyVariableSetsToProject(OctopusRepository octRepository, ProjectResource project, List<LibraryVariableSetResource> libraryVariableSetList)
@@ -223,7 +223,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Removes any LibraryVariableSets from the passed Project that are not in the passed List.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="libraryVariableSetList"></param>
         public static void RemoveExtraLibararyVariableSetsFromProject(OctopusRepository octRepository, ProjectResource project, List<LibraryVariableSetResource> libraryVariableSetList)
@@ -241,7 +241,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Replaces the LibraryVariableSet in the passed Project with those in the passed List.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
         /// <param name="libraryVariableSetList"></param>
         public static void ReplaceLibararyVariableSetInProject(OctopusRepository octRepository, ProjectResource project, List<LibraryVariableSetResource> libraryVariableSetList)
@@ -253,7 +253,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Creates a new ScriptModule LibraryVariableSet from a passed file.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="scriptModuleName"></param>
         /// <param name="description"></param>
         /// <param name="scriptModuleText"></param>
@@ -280,7 +280,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Replaces a ScriptModule LibraryVariableSet from a passed string.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="libraryVariableSet"></param>
         /// <param name="scriptModuleText"></param>
         public static void ReplaceScriptModuleFromText(OctopusRepository octRepository, LibraryVariableSetResource libraryVariableSet, string scriptModuleText)
@@ -293,7 +293,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Outputs a ScriptModule LibraryVariableSet to a string.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="libraryVariableSet"></param>
         public static string OutputScriptModuleToText(OctopusRepository octRepository, LibraryVariableSetResource libraryVariableSet)
         {
@@ -304,7 +304,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Creates a new VariableSet LibraryVariableSet from a passed string.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="variableSetName"></param>
         /// <param name="description"></param>
         /// <param name="variableSetText"></param>
@@ -344,7 +344,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Replaces a VariableSet LibraryVariableSet from a passed string.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="libraryVariableSet"></param>
         /// <param name="variableSetText"></param>
         public static void ReplaceVariableSetFromText(OctopusRepository octRepository, LibraryVariableSetResource libraryVariableSet, string variableSetText)
@@ -376,7 +376,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Outputs a VariableSet LibraryVariableSet to a string.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="libraryVariableSet"></param>
         public static string OutputVariableSetToText(OctopusRepository octRepository, LibraryVariableSetResource libraryVariableSet)
         {

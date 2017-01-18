@@ -15,7 +15,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a UserResource by Name.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="userName"></param>
         /// <returns></returns>
         public static UserResource GetUserFromUserName(OctopusRepository octRepository, string userName)
@@ -26,7 +26,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers a UserResource by Id.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="userName"></param>
         /// <returns></returns>
         public static UserResource GetUserFromUserId(OctopusRepository octRepository, string userId)
@@ -46,7 +46,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns a list of UserNames from UserResources
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <returns></returns>
         public static IEnumerable<string> GetUserNames(OctopusRepository octRepository)
         {
@@ -56,7 +56,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns a list of UserNames from UserResources
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <returns></returns>
         public static IEnumerable<string> GetUserIds(OctopusRepository octRepository)
         {
@@ -66,7 +66,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Creates an API Key for the passed user.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="user"></param>
         /// <param name="keyNote"></param>
         /// <returns></returns>
@@ -78,7 +78,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Removes the passed API key from the user it is attached to.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="apiKey"></param>
         public static void RevokeApiKey(OctopusRepository octRepository, ApiKeyResource apiKey)
         {
@@ -88,7 +88,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns all API keys from the passed user, the actuall key text is not returned in this.
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="user"></param>
         public static IEnumerable<ApiKeyResource> GetUserApiKeys(OctopusRepository octRepository, UserResource user)
         {

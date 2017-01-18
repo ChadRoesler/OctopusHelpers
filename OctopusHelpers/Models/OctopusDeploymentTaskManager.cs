@@ -34,8 +34,8 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// A simple and efficiant way to manage DeploymentTasks
         /// </summary>
-        /// <param name="octRepository"></param>
-        /// <param name="deployment"></param>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="deployment">The deployment to manage.</param>
         public OctopusDeploymentTaskManager(OctopusRepository octRepository, DeploymentResource deployment)
         {
             octRepositoryToManage = octRepository;
@@ -98,8 +98,8 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Responds to the current pending interruption.
         /// </summary>
-        /// <param name="response"></param>
-        /// <param name="note"></param>
+        /// <param name="response">Response passed to the interruption.</param>
+        /// <param name="note">Note passed to the interruption.</param>
         public void RespondToInterruption(InterruptionResponse response, string note)
         {
             UpdateInterruption();
@@ -157,9 +157,9 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Gathers all failures/error messages.
         /// </summary>
-        /// <param name="activityElementToProcess"></param>
-        /// <param name="tabIndex"></param>
-        /// <returns></returns>
+        /// <param name="activityElementToProcess">The activity element to check for failures for.</param>
+        /// <param name="tabIndex">Tab index used for indenting for levels of failure.</param>
+        /// <returns>Returns the combine string of failures.</returns>
         private string GetFailures(ActivityElement activityElementToProcess, int tabIndex)
         {
             var output = string.Empty;
@@ -182,7 +182,7 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Returns the important information, step and sub step info, about the Errors and Warnings that occured.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns all errors and warnings related to the deployment task.</returns>
         public string GetErrorsAndWarnings()
         {
             UpdateActivity();
@@ -197,7 +197,7 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Returns the important information, step and sub step info, about the Warnings that occured.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns all warnings related to the deployment task.</returns>
         public string GetWarnings()
         {
             UpdateActivity();
@@ -212,7 +212,7 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Returns the important information, step and sub step info, about the Errors that occured.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns all errors related to the deployment task.</returns>
         public string GetErrors()
         {
             UpdateActivity();
@@ -227,7 +227,7 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Gets the User that canceled the Deployment
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns the UserResource of the user who initiated the task cancelation.</returns>
         public UserResource GetCancellingUser()
         {
             if(taskToManage.State == TaskState.Canceled || taskToManage.State == TaskState.Cancelling)
@@ -249,7 +249,7 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Gathers the output for logging, only gathers non-previously reported info.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Retuns the log of Main steps.</returns>
         public string GetLog()
         {
             UpdateActivity();
@@ -268,7 +268,7 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Gets the current Step count.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Retuns the total number of steps.</returns>
         public int GetStepCount()
         {
             return activitySteps.Count();
@@ -277,7 +277,7 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Gets the currently completed Step count.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns the total number of completed steps.</returns>
         public int GetStepCompletedCount()
         {
             return printedLog.Count();
@@ -287,7 +287,7 @@ namespace OctopusHelpers.Models
         /// Gets the current count of deployments ahead of the current one.
         /// If this returns 0 and the status is queued, then that means that it has hit the node limit of deployments
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns the total number of tasks ahead of this one.</returns>
         public int GetQueuedDeploymentCount()
         {
             return DeploymentHelper.GetQueuedDeployments(octRepositoryToManage, deploymentToManage).Count();
@@ -296,7 +296,7 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Get the Step the the failure occured on for Interruptions.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns the failure of the interrupted step.</returns>
         public string GetInterruptedStepInfo()
         {
             UpdateActivity();
@@ -307,9 +307,9 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
-        /// Returns the Last Step Executed
+        /// Returns the Last Step Executed.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Retuns the Last Step Executed</returns>
         public string GetLastStepExecuted()
         {
             if (printedLog.Count() > 0)
@@ -325,7 +325,7 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Gets the Note of the Guided Interruption
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Retuns the Note of the managed interruption.</returns>
         public string GetManagedInterruptionNote()
         {
             UpdatePreviousInterruption();
@@ -342,7 +342,7 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Gets the Guideance Taken of the Guided Interruption
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Retuns the value of the choice (retry, fail, or cancel) of the of the managed interruption.</returns>
         public string GetManagedInterruptionGuidence()
         {
             UpdatePreviousInterruption();
@@ -359,7 +359,7 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Gets the Guiding User of the Guided Interruption
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Returns the Responsible UserResource of the interruption</returns>
         public UserResource GetManagedInterruptionResponsibleUser()
         {
             UpdatePreviousInterruption();
@@ -373,6 +373,10 @@ namespace OctopusHelpers.Models
             }
         }
 
+        /// <summary>
+        /// Returns the server link to the deployment.
+        /// </summary>
+        /// <returns>Returns the server link to the deployment.</returns>
         public string GetDeploymentLink()
         {
             if (taskToManage != null)
@@ -388,7 +392,6 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Gets the current Status of the Deployment
         /// </summary>
-        /// <returns></returns>
         public TaskManagerStatus Status
         {
             get

@@ -12,7 +12,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Sets the Maintanence Mode on the targeted octopus server
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <param name="enable"></param>
         public static void SetMaintanenceMode(OctopusRepository octRepository, bool enable)
         {
@@ -24,7 +24,7 @@ namespace OctopusHelpers
         /// <summary>
         /// Gets the Maintenanace Configuration Object of the target Octopus Server
         /// </summary>
-        /// <param name="octRepository"></param>
+        /// <param name="octRepository">The repository to call against.</param>
         /// <returns></returns>
         public static MaintenanceConfigurationResource GetMaintMode(OctopusRepository octRepository)
         {
