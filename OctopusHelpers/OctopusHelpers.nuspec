@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Correction to cloning, added some documentation, and space cleanup.</releaseNotes>
+    <releaseNotes>Addition for TaskHelper and ActivitiyElementHelper.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Octopus</tags>
   </metadata>
