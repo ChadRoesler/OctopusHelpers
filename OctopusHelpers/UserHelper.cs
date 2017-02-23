@@ -4,6 +4,7 @@ using System.Linq;
 using Octopus.Client;
 using Octopus.Client.Model;
 using OctopusHelpers.Constants;
+using OctopusHelpers.ExtensionMethods;
 
 namespace OctopusHelpers
 {
@@ -93,6 +94,19 @@ namespace OctopusHelpers
         public static IEnumerable<ApiKeyResource> GetUserApiKeys(OctopusRepository octRepository, UserResource user)
         {
             return octRepository.Users.GetApiKeys(user);
+        }
+
+        /// <summary>
+        /// Returns all Teams that a User is associated with.  This currently does not return if a user is in a ExternalSecurityGroups in a team.
+        /// </summary>
+        /// <param name="octRepository"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static IEnumerable<TeamResource> GetUserTeams(OctopusRepository octRepository, UserResource user)
+        {
+            var userTeams = new List<TeamResource>();
+            var teamList = octRepository.Teams.FindAll().Where(x => octRepository.Client.GetTeamUsers(x).Contains(user));
+            return teamList;
         }
     }
 }

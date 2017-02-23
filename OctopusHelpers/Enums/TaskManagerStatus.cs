@@ -6,14 +6,32 @@
     public enum TaskManagerStatus
     {
         /// <summary>
-        ///
+        /// Currently Executing.
         /// </summary>
         Executing = 0,
+        /// <summary>
+        /// Completed Task.
+        /// </summary>
         Completed = 1,
+        /// <summary>
+        /// In the Process of Cancelling.
+        /// </summary>
         Canceling = 2,
+        /// <summary>
+        /// Cancelled Task.
+        /// </summary>
         Canceled = 3,
+        /// <summary>
+        /// Currently Interrupted and waiting for user input.
+        /// </summary>
         Interrupted = 4,
+        /// <summary>
+        /// Queued Task.
+        /// </summary>
         Queued = 5,
+        /// <summary>
+        /// Not started yet, but not queued.
+        /// </summary>
         NotStarted = 6
     }
 }

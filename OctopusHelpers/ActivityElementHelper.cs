@@ -6,6 +6,13 @@ namespace OctopusHelpers
 {
     public static class ActivityElementHelper
     {
+        /// <summary>
+        /// Gathers log info based on the list of the Statuses To Check
+        /// </summary>
+        /// <param name="activityElementToProcess"></param>
+        /// <param name="tabIndex"></param>
+        /// <param name="statusesToCheck"></param>
+        /// <returns>Formatted Message text.</returns>
         public static string GetLogInfo(ActivityElement activityElementToProcess, int tabIndex, List<ActivityStatus> statusesToCheck = null)
         {
             var output = string.Empty;

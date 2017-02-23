@@ -24,7 +24,7 @@ namespace OctopusHelpers.Models
         private bool CancellationRequested = false;
 
         /// <summary>
-        /// Allows for an empty pull
+        /// Allows base creation of the object.
         /// </summary>
         public OctopusDeploymentTaskManager()
         {
@@ -47,7 +47,7 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
-        /// Start the Deploy
+        /// Start the Deploy.
         /// </summary>
         public void StartDeploy()
         {
@@ -63,7 +63,7 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
-        /// A call to Cancel that can be managed from other areas;
+        /// A call to Cancel that can be managed from other areas.
         /// </summary>
         public void RequestCancellation()
         {
@@ -323,7 +323,7 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
-        /// Gets the Note of the Guided Interruption
+        /// Gets the Note of the Guided Interruption.
         /// </summary>
         /// <returns>Retuns the Note of the managed interruption.</returns>
         public string GetManagedInterruptionNote()
@@ -340,7 +340,7 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
-        /// Gets the Guideance Taken of the Guided Interruption
+        /// Gets the Guideance Taken of the Guided Interruption.
         /// </summary>
         /// <returns>Retuns the value of the choice (retry, fail, or cancel) of the of the managed interruption.</returns>
         public string GetManagedInterruptionGuidence()
@@ -357,7 +357,7 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
-        /// Gets the Guiding User of the Guided Interruption
+        /// Gets the Guiding User of the Guided Interruption.
         /// </summary>
         /// <returns>Returns the Responsible UserResource of the interruption</returns>
         public UserResource GetManagedInterruptionResponsibleUser()
@@ -390,7 +390,7 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
-        /// Gets the current Status of the Deployment
+        /// Gets the current Status of the deployment.
         /// </summary>
         public TaskManagerStatus Status
         {
@@ -433,7 +433,7 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
-        /// Gets the status of the Cancellation
+        /// Gets the status of the Cancellation.
         /// </summary>
         public CancellationStatus CancellationStatus
         {
@@ -457,7 +457,7 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
-        /// Gets the Error Status of the Task
+        /// Gets the Error Status of the Task.
         /// </summary>
         public ErrorStatus ErrorStatus
         {

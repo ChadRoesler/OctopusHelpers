@@ -15,9 +15,9 @@ namespace OctopusHelpers.ExtensionMethods
         /// Gathers the Events tied to a resource for auditing.
         /// </summary>
         /// <param name="client">The Repository this is tacked on to.</param>
-        /// <param name="resourceId">The resource id of the object for events returned</param>
-        /// <param name="eventCategory">The type of category of events returned [null returns all]</param>
-        /// <returns></returns>
+        /// <param name="resourceId">The resource id of the object for events returned.</param>
+        /// <param name="eventCategory">The type of category of events returned [null returns all].</param>
+        /// <returns>Enumberable of EventsResources.</returns>
         internal static IEnumerable<EventResource> GetResourceEvents(this IOctopusClient client, string resourceId, string eventCategory)
         {
             var events = new List<EventResource>();
@@ -35,7 +35,7 @@ namespace OctopusHelpers.ExtensionMethods
         /// <param name="client">The Repository this is tacked on to.</param>
         /// <param name="resourceId">The resouce id to returns interruptiuons for.</param>
         /// <param name="pendingOnly">Returns only pending interruptions.</param>
-        /// <returns></returns>
+        /// <returns>Enumberable of InterruptionResources.</returns>
         internal static IEnumerable<InterruptionResource> GetResourceInterruptions(this IOctopusClient client, string resourceId, bool pendingOnly)
         {
             var interruptions = new List<InterruptionResource>();
@@ -52,7 +52,7 @@ namespace OctopusHelpers.ExtensionMethods
         /// </summary>
         /// <param name="client">The Repository this is tacked on to.</param>
         /// <param name="team">The team to return the user resources from.</param>
-        /// <returns></returns>
+        /// <returns>Enumerable of UserResources.</returns>
         internal static IEnumerable<UserResource> GetTeamUsers(this IOctopusClient client, TeamResource team)
         {
             List<UserResource> users = new List<UserResource>();
@@ -92,7 +92,7 @@ namespace OctopusHelpers.ExtensionMethods
         /// Sets the MaintenanceConfiguration Resource to the server.
         /// </summary>
         /// <param name="client">The Repository this is tacked on to.</param>
-        /// <param name="maintenanceConfigurationResource"></param>
+        /// <param name="maintenanceConfigurationResource">The Resource to Set after changes have been applied.</param>
         internal static void SetMaintenanceConfigurationResource(this IOctopusClient client, MaintenanceConfigurationResource maintenanceConfigurationResource)
         {
             client.Put(ResourceStrings.MaintenanceConfigApi, maintenanceConfigurationResource);
@@ -102,7 +102,7 @@ namespace OctopusHelpers.ExtensionMethods
         /// Gets the MaintenanceConfiguration Resource to the server.
         /// </summary>
         /// <param name="client">The Repository this is tacked on to.</param>
-        /// <returns>Returns the Octopus MaintenanceConfiguration</returns>
+        /// <returns>The Servers' MaintenanceConfiguration.</returns>
         internal static MaintenanceConfigurationResource GetMaintenanceConfigurationResource(this IOctopusClient client)
         {
             return client.Get<MaintenanceConfigurationResource>(ResourceStrings.MaintenanceConfigApi);

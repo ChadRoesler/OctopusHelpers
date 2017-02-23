@@ -27,10 +27,10 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the Deployment Variables needed for a deployment
         /// </summary>
-        /// <param name="octRepository">The o</param>
+        /// <param name="octRepository">The orelease to grab the variables from</param>
         /// <param name="release"></param>
         /// <param name="environment"></param>
-        /// <returns></returns>
+        /// <returns>Dictionary of DeploymentVariables.</returns>
         public static IDictionary<string, string> GetDeploymentVariables(OctopusRepository octRepository, ReleaseResource release, EnvironmentResource environment)
         {
             var releaseTemplate = octRepository.Releases.GetTemplate(release);
@@ -40,7 +40,7 @@ namespace OctopusHelpers
         }
 
         /// <summary>
-        /// Builds a DeploymentResource for the release and environment passed, creates what steps to skip based on a string list
+        /// Builds a DeploymentResource for the release and environment passed, creates what steps to skip based on a string list.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="release"></param>
@@ -49,7 +49,7 @@ namespace OctopusHelpers
         /// <param name="guidedFailure"></param>
         /// <param name="skippedSteps"></param>
         /// <param name="dateToDeploy"></param>
-        /// <returns></returns>
+        /// <returns>Creates the DeploymentResource.</returns>
         public static DeploymentResource BuildDeployment(OctopusRepository octRepository, ReleaseResource release, EnvironmentResource environment, Dictionary<string, string> formValues, bool guidedFailure, IEnumerable<string> skippedSteps, DateTimeOffset? dateToDeploy)
         {
             var machineIDs = new ReferenceCollection();
