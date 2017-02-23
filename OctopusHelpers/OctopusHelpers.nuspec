@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Addition for TaskHelper and ActivitiyElementHelper.</releaseNotes>
+    <releaseNotes>Addition for GetUserTeams.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Octopus</tags>
   </metadata>
