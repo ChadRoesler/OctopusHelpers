@@ -96,16 +96,10 @@ namespace OctopusHelpers
             return octRepository.Users.GetApiKeys(user);
         }
 
-        /// <summary>
-        /// Returns all Teams that a User is associated with.  This currently does not return if a user is in a ExternalSecurityGroups in a team.
-        /// </summary>
-        /// <param name="octRepository"></param>
-        /// <param name="user"></param>
-        /// <returns></returns>
         public static IEnumerable<TeamResource> GetUserTeams(OctopusRepository octRepository, UserResource user)
         {
             var userTeams = new List<TeamResource>();
-            var teamList = octRepository.Teams.FindAll().Where(x => octRepository.Client.GetTeamUsers(x).Contains(user));
+            var teamList = octRepository.Teams.FindAll().Where(t => octRepository.Client.GetTeamUsers(t).ToList().Exists(u => u.Id.Equals(user.Id)));
             return teamList;
         }
     }
