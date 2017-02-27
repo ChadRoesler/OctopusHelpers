@@ -99,7 +99,7 @@ namespace OctopusHelpers
         public static IEnumerable<TeamResource> GetUserTeams(OctopusRepository octRepository, UserResource user)
         {
             var userTeams = new List<TeamResource>();
-            var teamList = octRepository.Teams.FindAll().Where(t => octRepository.Client.GetTeamUsers(t).ToList().Exists(u => u.Id.Equals(user.Id)));
+            var teamList = octRepository.Teams.FindAll().Where(t => t.MemberUserIds.ToList().Exists(u => u.Equals(user.Id)));
             return teamList;
         }
     }
