@@ -4,7 +4,6 @@ using System.Linq;
 using Octopus.Client;
 using Octopus.Client.Model;
 using OctopusHelpers.Constants;
-using OctopusHelpers.ExtensionMethods;
 
 namespace OctopusHelpers
 {

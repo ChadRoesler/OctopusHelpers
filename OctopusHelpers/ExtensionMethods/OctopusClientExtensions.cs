@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Octopus.Client;
 using Octopus.Client.Model;
 using OctopusHelpers.Constants;
@@ -76,7 +75,7 @@ namespace OctopusHelpers.ExtensionMethods
         /// <param name="projectToClone">The project to clone from.</param>
         /// <param name="projectGroupIdForNewProject">The group the project will be placed into [null will copy the group from the projectToClone].</param>
         /// <param name="lifcycleId">The life cycle of the new project [null will copy the lifecycle from the projectToClone].</param>
-        internal static void CloneProject(this IOctopusClient client, string newProjectName, string newProjectDescription, ProjectResource projectToClone, string projectGroupIdForNewProject = null, string lifcycleId = null)
+        internal static void CloneProject(this IOctopusClient client, string newProjectName, string newProjectDescription, ProjectResource projectToClone, string projectGroupIdForNewProject, string lifcycleId)
         {
             var projectToCreate = new ProjectResource
             {

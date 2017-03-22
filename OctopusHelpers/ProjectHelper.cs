@@ -59,18 +59,55 @@ namespace OctopusHelpers
         /// <param name="ProjectToCopy"></param>
         /// <param name="projectName"></param>
         /// <param name="projectDescription"></param>
+        /// <returns></returns>
+        public static ProjectResource CopyProjectFromProject(OctopusRepository octRepository, ProjectResource ProjectToCopy, string projectName, string projectDescription)
+        {
+            octRepository.Client.CloneProject(projectName, projectDescription, ProjectToCopy, null, null);
+            return GetProjectByName(octRepository, projectName);
+        }
+
+        /// <summary>
+        /// Creates a new Project from another Project.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="ProjectToCopy"></param>
+        /// <param name="projectName"></param>
+        /// <param name="projectDescription"></param>
         /// <param name="projectGroupToAddTo"></param>
         /// <returns></returns>
-        public static ProjectResource CopyProjectFromProject(OctopusRepository octRepository, ProjectResource ProjectToCopy, string projectName, string projectDescription, ProjectGroupResource projectGroupToAddTo = null, LifecycleResource lifecycleToAdd = null)
+        public static ProjectResource CopyProjectFromProject(OctopusRepository octRepository, ProjectResource ProjectToCopy, string projectName, string projectDescription, ProjectGroupResource projectGroupToAddTo)
         {
-            if(projectGroupToAddTo == null)
-            {
-                projectGroupToAddTo = new ProjectGroupResource();
-            }
-            if(lifecycleToAdd == null)
-            {
-                lifecycleToAdd = new LifecycleResource();
-            }
+            octRepository.Client.CloneProject(projectName, projectDescription, ProjectToCopy, projectGroupToAddTo.Id, null);
+            return GetProjectByName(octRepository, projectName);
+        }
+
+        /// <summary>
+        /// Creates a new Project from another Project.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="ProjectToCopy"></param>
+        /// <param name="projectName"></param>
+        /// <param name="projectDescription"></param>
+        /// <param name="lifecycleToAdd"></param>
+        /// <returns></returns>
+        public static ProjectResource CopyProjectFromProject(OctopusRepository octRepository, ProjectResource ProjectToCopy, string projectName, string projectDescription, LifecycleResource lifecycleToAdd)
+        {
+            octRepository.Client.CloneProject(projectName, projectDescription, ProjectToCopy, null, lifecycleToAdd.Id);
+            return GetProjectByName(octRepository, projectName);
+        }
+
+        /// <summary>
+        /// Creates a new Project from another Project.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="ProjectToCopy"></param>
+        /// <param name="projectName"></param>
+        /// <param name="projectDescription"></param>
+        /// <param name="projectGroupToAddTo"></param>
+        /// <param name="lifecycleToAdd"></param>
+        /// <returns></returns>
+        public static ProjectResource CopyProjectFromProject(OctopusRepository octRepository, ProjectResource ProjectToCopy, string projectName, string projectDescription, ProjectGroupResource projectGroupToAddTo, LifecycleResource lifecycleToAdd)
+        {
             octRepository.Client.CloneProject(projectName, projectDescription, ProjectToCopy, projectGroupToAddTo.Id, lifecycleToAdd.Id);
             return GetProjectByName(octRepository, projectName);
         }

@@ -5,7 +5,6 @@ using Octopus.Client;
 using Octopus.Client.Model;
 using Octopus.Client.Model.Forms;
 using OctopusHelpers.Constants;
-using OctopusHelpers.ExtensionMethods;
 
 namespace OctopusHelpers
 {

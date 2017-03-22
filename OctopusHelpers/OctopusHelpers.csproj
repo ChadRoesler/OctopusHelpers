@@ -70,6 +70,7 @@
     <Compile Include="EventHelper.cs" />
     <Compile Include="InterruptionHelper.cs" />
     <Compile Include="LifcecycleHelper.cs" />
+    <Compile Include="MachineHelper.cs" />
     <Compile Include="Models\OctopusDeploymentTaskManager.cs" />
     <Compile Include="StepHelper.cs" />
     <Compile Include="TaskHelper.cs" />

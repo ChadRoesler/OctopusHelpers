@@ -286,11 +286,13 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Gets the current count of deployments ahead of the current one.
         /// If this returns 0 and the status is queued, then that means that it has hit the node limit of deployments
+        /// TO DO: add consideration for reaching server node max deployment amount. need to investigate what is considered an active task.
         /// </summary>
         /// <returns>Returns the total number of tasks ahead of this one.</returns>
         public int GetQueuedDeploymentCount()
         {
-            return DeploymentHelper.GetQueuedDeployments(octRepositoryToManage, deploymentToManage).Count();
+            var count = DeploymentHelper.GetQueuedDeployments(octRepositoryToManage, deploymentToManage).Count();
+            return count;
         }
 
         /// <summary>
