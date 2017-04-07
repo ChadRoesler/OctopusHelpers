@@ -64,5 +64,12 @@ namespace OctopusHelpers
             }
             return output.Trim();
         }
+
+        public static int GetTaskStepCount(OctopusRepository octRepository, TaskResource task)
+        {
+            var activitySteps = octRepository.Tasks.GetDetails(task).ActivityLogs.FirstOrDefault().Children;
+            var activityStepCount = activitySteps.Count();
+            return activityStepCount;
+        }
     }
 }
