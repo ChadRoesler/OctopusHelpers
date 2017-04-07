@@ -13,6 +13,7 @@
 		internal const string LifecycleIdFormat = "Lifecycles-{0}";
 		internal const string TeamIdFormat = "Teams-{0}";
 		internal const string MachineIdFormat = "Machines-{0}";
+		internal const string TaskIdFormat = "ServerTask-{0}";
 		internal const string CloneCommandApiFormat = "~/api/projects?clone={0}";
 		internal const string MaintenanceConfigApi = "~/api/maintenanceconfiguration";
 		internal const string EventRegardingLink = "{0}?regarding={1}&eventCategories={2}";
