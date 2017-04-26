@@ -10,7 +10,7 @@ namespace OctopusHelpers
     {
         public static string GetErrors(OctopusRepository octRepository, TaskResource task)
         {
-            var activitySteps = octRepository.Tasks.GetDetails(task).ActivityLogs.FirstOrDefault().Children;
+            var activitySteps = GetActivityElementList(octRepository, task);
             var output = string.Empty;
             var statusList = new List<ActivityStatus>
             {
@@ -25,7 +25,7 @@ namespace OctopusHelpers
 
         public static string GetWarnings(OctopusRepository octRepository, TaskResource task)
         {
-            var activitySteps = octRepository.Tasks.GetDetails(task).ActivityLogs.FirstOrDefault().Children;
+            var activitySteps = GetActivityElementList(octRepository, task);
             var output = string.Empty;
             var statusList = new List<ActivityStatus>
             {
@@ -40,7 +40,7 @@ namespace OctopusHelpers
 
         public static string GetErrorsAndWarnings(OctopusRepository octRepository, TaskResource task)
         {
-            var activitySteps = octRepository.Tasks.GetDetails(task).ActivityLogs.FirstOrDefault().Children;
+            var activitySteps = GetActivityElementList(octRepository, task);
             var output = string.Empty;
             var statusList = new List<ActivityStatus>
             {
@@ -56,7 +56,7 @@ namespace OctopusHelpers
 
         public static string GetFullLog(OctopusRepository octRepository, TaskResource task)
         {
-            var activitySteps = octRepository.Tasks.GetDetails(task).ActivityLogs.FirstOrDefault().Children;
+            var activitySteps = GetActivityElementList(octRepository, task);
             var output = string.Empty;
             foreach (var activityStep in activitySteps)
             {
@@ -83,6 +83,17 @@ namespace OctopusHelpers
             {
                 return octRepository.Tasks.Get(taskId);
             }
+        }
+
+        public static IEnumerable<string> GetTaskStepNames(OctopusRepository octRepository, TaskResource task)
+        {
+            var activitySteps = GetActivityElementList(octRepository, task);
+            return activitySteps.Select(x => x.Name);
+        }
+
+        public static ActivityElement[] GetActivityElementList(OctopusRepository octRepository, TaskResource task)
+        {
+           return octRepository.Tasks.GetDetails(task).ActivityLogs.FirstOrDefault().Children;
         }
     }
 }

@@ -77,7 +77,7 @@ namespace OctopusHelpers.Models
         {
             if (taskToManage != null)
             {
-                UpdateTask();
+                taskToManage = TaskHelper.GetTaskFromId(octRepositoryToManage, taskToManage.Id);
                 if (Status == TaskManagerStatus.Executing || Status == TaskManagerStatus.Interrupted || Status == TaskManagerStatus.Queued)
                 {
                     octRepositoryToManage.Tasks.Cancel(taskToManage);
@@ -107,13 +107,6 @@ namespace OctopusHelpers.Models
             UpdatePreviousInterruption();
         }
 
-        /// <summary>
-        /// Refresh the Task for reporting.
-        /// </summary>
-        private void UpdateTask()
-        {
-            taskToManage = octRepositoryToManage.Tasks.Get(taskToManage.Id);
-        }
 
         /// <summary>
         /// Refreshes the current pending interruption, if one exists.
@@ -144,7 +137,7 @@ namespace OctopusHelpers.Models
         /// </summary>
         private void UpdateActivity()
         {
-            UpdateTask();
+            taskToManage = TaskHelper.GetTaskFromId(octRepositoryToManage, taskToManage.Id);
             var baseActivityLog = octRepositoryToManage.Tasks.GetDetails(taskToManage).ActivityLogs.FirstOrDefault();
             while (baseActivityLog == null || baseActivityLog.Children == null || baseActivityLog.Children.Count() == 0)
             {
@@ -169,7 +162,7 @@ namespace OctopusHelpers.Models
                 output += activityElementToProcess.Name + ResourceStrings.Return;
                 foreach (var activityLogElement in activityElementToProcess.LogElements)
                 {
-                    output += (string.Format(ResourceStrings.ErrorPrinting, tabCount, activityLogElement.MessageText.Replace(ResourceStrings.Return, string.Format(ResourceStrings.ErrorPrinting, ResourceStrings.Return, tabCount)))) + ResourceStrings.Return;
+                    output += (string.Format(ResourceStrings.LogPrinting, tabCount, activityLogElement.MessageText.Replace(ResourceStrings.Return, string.Format(ResourceStrings.LogPrinting, ResourceStrings.Return, tabCount)))) + ResourceStrings.Return;
                 }
                 foreach (var activityElement in activityElementToProcess.Children)
                 {
@@ -401,7 +394,7 @@ namespace OctopusHelpers.Models
                 var currentState = TaskManagerStatus.NotStarted;
                 if (taskToManage != null)
                 {
-                    UpdateTask();
+                    taskToManage = TaskHelper.GetTaskFromId(octRepositoryToManage, taskToManage.Id);
                     UpdateInterruption();
                     if (taskToManage.HasPendingInterruptions && taskToManage.State == TaskState.Executing)
                     {

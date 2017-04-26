@@ -13,7 +13,7 @@
 		internal const string LifecycleIdFormat = "Lifecycles-{0}";
 		internal const string TeamIdFormat = "Teams-{0}";
 		internal const string MachineIdFormat = "Machines-{0}";
-		internal const string TaskIdFormat = "ServerTask-{0}";
+		internal const string TaskIdFormat = "ServerTasks-{0}";
 		internal const string CloneCommandApiFormat = "~/api/projects?clone={0}";
 		internal const string MaintenanceConfigApi = "~/api/maintenanceconfiguration";
 		internal const string EventRegardingLink = "{0}?regarding={1}&eventCategories={2}";
@@ -28,6 +28,7 @@
 		internal const string DummyReleaseVersion = "0.0.0.0";
 		internal const string SelfLink = "Self";
 		internal const string EventLink = "Events";
+        internal const string UsageLink = "Usage";
 		internal const string InterruptionLink = "Interruptions";
 		internal const string OctopusDeploymentLink = "/app#/deployments/{0}";
 		internal const string CancelledTaskEventCategory = "TaskCanceled";
@@ -38,7 +39,7 @@
 		internal const string InterruptionNoteKey = "Notes";
 		internal const string Return = @"
 ";
-		internal const string ErrorPrinting = "{0}{1}";
+		internal const string LogPrinting = "{0}{1}";
 		internal const string MetaStepName = "MetaStep";
 		internal const string DeploymentIdKey = "DeploymentId";
 
@@ -58,5 +59,11 @@ FROM	DeploymentProcess dp
 WHERE p.Id = @ProjectId";
 		internal const string ProjectIdParameter = "@ProjectId";
 		internal const string ParameterPairings = "Parameter: {0}, Value: {1}";
-	}
+
+        internal const string RegExFormatPatternVariableValueBegin = @"\#\{\b";
+        internal const string RegExFormatPatternVariableValueEnd = @"\b\}";
+        internal const string RegExFormatPatterScriptModuleBegin = @"\$\bOctopusParameters\b\[\""\b";
+        internal const string RegExFormatPatterScriptModuleEnd = @"\b\""\]";
+
+    }
 }

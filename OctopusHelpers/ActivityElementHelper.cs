@@ -22,7 +22,7 @@ namespace OctopusHelpers
                 output += activityElementToProcess.Name + ResourceStrings.Return;
                 foreach (var activityLogElement in activityElementToProcess.LogElements)
                 {
-                    output += (string.Format(ResourceStrings.ErrorPrinting, tabCount, activityLogElement.MessageText.Replace(ResourceStrings.Return, string.Format(ResourceStrings.ErrorPrinting, ResourceStrings.Return, tabCount)))) + ResourceStrings.Return;
+                    output += (string.Format(ResourceStrings.LogPrinting, tabCount, activityLogElement.MessageText.Replace(ResourceStrings.Return, string.Format(ResourceStrings.LogPrinting, ResourceStrings.Return, tabCount)))) + ResourceStrings.Return;
                 }
                 foreach (var activityElement in activityElementToProcess.Children)
                 {
@@ -36,7 +36,7 @@ namespace OctopusHelpers
                     output += activityElementToProcess.Name + ResourceStrings.Return;
                     foreach (var activityLogElement in activityElementToProcess.LogElements)
                     {
-                        output += (string.Format(ResourceStrings.ErrorPrinting, tabCount, activityLogElement.MessageText.Replace(ResourceStrings.Return, string.Format(ResourceStrings.ErrorPrinting, ResourceStrings.Return, tabCount)))) + ResourceStrings.Return;
+                        output += (string.Format(ResourceStrings.LogPrinting, tabCount, activityLogElement.MessageText.Replace(ResourceStrings.Return, string.Format(ResourceStrings.LogPrinting, ResourceStrings.Return, tabCount)))) + ResourceStrings.Return;
                     }
                     foreach (var activityElement in activityElementToProcess.Children)
                     {

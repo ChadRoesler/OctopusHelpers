@@ -106,5 +106,16 @@ namespace OctopusHelpers.ExtensionMethods
         {
             return client.Get<MaintenanceConfigurationResource>(ResourceStrings.MaintenanceConfigApi);
         }
+
+        /// <summary>
+        /// Gets the Usage resource of the passed ActionTemplate.
+        /// </summary>
+        /// <param name="client">The Repository this is tacked on to.</param>
+        /// <param name="actionTemplate"></param>
+        /// <returns>The List of action template usages.</returns>
+        internal static IEnumerable<ActionTemplateUsageResource> GetActionTemplateUsage(this IOctopusClient client, ActionTemplateResource actionTemplate)
+        {
+            return client.Get<IEnumerable<ActionTemplateUsageResource>>(actionTemplate.Link(ResourceStrings.UsageLink));
+        }
     }
 }
