@@ -10,23 +10,44 @@ namespace OctopusHelpers
     {
         public static bool VarTextContainsVariable(string textToSearch, string varName)
         {
-            var formattedSearch = ResourceStrings.RegExFormatPatternVariableValueBegin + varName + ResourceStrings.RegExFormatPatternVariableValueEnd;
-            var markerRegex = new Regex(formattedSearch, RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            return markerRegex.IsMatch(textToSearch);
+            if (!string.IsNullOrWhiteSpace(textToSearch))
+            {
+                var formattedSearch = ResourceStrings.RegExFormatPatternVariableValueBegin + varName + ResourceStrings.RegExFormatPatternVariableValueEnd;
+                var markerRegex = new Regex(formattedSearch, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                return markerRegex.IsMatch(textToSearch);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static bool OctScriptTextContainsVariable(string textToSearch, string varName)
         {
-            var formattedSearch = ResourceStrings.RegExFormatPatterScriptModuleBegin + varName + ResourceStrings.RegExFormatPatterScriptModuleEnd;
-            var markerRegex = new Regex(formattedSearch, RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            return markerRegex.IsMatch(textToSearch);
+            if (!string.IsNullOrWhiteSpace(textToSearch))
+            {
+                var formattedSearch = ResourceStrings.RegExFormatPatterScriptModuleBegin + varName + ResourceStrings.RegExFormatPatterScriptModuleEnd;
+                var markerRegex = new Regex(formattedSearch, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                return markerRegex.IsMatch(textToSearch);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static string VariableValueWithReplacedText(string textToReplace, string varName, string varValue)
         {
-            var formattedSearch = ResourceStrings.RegExFormatPatternVariableValueBegin + varName + ResourceStrings.RegExFormatPatternVariableValueEnd;
-            var markerRegex = new Regex(formattedSearch, RegexOptions.IgnoreCase | RegexOptions.Multiline);
-            return markerRegex.Replace(textToReplace, varValue);
+            if (!string.IsNullOrWhiteSpace(textToReplace))
+            {
+                var formattedSearch = ResourceStrings.RegExFormatPatternVariableValueBegin + varName + ResourceStrings.RegExFormatPatternVariableValueEnd;
+                var markerRegex = new Regex(formattedSearch, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                return markerRegex.Replace(textToReplace, varValue);
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
     }
 }

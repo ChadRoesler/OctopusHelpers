@@ -6,7 +6,7 @@ using OctopusHelpers.Constants;
 
 namespace OctopusHelpers.Models
 {
-    public class VariableInfo
+    public class VariableInfoResource
     {
         /// <Note>
         /// Further work will be done here to allow comitting and altering of variables this allow for storage for now.
@@ -28,7 +28,7 @@ namespace OctopusHelpers.Models
         private VariableResource Variable;
         private OctopusRepository OctopusRepo;
 
-        public VariableInfo(OctopusRepository octRepository, VariableResource variable, LibraryVariableSetResource library)
+        public VariableInfoResource(OctopusRepository octRepository, VariableResource variable, LibraryVariableSetResource library)
         {
             Variable = variable;
             LibraryVariableSet = library;
