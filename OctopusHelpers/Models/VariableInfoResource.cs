@@ -6,7 +6,7 @@ using OctopusHelpers.Constants;
 
 namespace OctopusHelpers.Models
 {
-    internal class VariableInfo
+    public class VariableInfo
     {
         /// <Note>
         /// Further work will be done here to allow comitting and altering of variables this allow for storage for now.
@@ -75,36 +75,36 @@ namespace OctopusHelpers.Models
         public string DeploymentTimeValue { get; set; }
         public bool Sensative { get; set; }
 
-        internal List<VariableResource> UsedInVariableList
+        public List<VariableResource> UsedInVariableList
         {
             get { return VariableList; }
         }
-        internal List<VariableResource> UsedInScriptModuleList
+        public List<VariableResource> UsedInScriptModuleList
         {
             get { return ScriptModuleList; }
         }
-        internal List<string> UsedInFileList
+        public List<string> UsedInFileList
         {
             get { return FileList; }
         }
-        internal List<ProjectResource> UsedInProjectScriptList
+        public List<ProjectResource> UsedInProjectScriptList
         {
             get { return ProjectScriptList; }
         }
-        internal List<ActionTemplateResource> UsedInStepTemplateScriptList
+        public List<ActionTemplateResource> UsedInStepTemplateScriptList
         {
             get { return StepTemplateScriptList; }
         }
-        internal List<ProjectResource> UsedInProjectVariablesList
+        public List<ProjectResource> UsedInProjectVariablesList
         {
             get { return ProjectVariablesList; }
         }
-        internal List<ActionTemplateResource> UsedInStepTemplateVariablesList
+        public List<ActionTemplateResource> UsedInStepTemplateVariablesList
         {
             get { return StepTemplateVariablesList; }
         }
 
-        internal string EnvironmentScopeNames
+        public string EnvironmentScopeNames
         {
             get
             {
@@ -118,7 +118,7 @@ namespace OctopusHelpers.Models
                 }
             }
         }
-        internal string RoleScopeNames
+        public string RoleScopeNames
         {
             get
             {
@@ -132,7 +132,7 @@ namespace OctopusHelpers.Models
                 }
             }
         }
-        internal string MachineScopeNames
+        public string MachineScopeNames
         {
             get
             {
@@ -146,7 +146,7 @@ namespace OctopusHelpers.Models
                 }
             }
         }
-        internal string UsedInVariableNames
+        public string UsedInVariableNames
         {
             get
             {
@@ -160,7 +160,7 @@ namespace OctopusHelpers.Models
                 }
             }
         }
-        internal string UsedInScriptModuleNames
+        public string UsedInScriptModuleNames
         {
             get
             {
@@ -174,7 +174,7 @@ namespace OctopusHelpers.Models
                 }
             }
         }
-        internal string UsedInFileNames
+        public string UsedInFileNames
         {
             get
             {
@@ -188,7 +188,7 @@ namespace OctopusHelpers.Models
                 }
             }
         }
-        internal string UsedInProjectScriptNames
+        public string UsedInProjectScriptNames
         {
             get
             {
@@ -202,7 +202,7 @@ namespace OctopusHelpers.Models
                 }
             }
         }
-        internal string UsedInStepTemplateScriptNames
+        public string UsedInStepTemplateScriptNames
         {
             get
             {
@@ -216,7 +216,7 @@ namespace OctopusHelpers.Models
                 }
             }
         }
-        internal string UsedInProjectVariableNames
+        public string UsedInProjectVariableNames
         {
             get
             {
@@ -230,7 +230,7 @@ namespace OctopusHelpers.Models
                 }
             }
         }
-        internal string UsedInStepTemplateVariableNames
+        public string UsedInStepTemplateVariableNames
         {
             get
             {
@@ -245,7 +245,7 @@ namespace OctopusHelpers.Models
             }
         }
 
-        internal bool Unused
+        public bool Unused
         {
             get
             {
@@ -253,7 +253,7 @@ namespace OctopusHelpers.Models
             }
         }
 
-        internal void LoadReferencedVariables(List<VariableResource> variableList)
+        public void LoadReferencedVariables(List<VariableResource> variableList)
         {
 
             foreach (var variable in variableList)
@@ -265,7 +265,7 @@ namespace OctopusHelpers.Models
             }
         }
 
-        internal void LoadDeployTimeValue(List<VariableResource> variableList, int loopThroughCount)
+        public void LoadDeployTimeValue(List<VariableResource> variableList, int loopThroughCount)
         {
             for (int i = 1; i <= loopThroughCount; ++i)
             {
@@ -279,7 +279,7 @@ namespace OctopusHelpers.Models
             }
         }
 
-        internal void LoadReferencedScriptModules(List<VariableResource> scriptList)
+        public void LoadReferencedScriptModules(List<VariableResource> scriptList)
         {
             foreach (var scriptModule in scriptList)
             {
@@ -290,7 +290,7 @@ namespace OctopusHelpers.Models
             }
         }
 
-        internal void LoadReferencedFiles(Dictionary<string, string> buildConfigDictionary)
+        public void LoadReferencedFiles(Dictionary<string, string> buildConfigDictionary)
         {
             foreach (var buildConfig in buildConfigDictionary)
             {
@@ -301,7 +301,7 @@ namespace OctopusHelpers.Models
             }
         }
 
-        internal void LoadReferencedDeploymentProcesses(Dictionary<ProjectResource, DeploymentProcessResource> deploymentProcessDictionary)
+        public void LoadReferencedDeploymentProcesses(Dictionary<ProjectResource, DeploymentProcessResource> deploymentProcessDictionary)
         {
             foreach (var deploymentProcess in deploymentProcessDictionary)
             {
@@ -328,7 +328,7 @@ namespace OctopusHelpers.Models
             }
         }
 
-        internal void LoadReferencedStepTemplateScripts(List<ActionTemplateResource> stepTemplateList)
+        public void LoadReferencedStepTemplateScripts(List<ActionTemplateResource> stepTemplateList)
         {
             foreach (var stepTemplate in stepTemplateList)
             {
@@ -348,7 +348,7 @@ namespace OctopusHelpers.Models
             }
         }
 
-        internal void LoadReferencedProjectVariables(List<ProjectResource> projectList)
+        public void LoadReferencedProjectVariables(List<ProjectResource> projectList)
         {
             foreach(var project in projectList)
             {
@@ -365,7 +365,7 @@ namespace OctopusHelpers.Models
             }
         }
 
-        internal void LoadRefrencedStepTemplateVariables(List<ActionTemplateResource> stepTemplateList)
+        public void LoadRefrencedStepTemplateVariables(List<ActionTemplateResource> stepTemplateList)
         {
             foreach (var stepTemplate in stepTemplateList)
             {

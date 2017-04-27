@@ -9,21 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>
-      Update to TaskHelpers:
-      - Gathering StepNames
-      - Gathering Activity Elements
-      Update to OctopusClientExtensions
-      - Gathers ActionTemplate Usage
-      Addition of ActionTemplateHelper
-      - Its new gathers Usage Resources
-      Corrections and Updates to ResourceStrings.
-      Addition of:
-      VariableInfoResource
-      - Allows gathering of detailed information about a variable
-      Alteration of VariableHelper to VariableSetHelper
-      - More appropriately Named
-    </releaseNotes>
+    <releaseNotes>Changed VariableInfoResource to Public.</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Octopus</tags>
   </metadata>
