@@ -21,5 +21,12 @@ namespace OctopusHelpers
             var markerRegex = new Regex(formattedSearch, RegexOptions.IgnoreCase | RegexOptions.Multiline);
             return markerRegex.IsMatch(textToSearch);
         }
+
+        public static string VariableValueWithReplacedText(string textToReplace, string varName, string varValue)
+        {
+            var formattedSearch = ResourceStrings.RegExFormatPatternVariableValueBegin + varName + ResourceStrings.RegExFormatPatternVariableValueEnd;
+            var markerRegex = new Regex(formattedSearch, RegexOptions.IgnoreCase | RegexOptions.Multiline);
+            return markerRegex.Replace(textToReplace, varValue);
+        }
     }
 }
