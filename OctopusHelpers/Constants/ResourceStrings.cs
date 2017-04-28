@@ -43,8 +43,9 @@
 
 		internal const string RegExFormatPatternVariableValueBegin = @"\#\{\b";
 		internal const string RegExFormatPatternVariableValueEnd = @"\b\}";
-		internal const string RegExFormatPatterScriptModuleBegin = @"\$\bOctopusParameters\b\[\""\b";
-		internal const string RegExFormatPatterScriptModuleEnd = @"\b\""\]";
+		internal const string RegExFormatPatterScriptModuleBegin = @"\$\bOctopusParameters\b\[[\""\']\b";
+
+		internal const string RegExFormatPatterScriptModuleEnd = @"\b[\""\']\]";
 		internal const string ScripPropertyType = "Script";
 		internal const string ScriptModuleNameReplacement = "Octopus.Script.Module[";
 
