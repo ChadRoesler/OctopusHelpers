@@ -173,5 +173,18 @@ namespace OctopusHelpers
             }
             return varList;
         }
+
+        /// <summary>
+        /// Gathers the Deployment From the Task Passed
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        public static DeploymentResource GetDeploymentFromTask(OctopusRepository octRepository, TaskResource task)
+        {
+            var deployment = new DeploymentResource();
+            deployment = octRepository.Deployments.Get(task.Arguments[ResourceStrings.DeploymentIdKey].ToString());
+            return deployment;
+        }
     }
 }

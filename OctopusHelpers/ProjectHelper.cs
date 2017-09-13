@@ -122,5 +122,17 @@ namespace OctopusHelpers
             octRepository.Projects.Delete(projectToDelete);
         }
 
+        /// <summary>
+        /// Gets a project based on the Task Passed
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="task"></param>
+        /// <returns></returns>
+        public static ProjectResource GetProjectFromTask(OctopusRepository octRepository, TaskResource task)
+        {
+            var project = new ProjectResource();
+            project = octRepository.Projects.Get(DeploymentHelper.GetDeploymentFromTask(octRepository, task).ProjectId);
+            return project;
+        }
     }
 }

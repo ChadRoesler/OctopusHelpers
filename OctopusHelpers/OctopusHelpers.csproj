@@ -44,8 +44,8 @@
       <HintPath>packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Octopus.Client, Version=4.13.15.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Octopus.Client.4.13.15\lib\net45\Octopus.Client.dll</HintPath>
+    <Reference Include="Octopus.Client, Version=4.22.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Octopus.Client.4.22.1\lib\net45\Octopus.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
