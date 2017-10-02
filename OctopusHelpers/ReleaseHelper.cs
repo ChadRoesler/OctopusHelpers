@@ -133,14 +133,13 @@ namespace OctopusHelpers
             var releaseList = new List<ReleaseResource>();
             var projectArray = new string[] { project.Id };
             var environmentArray = new string[] { environment.Id };
-            var deployments = octRepository.Deployments.FindAll(projectArray, environmentArray, 0);
-            if (deployments != null && deployments.TotalResults > 0)
+            var deployments = octRepository.Client.GetProjectEnvironmentDeployments(projectArray, environmentArray).ToList();
+            if (deployments != null && deployments.Count > 0)
             {
-                var deploymentItems = deployments.Items;
                 var releases = GetProjectReleases(octRepository, project);
                 if (releases != null && releases.Count() > 0)
                 {
-                    releaseList.AddRange(releases.Where(x => deploymentItems.Any(d => d.ReleaseId.Equals(x.Id))).ToList());
+                    releaseList.AddRange(releases.Where(x => deployments.Any(d => d.ReleaseId.Equals(x.Id))).ToList());
                 }
             }
             return releaseList;
@@ -178,10 +177,10 @@ namespace OctopusHelpers
         {
             var projectArray = new string[] { project.Id };
             var environmentArray = new string[] { environment.Id };
-            var lastDeployedReleases = octRepository.Deployments.FindAll(projectArray, environmentArray, 0);
-            if (lastDeployedReleases != null && lastDeployedReleases.TotalResults > 0)
+            var lastDeployedReleases = octRepository.Client.GetProjectEnvironmentDeployments(projectArray, environmentArray).ToList();
+            if (lastDeployedReleases != null && lastDeployedReleases.Count > 0)
             {
-                var lastDeployedReleaseId = lastDeployedReleases.Items.OrderByDescending(p => p.Created).FirstOrDefault().ReleaseId;
+                var lastDeployedReleaseId = lastDeployedReleases.OrderByDescending(p => p.Created).FirstOrDefault().ReleaseId;
                 var lastDeployedRelease = octRepository.Releases.Get(lastDeployedReleaseId);
                 return lastDeployedRelease;
             }

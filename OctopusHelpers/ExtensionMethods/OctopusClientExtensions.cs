@@ -28,13 +28,26 @@ namespace OctopusHelpers.ExtensionMethods
             return events;
         }
 
+        internal static IEnumerable<DeploymentResource> GetProjectEnvironmentDeployments(this IOctopusClient client, string[] projectIdList, string[] environmentIdList)
+        {
+            var deployments = new List<DeploymentResource>();
+            var projectIdStringList = string.Join(",", projectIdList);
+            var environmentIdStringList = string.Join(",", environmentIdList);
+            client.Paginate<DeploymentResource>(string.Format(ResourceStrings.DeploymentsLink, client.RootDocument.Link(ResourceStrings.DeploymentLink), projectIdStringList, environmentIdStringList), new { }, page =>
+            {
+                deployments.AddRange(page.Items);
+                return true;
+            });
+            return deployments;
+        }
+
         /// <summary>
         /// Gathers the Interruptions tied to a Task
         /// </summary>
         /// <param name="client">The Repository this is tacked on to.</param>
-        /// <param name="resourceId">The resouce id to returns interruptiuons for.</param>
+        /// <param name="resourceId">The resource id to returns interruptions for.</param>
         /// <param name="pendingOnly">Returns only pending interruptions.</param>
-        /// <returns>Enumberable of InterruptionResources.</returns>
+        /// <returns>Enumerable of InterruptionResources.</returns>
         internal static IEnumerable<InterruptionResource> GetResourceInterruptions(this IOctopusClient client, string resourceId, bool pendingOnly)
         {
             var interruptions = new List<InterruptionResource>();

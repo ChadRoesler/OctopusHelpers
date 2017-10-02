@@ -19,6 +19,7 @@
 		internal const string EventRegardingLink = "{0}?regarding={1}&eventCategories={2}";
 		internal const string InterruptionRegardingLink = "{0}?regarding={1}&pendingOnly={2}";
 		internal const string TeamUserIdFormat = "~/api/Users/{0}";
+        internal const string TeamUserIdFormat = "~/api/Users/{0}";
 		internal const string ReleaseLink = "Releases";
 		internal const string ScriptModuleNameFormat = "Octopus.Script.Module[{0}]";
 		internal const string PackageActionType = "Octopus.TentaclePackage";
@@ -27,6 +28,7 @@
 		internal const string SelfLink = "Self";
 		internal const string EventLink = "Events";
 		internal const string UsageLink = "Usage";
+        internal const string DeploymentLink = "Deployments";
 		internal const string InterruptionLink = "Interruptions";
 		internal const string OctopusDeploymentLink = "/app#/deployments/{0}";
 		internal const string CancelledTaskEventCategory = "TaskCanceled";
@@ -51,7 +53,7 @@
 
 		/// <summary>
 		/// Abandon all hope ye who enter here.
-		/// This for backdoor modification for updating deployment processes.
+		/// This for back-door modification for updating deployment processes.
 		/// </summary>
 		internal const string ProjectProcessUpdate = @"UPDATE	dp
 SET		dp.JSON = o.JSON
