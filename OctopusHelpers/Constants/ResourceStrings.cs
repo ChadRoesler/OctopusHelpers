@@ -18,7 +18,7 @@
 		internal const string MaintenanceConfigApi = "~/api/maintenanceconfiguration";
 		internal const string EventRegardingLink = "{0}?regarding={1}&eventCategories={2}";
 		internal const string InterruptionRegardingLink = "{0}?regarding={1}&pendingOnly={2}";
-		internal const string TeamUserIdFormat = "~/api/Users/{0}";
+        internal const string DeploymentsLink = "{0}?projects={1}&environments={2}";
         internal const string TeamUserIdFormat = "~/api/Users/{0}";
 		internal const string ReleaseLink = "Releases";
 		internal const string ScriptModuleNameFormat = "Octopus.Script.Module[{0}]";
