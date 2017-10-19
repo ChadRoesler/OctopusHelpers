@@ -88,6 +88,57 @@ namespace OctopusHelpers
         }
 
         /// <summary>
+        /// Builds a DeploymentResource for the release and environment passed, creates what steps to skip based on a string list.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="release"></param>
+        /// <param name="environment"></param>
+        /// <param name="comment"></param>
+        /// <param name="formValues"></param>
+        /// <param name="guidedFailure"></param>
+        /// <param name="skippedSteps"></param>
+        /// <param name="dateToDeploy"></param>
+        /// <returns>Creates the DeploymentResource.</returns>
+        public static DeploymentResource BuildDeployment(OctopusRepository octRepository, ReleaseResource release, EnvironmentResource environment, string comment, Dictionary<string, string> formValues, bool guidedFailure, IEnumerable<string> skippedSteps, DateTimeOffset? dateToDeploy)
+        {
+            var machineIDs = new ReferenceCollection();
+            var skippedStepIDs = new ReferenceCollection();
+            var projectSteps = StepHelper.GetProjectEnvironmentDeploymentSteps(octRepository, release, environment);
+            var skippedStepList = projectSteps.Where(p => skippedSteps.Any(s => s.Equals(p.ActionName, StringComparison.OrdinalIgnoreCase))).Select(d => d.ActionId);
+            skippedStepIDs.ReplaceAll(skippedStepList);
+            var releaseTemplate = octRepository.Releases.GetTemplate(release);
+            var deploymentPromotionTarget = releaseTemplate.PromoteTo.SingleOrDefault(x => x.Id.Equals(environment.Id, StringComparison.OrdinalIgnoreCase));
+            var deploymentPreview = octRepository.Releases.GetPreview(deploymentPromotionTarget);
+
+            foreach (var element in deploymentPreview.Form.Elements)
+            {
+                var variableInput = element.Control as VariableValue;
+                if (variableInput != null)
+                {
+                    var variableValue = formValues[variableInput.Label] ?? formValues[variableInput.Name];
+                    if (string.IsNullOrWhiteSpace(variableValue) && element.IsValueRequired)
+                    {
+                        throw new ArgumentException(string.Format(ErrorStrings.MissingRequiredVar, variableInput.Label ?? variableInput.Name, ResourceStrings.FormValuesArgException));
+                    }
+                }
+            }
+            var deploymentResource = new DeploymentResource
+            {
+                EnvironmentId = environment.Id,
+                SkipActions = skippedStepIDs,
+                ReleaseId = release.Id,
+                ForcePackageDownload = false,
+                UseGuidedFailure = guidedFailure,
+                SpecificMachineIds = machineIDs,
+                ForcePackageRedeployment = true,
+                FormValues = formValues,
+                QueueTime = dateToDeploy,
+                Comments = comment
+            };
+            return deploymentResource;
+        }
+
+        /// <summary>
         /// Builds a DeploymentResource for the release and environment passed, allows you to directly pass the list of skipped steps
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
@@ -128,6 +179,53 @@ namespace OctopusHelpers
                 ForcePackageRedeployment = true,
                 FormValues = formValues,
                 QueueTime = dateToDeploy
+            };
+            return deploymentResource;
+        }
+
+        /// <summary>
+        /// Builds a DeploymentResource for the release and environment passed, allows you to directly pass the list of skipped steps
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="release"></param>
+        /// <param name="environment"></param>
+        /// <param name="comment"></param>
+        /// <param name="formValues"></param>
+        /// <param name="guidedFailure"></param>
+        /// <param name="skippedSteps"></param>
+        /// <param name="dateToDeploy"></param>
+        /// <returns></returns>
+        public static DeploymentResource BuildDeployment(OctopusRepository octRepository, ReleaseResource release, EnvironmentResource environment, string comment, Dictionary<string, string> formValues, bool guidedFailure, ReferenceCollection skippedSteps, DateTimeOffset? dateToDeploy)
+        {
+            var machineIDs = new ReferenceCollection();
+            var releaseTemplate = octRepository.Releases.GetTemplate(release);
+            var deploymentPromotionTarget = releaseTemplate.PromoteTo.SingleOrDefault(x => x.Id.Equals(environment.Id, StringComparison.OrdinalIgnoreCase));
+            var deploymentPreview = octRepository.Releases.GetPreview(deploymentPromotionTarget);
+
+            foreach (var element in deploymentPreview.Form.Elements)
+            {
+                var variableInput = element.Control as VariableValue;
+                if (variableInput != null)
+                {
+                    var variableValue = formValues[variableInput.Label] ?? formValues[variableInput.Name];
+                    if (string.IsNullOrWhiteSpace(variableValue) && element.IsValueRequired)
+                    {
+                        throw new ArgumentException(string.Format(ErrorStrings.MissingRequiredVar, variableInput.Label ?? variableInput.Name, ResourceStrings.FormValuesArgException));
+                    }
+                }
+            }
+            var deploymentResource = new DeploymentResource
+            {
+                EnvironmentId = environment.Id,
+                SkipActions = skippedSteps,
+                ReleaseId = release.Id,
+                ForcePackageDownload = false,
+                UseGuidedFailure = guidedFailure,
+                SpecificMachineIds = machineIDs,
+                ForcePackageRedeployment = true,
+                FormValues = formValues,
+                QueueTime = dateToDeploy,
+                Comments = comment
             };
             return deploymentResource;
         }

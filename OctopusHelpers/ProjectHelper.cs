@@ -134,5 +134,11 @@ namespace OctopusHelpers
             project = octRepository.Projects.Get(DeploymentHelper.GetDeploymentFromTask(octRepository, task).ProjectId);
             return project;
         }
+
+        public static void DisableProject(OctopusRepository octRepository, ProjectResource project)
+        {
+            project.IsDisabled = true;
+            octRepository.Projects.Modify(project);
+        }
     }
 }
