@@ -130,5 +130,34 @@ namespace OctopusHelpers.ExtensionMethods
         {
             return client.Get<IEnumerable<ActionTemplateUsageResource>>(actionTemplate.Link(ResourceStrings.UsageLink));
         }
+
+        /// <summary>
+        /// Gets the Channels of the passed Project
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="project"></param>
+        /// <returns></returns>
+        internal static IEnumerable<ChannelResource> GetProjectChannels(this IOctopusClient client, ProjectResource project)
+        {
+            List<ChannelResource> channels = new List<ChannelResource>();
+            client.Paginate<ChannelResource>(project.Link(ResourceStrings.ChannelLink), new { }, page =>
+            {
+                channels.AddRange(page.Items);
+                return true;
+            });
+            return channels;
+
+        }
+
+        internal static IEnumerable<ReleaseResource> GetChannelReleases(this IOctopusClient client, ChannelResource channel)
+        {
+            List<ReleaseResource> releases = new List<ReleaseResource>();
+            client.Paginate<ReleaseResource>(channel.Link(ResourceStrings.ReleaseLink), new { }, page =>
+            {
+                releases.AddRange(page.Items);
+                return true;
+            });
+            return releases;
+        }
     }
 }

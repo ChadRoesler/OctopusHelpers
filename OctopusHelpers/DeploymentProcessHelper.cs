@@ -67,9 +67,10 @@ namespace OctopusHelpers
         /// <summary>
         /// Abandon all hope ye who enter here.
         /// Updates the passed Project's Release's Deployment Process to be that of the Projects.
-        /// When you need to have old releases have the current projects process.
+        /// When you need to have old releases have their projects process.
         /// USE WITH CAUTION!
         /// THIS IS A REALLY DIRTY WAY TO DO THIS, BUT SOMETIMES YOU GOTTA DO YER DIRT.
+        /// https://i.imgur.com/gPBuAgl.gif
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>

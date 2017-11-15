@@ -24,6 +24,11 @@ namespace OctopusHelpers
             return octRepository.Projects.GetAllReleases(project);
         }
 
+        public static IEnumerable<ReleaseResource> GetChannelReleases(OctopusRepository octRepository, ChannelResource channel)
+        {
+            return octRepository.Client.GetChannelReleases(channel);
+        }
+
         /// <summary>
         /// Gather a Project's Release from the passed Version.
         /// </summary>
@@ -71,6 +76,32 @@ namespace OctopusHelpers
                     throw new ArgumentException(string.Format(ErrorStrings.MissingPackageStep, step), "stepAndVersionDictionary");
                 }
             }
+            release.SelectedPackages = package;
+            release.ReleaseNotes = releaseNotes;
+            release.Version = releaseVersion;
+            release.ProjectId = project.Id;
+            octRepository.Releases.Create(release);
+        }
+
+        public static void CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, ChannelResource channel, string releaseVersion, Dictionary<string, Version> stepAndVersionDictionary, string releaseNotes)
+        {
+
+            var release = new ReleaseResource();
+            var projectDeploymentProcess = DeploymentProcessHelper.GetDeploymentProcessFromProject(octRepository, project);
+            var packageSteps = DeploymentProcessHelper.GetPackageSteps(projectDeploymentProcess);
+            var package = new List<SelectedPackage>();
+            foreach (var step in packageSteps)
+            {
+                if (stepAndVersionDictionary.ContainsKey(step))
+                {
+                    package.Add(new SelectedPackage(step, stepAndVersionDictionary[step].ToString()));
+                }
+                else
+                {
+                    throw new ArgumentException(string.Format(ErrorStrings.MissingPackageStep, step), "stepAndVersionDictionary");
+                }
+            }
+            release.ChannelId = channel.Id;
             release.SelectedPackages = package;
             release.ReleaseNotes = releaseNotes;
             release.Version = releaseVersion;
@@ -270,5 +301,7 @@ namespace OctopusHelpers
             release.SelectedPackages = selectedPackageList.Values.ToList();
             octRepository.Releases.Modify(release);
         }
+
+        
     }
 }

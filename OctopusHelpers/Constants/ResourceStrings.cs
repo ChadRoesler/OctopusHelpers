@@ -7,29 +7,31 @@
 	{
 		internal const string EnvironmentIdFormat = "environments-{0}";
 		internal const string ProjectIdFormat = "projects-{0}";
-		internal const string ProjectGroupIdFormat = "ProjectGroups-{0}";
-		internal const string LibraryVariableSetIdFormat = "LibraryVariableSets-{0}";
+		internal const string ProjectGroupIdFormat = "projectgroups-{0}";
+		internal const string LibraryVariableSetIdFormat = "libraryvariableSets-{0}";
 		internal const string UserIdFormat = "users-{0}";
-		internal const string LifecycleIdFormat = "Lifecycles-{0}";
-		internal const string TeamIdFormat = "Teams-{0}";
-		internal const string MachineIdFormat = "Machines-{0}";
-		internal const string TaskIdFormat = "ServerTasks-{0}";
+        internal const string ChannelIdFormat = "channel-{0}";
+		internal const string LifecycleIdFormat = "lifecycles-{0}";
+		internal const string TeamIdFormat = "teams-{0}";
+		internal const string MachineIdFormat = "machines-{0}";
+		internal const string TaskIdFormat = "serverTasks-{0}";
 		internal const string CloneCommandApiFormat = "~/api/projects?clone={0}";
 		internal const string MaintenanceConfigApi = "~/api/maintenanceconfiguration";
 		internal const string EventRegardingLink = "{0}?regarding={1}&eventCategories={2}";
 		internal const string InterruptionRegardingLink = "{0}?regarding={1}&pendingOnly={2}";
         internal const string DeploymentsLink = "{0}?projects={1}&environments={2}";
         internal const string TeamUserIdFormat = "~/api/Users/{0}";
-		internal const string ReleaseLink = "Releases";
+		internal const string ReleaseLink = "releases";
 		internal const string ScriptModuleNameFormat = "Octopus.Script.Module[{0}]";
 		internal const string PackageActionType = "Octopus.TentaclePackage";
 		internal const string DummyPackageVersion = "0.0.0.0";
 		internal const string DummyReleaseVersion = "0.0.0.0";
-		internal const string SelfLink = "Self";
-		internal const string EventLink = "Events";
-		internal const string UsageLink = "Usage";
-        internal const string DeploymentLink = "Deployments";
-		internal const string InterruptionLink = "Interruptions";
+		internal const string SelfLink = "self";
+		internal const string EventLink = "events";
+		internal const string UsageLink = "usage";
+        internal const string ChannelLink = "channels";
+        internal const string DeploymentLink = "deployments";
+		internal const string InterruptionLink = "interruptions";
 		internal const string OctopusDeploymentLink = "/app#/deployments/{0}";
 		internal const string CancelledTaskEventCategory = "TaskCanceled";
 		internal const string FormValuesArgException = "formValues";
@@ -51,11 +53,12 @@
 		internal const string ScripPropertyType = "Script";
 		internal const string ScriptModuleNameReplacement = "Octopus.Script.Module[";
 
-		/// <summary>
-		/// Abandon all hope ye who enter here.
-		/// This for back-door modification for updating deployment processes.
-		/// </summary>
-		internal const string ProjectProcessUpdate = @"UPDATE	dp
+        /// <summary>
+        /// Abandon all hope ye who enter here.
+        /// This for back-door modification for updating deployment processes.
+        /// https://i.imgur.com/gPBuAgl.gif
+        /// </summary>
+        internal const string ProjectProcessUpdate = @"UPDATE	dp
 SET		dp.JSON = o.JSON
 FROM	DeploymentProcess dp
 		INNER JOIN Project p ON p.Id = dp.OwnerId
