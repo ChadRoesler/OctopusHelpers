@@ -21,12 +21,12 @@
 		internal const string InterruptionRegardingLink = "{0}?regarding={1}&pendingOnly={2}";
         internal const string DeploymentsLink = "{0}?projects={1}&environments={2}";
         internal const string TeamUserIdFormat = "~/api/Users/{0}";
-		internal const string ReleaseLink = "releases";
 		internal const string ScriptModuleNameFormat = "Octopus.Script.Module[{0}]";
 		internal const string PackageActionType = "Octopus.TentaclePackage";
 		internal const string DummyPackageVersion = "0.0.0.0";
 		internal const string DummyReleaseVersion = "0.0.0.0";
-		internal const string SelfLink = "self";
+        internal const string ReleaseLink = "releases";
+        internal const string SelfLink = "self";
 		internal const string EventLink = "events";
 		internal const string UsageLink = "usage";
         internal const string ChannelLink = "channels";

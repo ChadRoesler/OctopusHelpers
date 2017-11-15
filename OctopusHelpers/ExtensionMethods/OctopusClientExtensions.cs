@@ -159,5 +159,16 @@ namespace OctopusHelpers.ExtensionMethods
             });
             return releases;
         }
+
+        internal static IEnumerable<DeploymentResource> GetReleaseDeployments(this IOctopusClient client, ReleaseResource release)
+        {
+            List<DeploymentResource> deployments = new List<DeploymentResource>();
+            client.Paginate<DeploymentResource>(release.Link(ResourceStrings.DeploymentLink), new { }, page =>
+            {
+                deployments.AddRange(page.Items);
+                return true;
+            });
+            return deployments;
+        }
     }
 }

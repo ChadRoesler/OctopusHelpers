@@ -5,6 +5,7 @@ using Octopus.Client;
 using Octopus.Client.Model;
 using Octopus.Client.Model.Forms;
 using OctopusHelpers.Constants;
+using OctopusHelpers.ExtensionMethods;
 
 namespace OctopusHelpers
 {
@@ -246,6 +247,19 @@ namespace OctopusHelpers
                 deploymentsList.Add(octRepository.Deployments.Get(queuedDeployment));
             }
             return deploymentsList;
+        }
+
+        public static DeploymentResource GetLastDeploymentOfRelease(OctopusRepository octRepoitory, ReleaseResource release)
+        {
+            var releaseDeployments = octRepoitory.Client.GetReleaseDeployments(release);
+            if(releaseDeployments != null && releaseDeployments.Count() > 0)
+            {
+                return releaseDeployments.OrderBy(x => x.Created).FirstOrDefault();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>

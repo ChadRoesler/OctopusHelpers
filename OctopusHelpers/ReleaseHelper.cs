@@ -83,6 +83,16 @@ namespace OctopusHelpers
             octRepository.Releases.Create(release);
         }
 
+        public static void CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, string releaseVersion, string releaseNotes)
+        {
+            var release = new ReleaseResource();
+            var projectDeploymentProcess = DeploymentProcessHelper.GetDeploymentProcessFromProject(octRepository, project);
+            release.ReleaseNotes = releaseNotes;
+            release.Version = releaseVersion;
+            release.ProjectId = project.Id;
+            octRepository.Releases.Create(release);
+        }
+
         public static void CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, ChannelResource channel, string releaseVersion, Dictionary<string, Version> stepAndVersionDictionary, string releaseNotes)
         {
 
@@ -103,6 +113,18 @@ namespace OctopusHelpers
             }
             release.ChannelId = channel.Id;
             release.SelectedPackages = package;
+            release.ReleaseNotes = releaseNotes;
+            release.Version = releaseVersion;
+            release.ProjectId = project.Id;
+            octRepository.Releases.Create(release);
+        }
+
+        public static void CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, ChannelResource channel, string releaseVersion, string releaseNotes)
+        {
+
+            var release = new ReleaseResource();
+            var projectDeploymentProcess = DeploymentProcessHelper.GetDeploymentProcessFromProject(octRepository, project);
+            release.ChannelId = channel.Id;
             release.ReleaseNotes = releaseNotes;
             release.Version = releaseVersion;
             release.ProjectId = project.Id;
