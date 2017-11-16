@@ -315,7 +315,7 @@ namespace OctopusHelpers
         /// <param name="packageStepDictionary"></param>
         public static void UpdateReleasePackageVersionByStep(OctopusRepository octRepository, ReleaseResource release, Dictionary<string, Version> packageStepDictionary)
         {
-            var selectedPackageList = release.SelectedPackages.ToDictionary(x => x.StepName);
+            var selectedPackageList = release.SelectedPackages.ToDictionary(x => x.ActionName);
             foreach(var packageStep in packageStepDictionary)
             {
                 selectedPackageList[packageStep.Key].Version = packageStep.Value.ToString();

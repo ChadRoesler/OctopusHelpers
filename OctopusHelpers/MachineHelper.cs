@@ -31,7 +31,7 @@ namespace OctopusHelpers
             octRepository.Machines.Modify(machine);
         }
 
-        public static MachineResource CreateMachineResource(OctopusRepository octRepository, string name, IEnumerable<string> roles, IEnumerable<string> environmentIds, string thumbprint, string machineUri, MachinePolicyResource machinePolicy)
+        public static MachineResource CreateMachineResource(OctopusRepository octRepository, string name, List<string> roles, List<string> environmentIds, string thumbprint, string machineUri, MachinePolicyResource machinePolicy)
         {
 
             var rolesReferenceCollection = new ReferenceCollection(roles);
@@ -49,8 +49,9 @@ namespace OctopusHelpers
             return octRepository.Machines.Create(machineToCreate);
         }
 
-        public static MachineResource CreateMachineResource(OctopusRepository octRepository, string name, IEnumerable<string> roles, IEnumerable<string> environmentIds, string thumbprint, string machineUri)
+        public static MachineResource CreateMachineResource(OctopusRepository octRepository, string name, List<string> roles, List<string> environmentIds, string thumbprint, string machineUri)
         {
+            var defaultMachinePolicy = MachinePolicyHelper.GetMachineByName(octRepository, ResourceStrings.DefaultMachinePolicyName);
             var rolesReferenceCollection = new ReferenceCollection(roles);
             var evironmentReferenceCollection = new ReferenceCollection(environmentIds);
             var machineToCreate = new MachineResource()
@@ -59,9 +60,9 @@ namespace OctopusHelpers
                 Roles = rolesReferenceCollection,
                 EnvironmentIds = evironmentReferenceCollection,
                 Thumbprint = thumbprint,
-                Uri = machineUri
+                Uri = machineUri,
+                MachinePolicyId = defaultMachinePolicy.Id
             };
-
             return octRepository.Machines.Create(machineToCreate);
         }
     }

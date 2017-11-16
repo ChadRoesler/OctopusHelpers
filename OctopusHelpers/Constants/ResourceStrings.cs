@@ -35,7 +35,8 @@
 		internal const string InterruptionLink = "interruptions";
 		internal const string OctopusDeploymentLink = "/app#/deployments/{0}";
 		internal const string CancelledTaskEventCategory = "TaskCanceled";
-		internal const string FormValuesArgException = "formValues";
+        internal const string DefaultMachinePolicyName = "Default Machine Policy";
+        internal const string FormValuesArgException = "formValues";
 		internal const string InterruptionGuidanceKey = "Guidance";
 		internal const string InterruptionRetryValue = "Retry";
 		internal const string InterruptionFailValue = "Fail";
