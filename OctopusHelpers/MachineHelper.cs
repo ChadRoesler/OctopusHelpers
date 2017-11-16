@@ -1,4 +1,5 @@
-﻿using Octopus.Client;
+﻿using System.Collections.Generic;
+using Octopus.Client;
 using Octopus.Client.Model;
 using OctopusHelpers.Constants;
 
@@ -22,6 +23,46 @@ namespace OctopusHelpers
         public static MachineResource GetMachineByName(OctopusRepository octRepository, string machineName)
         {
             return octRepository.Machines.FindByName(machineName);
+        }
+
+        public static void AddRoleToMachine (OctopusRepository octRepository, MachineResource machine, string roleName)
+        {
+            machine.Roles.Add(roleName);
+            octRepository.Machines.Modify(machine);
+        }
+
+        public static MachineResource CreateMachineResource(OctopusRepository octRepository, string name, IEnumerable<string> roles, IEnumerable<string> environmentIds, string thumbprint, string machineUri, MachinePolicyResource machinePolicy)
+        {
+
+            var rolesReferenceCollection = new ReferenceCollection(roles);
+            var evironmentReferenceCollection = new ReferenceCollection(environmentIds);
+            var machineToCreate = new MachineResource()
+            {
+                Name = name,
+                Roles = rolesReferenceCollection,
+                EnvironmentIds = evironmentReferenceCollection,
+                Thumbprint = thumbprint,
+                MachinePolicyId = machinePolicy.Id,
+                Uri = machineUri
+            };
+
+            return octRepository.Machines.Create(machineToCreate);
+        }
+
+        public static MachineResource CreateMachineResource(OctopusRepository octRepository, string name, IEnumerable<string> roles, IEnumerable<string> environmentIds, string thumbprint, string machineUri)
+        {
+            var rolesReferenceCollection = new ReferenceCollection(roles);
+            var evironmentReferenceCollection = new ReferenceCollection(environmentIds);
+            var machineToCreate = new MachineResource()
+            {
+                Name = name,
+                Roles = rolesReferenceCollection,
+                EnvironmentIds = evironmentReferenceCollection,
+                Thumbprint = thumbprint,
+                Uri = machineUri
+            };
+
+            return octRepository.Machines.Create(machineToCreate);
         }
     }
 }

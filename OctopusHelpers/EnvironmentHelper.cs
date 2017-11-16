@@ -82,5 +82,17 @@ namespace OctopusHelpers
             }
             return environmentList;
         }
+
+        public static EnvironmentResource CreateEnvironment (OctopusRepository octRepository, string name, string description, bool guidedFailure)
+        {
+            var environmentToCreate = new EnvironmentResource()
+            {
+                Name = name,
+                UseGuidedFailure = guidedFailure,
+                Description = description
+            };
+
+            return octRepository.Environments.Create(environmentToCreate);
+        }
     }
 }

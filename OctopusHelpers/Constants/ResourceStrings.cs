@@ -15,7 +15,8 @@
 		internal const string TeamIdFormat = "teams-{0}";
 		internal const string MachineIdFormat = "machines-{0}";
 		internal const string TaskIdFormat = "serverTasks-{0}";
-		internal const string CloneCommandApiFormat = "~/api/projects?clone={0}";
+        internal const string MachinePolicyIdFormat = "machinepolicies-{0}";
+        internal const string CloneCommandApiFormat = "~/api/projects?clone={0}";
 		internal const string MaintenanceConfigApi = "~/api/maintenanceconfiguration";
 		internal const string EventRegardingLink = "{0}?regarding={1}&eventCategories={2}";
 		internal const string InterruptionRegardingLink = "{0}?regarding={1}&pendingOnly={2}";

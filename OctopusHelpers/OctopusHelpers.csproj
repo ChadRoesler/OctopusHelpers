@@ -72,6 +72,7 @@
     <Compile Include="InterruptionHelper.cs" />
     <Compile Include="LifcecycleHelper.cs" />
     <Compile Include="MachineHelper.cs" />
+    <Compile Include="MachinePolicyHelper.cs" />
     <Compile Include="Models\OctopusDeploymentTaskManager.cs" />
     <Compile Include="Models\VariableInfoResource.cs" />
     <Compile Include="StepHelper.cs" />
