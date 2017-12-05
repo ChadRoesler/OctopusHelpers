@@ -181,9 +181,9 @@ namespace OctopusHelpers
         /// <summary>
         /// Adds the LibraryVariableSet to the passed Project.
         /// </summary>
-        /// <param name="Repository"></param>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="libraryVariableSet"></param>
+        /// <param name="project">The project to add to.</param>
+        /// <param name="libraryVariableSet">The libraryvariableset to add.</param>
         public static void AddLibararyVariableSetToProject(OctopusRepository octRepository, ProjectResource project, LibraryVariableSetResource libraryVariableSet)
         {
             project.IncludedLibraryVariableSetIds.Add(libraryVariableSet.Id);

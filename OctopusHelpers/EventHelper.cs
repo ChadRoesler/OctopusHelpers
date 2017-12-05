@@ -16,7 +16,7 @@ namespace OctopusHelpers
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="resourceId"></param>
         /// <param name="eventCategory"></param>
-        /// <returns></returns>
+        /// <returns>Enumerable of EventResources.</returns>
         public static IEnumerable<EventResource> GetResourceEvents(OctopusRepository octRepository, string resourceId, string eventCategory = "")
         {
             return octRepository.Client.GetResourceEvents(resourceId, eventCategory);

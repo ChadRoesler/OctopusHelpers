@@ -6,7 +6,7 @@ using OctopusHelpers.Constants;
 namespace OctopusHelpers.ExtensionMethods
 {
     /// <summary>
-    /// Extentions to the Client Model.
+    /// Extensions to the Client Model.
     /// </summary>
     internal static class OctopusClientExtensions
     {
@@ -16,7 +16,7 @@ namespace OctopusHelpers.ExtensionMethods
         /// <param name="client">The Repository this is tacked on to.</param>
         /// <param name="resourceId">The resource id of the object for events returned.</param>
         /// <param name="eventCategory">The type of category of events returned [null returns all].</param>
-        /// <returns>Enumberable of EventsResources.</returns>
+        /// <returns>Enumerable of EventsResources.</returns>
         internal static IEnumerable<EventResource> GetResourceEvents(this IOctopusClient client, string resourceId, string eventCategory)
         {
             var events = new List<EventResource>();
@@ -28,6 +28,13 @@ namespace OctopusHelpers.ExtensionMethods
             return events;
         }
 
+        /// <summary>
+        /// Gathers the List of 
+        /// </summary>
+        /// <param name="client">The Repository this is tacked on to.</param>
+        /// <param name="projectIdList">The Project Ids to gather Deployments from.</param>
+        /// <param name="environmentIdList">The Environment Ids to gather Deployments from.</param>
+        /// <returns>Enumerable of Deployment Resources.</returns>
         internal static IEnumerable<DeploymentResource> GetProjectEnvironmentDeployments(this IOctopusClient client, string[] projectIdList, string[] environmentIdList)
         {
             var deployments = new List<DeploymentResource>();
@@ -80,27 +87,6 @@ namespace OctopusHelpers.ExtensionMethods
         }
 
         /// <summary>
-        /// Clones one project from another.
-        /// </summary>
-        /// <param name="client">The Repository this is tacked on to.</param>
-        /// <param name="newProjectName">The new project's name.</param>
-        /// <param name="newProjectDescription">The new project's description,</param>
-        /// <param name="projectToClone">The project to clone from.</param>
-        /// <param name="projectGroupIdForNewProject">The group the project will be placed into [null will copy the group from the projectToClone].</param>
-        /// <param name="lifcycleId">The life cycle of the new project [null will copy the lifecycle from the projectToClone].</param>
-        internal static void CloneProject(this IOctopusClient client, string newProjectName, string newProjectDescription, ProjectResource projectToClone, string projectGroupIdForNewProject, string lifcycleId)
-        {
-            var projectToCreate = new ProjectResource
-            {
-                Name = newProjectName,
-                Description = newProjectDescription,
-                ProjectGroupId = projectGroupIdForNewProject ?? projectToClone.ProjectGroupId,
-                LifecycleId = lifcycleId ?? projectToClone.LifecycleId
-            };
-            client.Post(string.Format(ResourceStrings.CloneCommandApiFormat, projectToClone.Id), projectToCreate);
-        }
-
-        /// <summary>
         /// Sets the MaintenanceConfiguration Resource to the server.
         /// </summary>
         /// <param name="client">The Repository this is tacked on to.</param>
@@ -124,7 +110,7 @@ namespace OctopusHelpers.ExtensionMethods
         /// Gets the Usage resource of the passed ActionTemplate.
         /// </summary>
         /// <param name="client">The Repository this is tacked on to.</param>
-        /// <param name="actionTemplate"></param>
+        /// <param name="actionTemplate">The action template to get more info about.</param>
         /// <returns>The List of action template usages.</returns>
         internal static IEnumerable<ActionTemplateUsageResource> GetActionTemplateUsage(this IOctopusClient client, ActionTemplateResource actionTemplate)
         {
@@ -134,8 +120,8 @@ namespace OctopusHelpers.ExtensionMethods
         /// <summary>
         /// Gets the Channels of the passed Project
         /// </summary>
-        /// <param name="client"></param>
-        /// <param name="project"></param>
+        /// <param name="client">The Repository this is tacked on to.</param>
+        /// <param name="project">The Project to get Channels of</param>
         /// <returns></returns>
         internal static IEnumerable<ChannelResource> GetProjectChannels(this IOctopusClient client, ProjectResource project)
         {
@@ -149,6 +135,12 @@ namespace OctopusHelpers.ExtensionMethods
 
         }
 
+        /// <summary>
+        /// Gathers the releases Tied to a channel.
+        /// </summary>
+        /// <param name="client">The Repository this is tacked on to.</param>
+        /// <param name="channel">The channel to gather</param>
+        /// <returns>Enumerable of Release Resources.</returns>
         internal static IEnumerable<ReleaseResource> GetChannelReleases(this IOctopusClient client, ChannelResource channel)
         {
             List<ReleaseResource> releases = new List<ReleaseResource>();
@@ -160,6 +152,12 @@ namespace OctopusHelpers.ExtensionMethods
             return releases;
         }
 
+        /// <summary>
+        /// Gathers deployments based on release
+        /// </summary>
+        /// <param name="client">The Repository this is tacked on to.</param>
+        /// <param name="release">The release to get deployments of.</param>
+        /// <returns>Enumerable of Deployment Resources.</returns>
         internal static IEnumerable<DeploymentResource> GetReleaseDeployments(this IOctopusClient client, ReleaseResource release)
         {
             List<DeploymentResource> deployments = new List<DeploymentResource>();

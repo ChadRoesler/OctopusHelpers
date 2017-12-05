@@ -15,8 +15,8 @@ namespace OctopusHelpers
         /// Gathers a Team by Name.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="teamName"></param>
-        /// <returns></returns>
+        /// <param name="teamName">Team Name to Gather</param>
+        /// <returns>TeamResource</returns>
         public static TeamResource GetTeamByName(OctopusRepository octRepository, string teamName)
         {
             return octRepository.Teams.FindByName(teamName);
@@ -26,8 +26,8 @@ namespace OctopusHelpers
         /// Gathers a Team by Id.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="teamId"></param>
-        /// <returns></returns>
+        /// <param name="teamId">Team Id to gather.</param>
+        /// <returns>TeamResource</returns>
         public static TeamResource GetTeamById(OctopusRepository octRepository, string teamId)
         {
             var numberOnly = new int();
@@ -45,8 +45,8 @@ namespace OctopusHelpers
         /// Gathers a List of Users in a Team by Team.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="team"></param>
-        /// <returns></returns>
+        /// <param name="team">Team to get users from</param>
+        /// <returns>Enumerable of UserResources</returns>
         public static IEnumerable<UserResource> GetUsersByTeam(OctopusRepository octRepository, TeamResource team)
         {
             return octRepository.Client.GetTeamUsers(team);
@@ -56,8 +56,8 @@ namespace OctopusHelpers
         /// Gathers a List of Users in a Team by Name.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="teamName"></param>
-        /// <returns></returns>
+        /// <param name="teamName">Team name to get users from.</param>
+        /// <returns>Enumerable of UserResources</returns>
         public static IEnumerable<UserResource> GetUsersByTeamName(OctopusRepository octRepository, string teamName)
         {
             var team = GetTeamByName(octRepository, teamName);
@@ -68,8 +68,8 @@ namespace OctopusHelpers
         /// Gathers a List of Users in a Team by Id.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="teamId"></param>
-        /// <returns></returns>
+        /// <param name="teamId">Team id to get users from.</param>
+        /// <returns>Enumerable of UserResources</returns>
         public static IEnumerable<UserResource> GetUsersByTeamId(OctopusRepository octRepository, string teamId)
         {
             var team = GetTeamById(octRepository, teamId);

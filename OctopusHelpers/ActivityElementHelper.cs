@@ -4,6 +4,9 @@ using OctopusHelpers.Constants;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helpers for managing ActivityElements Objects.
+    /// </summary>
     public static class ActivityElementHelper
     {
         /// <summary>
@@ -11,7 +14,7 @@ namespace OctopusHelpers
         /// </summary>
         /// <param name="activityElementToProcess">The ActivityElement to gather info from.</param>
         /// <param name="tabIndex">Tab Index for spacing sub ActivityElements</param>
-        /// <param name="statusesToCheck">Alotment to check for only specific Statuses</param>
+        /// <param name="statusesToCheck">Allotment to check for only specific Statuses</param>
         /// <returns>Formatted Message text from activity elements. </returns>
         public static string GetLogInfo(ActivityElement activityElementToProcess, int tabIndex, List<ActivityStatus> statusesToCheck = null)
         {

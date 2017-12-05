@@ -19,7 +19,7 @@ namespace OctopusHelpers
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
-        /// <returns></returns>
+        /// <returns>DeploymentProcessResource</returns>
         public static DeploymentProcessResource GetDeploymentProcessFromProject(OctopusRepository octRepository, ProjectResource project)
         {
             var deploymentProcess = octRepository.DeploymentProcesses.Get(project.DeploymentProcessId);
@@ -30,7 +30,7 @@ namespace OctopusHelpers
         /// returns step names that gather packages from nuget feeds.
         /// </summary>
         /// <param name="deploymentProcess"></param>
-        /// <returns></returns>
+        /// <returns>Enumerable of Package Step Names</returns>
         public static IEnumerable<string> GetPackageSteps(DeploymentProcessResource deploymentProcess)
         {
             return deploymentProcess.Steps.SelectMany(x => x.Actions).Where(y => y.ActionType.Equals(ResourceStrings.PackageActionType, StringComparison.OrdinalIgnoreCase)).Select(x => x.Name);

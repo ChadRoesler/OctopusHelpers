@@ -17,7 +17,7 @@ namespace OctopusHelpers
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="projectGroupName"></param>
-        /// <returns></returns>
+        /// <returns>ProjectGroupResource</returns>
         public static ProjectGroupResource GetProjectGroupByName(OctopusRepository octRepository, string projectGroupName)
         {
             return octRepository.ProjectGroups.FindByName(projectGroupName);
@@ -28,7 +28,7 @@ namespace OctopusHelpers
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="projectGroupId"></param>
-        /// <returns></returns>
+        /// <returns>ProjectGroupResource</returns>
         public static ProjectGroupResource GetProjectGroupById(OctopusRepository octRepository, string projectGroupId)
         {
             var numberOnly = new int();
@@ -47,7 +47,7 @@ namespace OctopusHelpers
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="projectGroupName"></param>
-        /// <returns></returns>
+        /// <returns>Enumerable of ProjectResources</returns>
         public static IEnumerable<ProjectResource> GetProjectsByProjectGroupName(OctopusRepository octRepository, string projectGroupName)
         {
             var projectGroup = GetProjectGroupByName(octRepository, projectGroupName);
@@ -59,7 +59,7 @@ namespace OctopusHelpers
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="projectGroupId"></param>
-        /// <returns></returns>
+        /// <returns>Enumerable of ProjectResources</returns>
         public static IEnumerable<ProjectResource> GetProjectsByProjectGroupId(OctopusRepository octRepository, string projectGroupId)
         {
             var projectGroup = GetProjectGroupById(octRepository, projectGroupId);
@@ -71,7 +71,7 @@ namespace OctopusHelpers
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="projectGroup"></param>
-        /// <returns></returns>
+        /// <returns>Enumerable of ProjectResources</returns>
         public static IEnumerable<ProjectResource> GetProjectsByProjectGroup(OctopusRepository octRepository, ProjectGroupResource projectGroup)
         {
             return octRepository.ProjectGroups.GetProjects(projectGroup);
@@ -81,7 +81,7 @@ namespace OctopusHelpers
         /// Gathers all ProjectGroup Names.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <returns></returns>
+        /// <returns>Enumerable of all ProjectGroupNames</returns>
         public static IEnumerable<string> GetProjectGroupNames(OctopusRepository octRepository)
         {
             return octRepository.ProjectGroups.GetAll().Select(x => x.Name);
@@ -97,6 +97,21 @@ namespace OctopusHelpers
         {
             projectToMove.ProjectGroupId = projectGroup.Id;
             octRepository.Projects.Modify(projectToMove);
+        }
+
+        /// <summary>
+        /// Creates a Project Group
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="projectGroupName">Name of the new Project Group.</param>
+        /// <returns>Newly Created ProjectGroup</returns>
+        public static ProjectGroupResource CreateProjectGroup(OctopusRepository octopusRepository, string projectGroupName)
+        {
+            var newProjectGroup = new ProjectGroupResource()
+            {
+                Name = projectGroupName
+            };
+            return octopusRepository.ProjectGroups.Create(newProjectGroup);
         }
     }
 }

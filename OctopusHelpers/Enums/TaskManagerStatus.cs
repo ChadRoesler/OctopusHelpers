@@ -14,11 +14,11 @@
         /// </summary>
         Completed = 1,
         /// <summary>
-        /// In the Process of Cancelling.
+        /// In the Process of Canceling.
         /// </summary>
         Canceling = 2,
         /// <summary>
-        /// Cancelled Task.
+        /// Canceled Task.
         /// </summary>
         Canceled = 3,
         /// <summary>

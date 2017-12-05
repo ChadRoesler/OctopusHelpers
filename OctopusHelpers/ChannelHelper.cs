@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Octopus.Client;
 using Octopus.Client.Model;
-using Octopus.Client.Model.Forms;
 using OctopusHelpers.Constants;
 using OctopusHelpers.ExtensionMethods;
 
 namespace OctopusHelpers
 {
+    /// <summary>
+    /// Helper for managing Channel Objects
+    /// </summary>
     public static class ChannelHelper
     {
+        /// <summary>
+        /// Gather the channel from the Id passed
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="channelId">Channel id to gather.</param>
+        /// <returns>ChannelResource</returns>
         public static ChannelResource GetChannelFromChannelId(OctopusRepository octRepository, string channelId)
         {
             var numberOnly = new int();
@@ -24,6 +30,12 @@ namespace OctopusHelpers
             }
         }
 
+        /// <summary>
+        /// Gathers the channels from the passed project
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="project">Project to gathers channels from.</param>
+        /// <returns>Enumerable of ChannelResources</returns>
         public static IEnumerable<ChannelResource> GetChannelsFromProject(OctopusRepository octRepository, ProjectResource project)
         {
             return octRepository.Client.GetProjectChannels(project);

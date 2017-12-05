@@ -16,7 +16,7 @@
 		internal const string MachineIdFormat = "machines-{0}";
 		internal const string TaskIdFormat = "serverTasks-{0}";
         internal const string MachinePolicyIdFormat = "machinepolicies-{0}";
-        internal const string CloneCommandApiFormat = "~/api/projects?clone={0}";
+        internal const string ProjectNameApiFormat = "~/api/projects?name={0}";
 		internal const string MaintenanceConfigApi = "~/api/maintenanceconfiguration";
 		internal const string EventRegardingLink = "{0}?regarding={1}&eventCategories={2}";
 		internal const string InterruptionRegardingLink = "{0}?regarding={1}&pendingOnly={2}";
@@ -58,7 +58,7 @@
         /// <summary>
         /// Abandon all hope ye who enter here.
         /// This for back-door modification for updating deployment processes.
-        /// https://i.imgur.com/gPBuAgl.gif
+        /// http://i0.kym-cdn.com/photos/images/newsfeed/001/040/082/cb4.png
         /// </summary>
         internal const string ProjectProcessUpdate = @"UPDATE	dp
 SET		dp.JSON = o.JSON

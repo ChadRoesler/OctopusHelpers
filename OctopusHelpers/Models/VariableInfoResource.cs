@@ -9,9 +9,10 @@ namespace OctopusHelpers.Models
     public class VariableInfoResource
     {
         /// <Note>
-        /// Further work will be done here to allow comitting and altering of variables this allow for storage for now.
+        /// Further work will be done here to allow omitting and altering of variables this allow for storage for now.
         /// OR this needs to be split out into its own area and not as a model.
-        /// I dont know yet on this, but currently leaving it as a model as there is a specific reason for having this, exporting data to excel.
+        /// I don't know yet on this, but currently leaving it as a model as there is a specific reason for having this, exporting data to excel.
+        /// I'll be writing documentation for this later, if it still exists
         /// </Note>
         private List<VariableResource> VariableList = new List<VariableResource>();
         private List<VariableResource> ScriptModuleList = new List<VariableResource>();

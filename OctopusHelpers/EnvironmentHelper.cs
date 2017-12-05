@@ -14,8 +14,8 @@ namespace OctopusHelpers
         /// Gathers a Environment by Name.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="environmentName"></param>
-        /// <returns></returns>
+        /// <param name="environmentName">Environment Name.</param>
+        /// <returns>EnvironmentResource</returns>
         public static EnvironmentResource GetEnvironmentByName(OctopusRepository octRepository, string environmentName)
         {
             return octRepository.Environments.FindByName(environmentName);
@@ -25,8 +25,8 @@ namespace OctopusHelpers
         /// Gathers a Environment by Id.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="environmentId"></param>
-        /// <returns></returns>
+        /// <param name="environmentId">Environment Id.</param>
+        /// <returns>EnvironmentResource</returns>
         public static EnvironmentResource GetEnvironmentById(OctopusRepository octRepository, string environmentId)
         {
             var numberOnly = new int();
@@ -44,8 +44,8 @@ namespace OctopusHelpers
         /// Gathers a list Environments of a Project.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="project"></param>
-        /// <returns></returns>
+        /// <param name="project">Project to gather from.</param>
+        /// <returns>Enumerable of EnvironmentResources</returns>
         public static IEnumerable<EnvironmentResource> GetProjectEnvironments(OctopusRepository octRepository, ProjectResource project, string phaseName)
         {
             var lifecycle = LifecycleHelper.GetProjectLifeCycle(octRepository, project);
@@ -56,9 +56,9 @@ namespace OctopusHelpers
         /// Gathers a list of Environments of a Lifecycle
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="lifecycle"></param>
-        /// <param name="phaseName"></param>
-        /// <returns></returns>
+        /// <param name="lifecycle">Lifecycle to gather from.</param>
+        /// <param name="phaseName">Phase name to gather from</param>
+        /// <returns>Enumerable of EnvironmentResources</returns>
         public static IEnumerable<EnvironmentResource> GetLifeCyclePhaseEnvironments(OctopusRepository octRepository, LifecycleResource lifecycle, string phaseName)
         {
             var environmentList = new List<EnvironmentResource>();
@@ -70,8 +70,8 @@ namespace OctopusHelpers
         /// Gathers the list of Environments of a Phase
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="phase"></param>
-        /// <returns></returns>
+        /// <param name="phase">Phase to gather from.</param>
+        /// <returns>Enumerable of EnvironmentResources</returns>
         public static IEnumerable<EnvironmentResource> GetPhaseEnvironments(OctopusRepository octRepository, PhaseResource phase)
         {
             var environmentList = new List<EnvironmentResource>();
@@ -83,6 +83,14 @@ namespace OctopusHelpers
             return environmentList;
         }
 
+        /// <summary>
+        /// Creates an Environment
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="name">Name of the new Environment.</param>
+        /// <param name="description">Description of the new Environment.</param>
+        /// <param name="guidedFailure">Auto Enable GuidedFailure on Environment.</param>
+        /// <returns>EnvironmentResource.</returns>
         public static EnvironmentResource CreateEnvironment (OctopusRepository octRepository, string name, string description, bool guidedFailure)
         {
             var environmentToCreate = new EnvironmentResource()

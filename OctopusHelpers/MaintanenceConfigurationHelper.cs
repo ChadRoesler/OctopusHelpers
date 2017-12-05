@@ -25,7 +25,7 @@ namespace OctopusHelpers
         /// Gets the Maintenanace Configuration Object of the target Octopus Server
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <returns></returns>
+        /// <returns>MaintenanceConfigurationResource</returns>
         public static MaintenanceConfigurationResource GetMaintMode(OctopusRepository octRepository)
         {
             return octRepository.Client.GetMaintenanceConfigurationResource();

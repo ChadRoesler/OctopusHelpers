@@ -4,12 +4,12 @@ using Octopus.Client.Model;
 namespace OctopusHelpers.ExtensionMethods
 {
     /// <summary>
-    /// Release Resourec Extentions.
+    /// Release Resource Extensions.
     /// </summary>
     public static class ReleaseResourceExtensions
     {
         /// <summary>
-        /// Retrives the actuall Version as a Version Object.
+        /// Retrieves the actual Version as a Version Object.
         /// </summary>
         /// <param name="currentReleaseResource">The release resource this is tacked on to.</param>
         /// <returns>Version object.</returns>

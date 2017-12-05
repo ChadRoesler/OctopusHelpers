@@ -4,8 +4,13 @@ using OctopusHelpers.Constants;
 namespace OctopusHelpers
 {
     /// <summary>
-    /// This class is used for determining of a set of text contains a var in one of two distict octopus ways of storing the var in the script.
+    /// This class is used for determining of a set of text contains a var in one of two distinct octopus ways of storing the var in the script.
     /// </summary>
+    /// 
+    /// <Note>
+    /// Not using Octostache since we want counts of things.  We are only doing basic var replacement not the advanced if or other things.
+    /// Ill probably end up documenting this later as its use in conjunction with the VariableInfoResource
+    /// </note>
     public static class VariableRegExHelper
     {
         public static bool VarTextContainsVariable(string textToSearch, string varName)

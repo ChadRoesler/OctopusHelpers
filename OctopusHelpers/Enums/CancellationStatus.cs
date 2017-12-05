@@ -18,7 +18,7 @@
         /// </summary>
         CancellationSent = 2,
         /// <summary>
-        /// Cancelled in octopus.
+        /// Canceled in octopus.
         /// </summary>
         Canceled = 3
     }

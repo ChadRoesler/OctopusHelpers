@@ -16,10 +16,10 @@ namespace OctopusHelpers
         /// Gathers the deployment steps for the passed release and environment.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="release"></param>
-        /// <param name="environment"></param>
-        /// <returns></returns>
-        public static IEnumerable<DeploymentTemplateStep> GetProjectEnvironmentDeploymentSteps(OctopusRepository octRepository, ReleaseResource release, EnvironmentResource environment)
+        /// <param name="release">Release to gather steps from.</param>
+        /// <param name="environment">Environment to gather steps from.</param>
+        /// <returns>Enumerable of DeploymentTemplateSteps</returns>
+        public static IEnumerable<DeploymentTemplateStep> GetReleaseEnvironmentDeploymentSteps(OctopusRepository octRepository, ReleaseResource release, EnvironmentResource environment)
         {
             var releaseTemplate = octRepository.Releases.GetTemplate(release);
             var deploymentPromotionTarget = releaseTemplate.PromoteTo.SingleOrDefault(x => x.Id.Equals(environment.Id, StringComparison.OrdinalIgnoreCase));
@@ -31,9 +31,9 @@ namespace OctopusHelpers
         /// This is used when managing octopus from octopus.
         /// YES I KNOW.
         /// </summary>
-        /// <param name="projectSteps"></param>
-        /// <param name="referenceProject"></param>
-        /// <returns></returns>
+        /// <param name="projectSteps">All steps from the project.</param>
+        /// <param name="referenceProject">All Steps to keep.</param>
+        /// <returns>Skipped steps as a ReferenceCollection (ugh)</returns>
         public static ReferenceCollection GetStepsToSkipFromProjects(List<DeploymentTemplateStep> projectSteps, List<DeploymentTemplateStep> referenceProject)
         {
             var skippedSteps = new ReferenceCollection();

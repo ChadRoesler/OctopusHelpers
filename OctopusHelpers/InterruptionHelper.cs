@@ -18,7 +18,7 @@ namespace OctopusHelpers
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="task"></param>
-        /// <returns></returns>
+        /// <returns>InterruptionResource</returns>
         public static InterruptionResource GetPendingInterruption(OctopusRepository octRepository, TaskResource task)
         {
             return octRepository.Client.GetResourceInterruptions(task.Id, true).FirstOrDefault();
@@ -29,7 +29,7 @@ namespace OctopusHelpers
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="task"></param>
-        /// <returns></returns>
+        /// <returns>Number of Retrys</returns>
         public static int GetInterruptionRetryCount(OctopusRepository octRepository, TaskResource task)
         {
             return octRepository.Client.GetResourceInterruptions(task.Id, false).Where(x => x.Form.Values[ResourceStrings.InterruptionGuidanceKey].Equals(ResourceStrings.InterruptionRetryValue)).Count();

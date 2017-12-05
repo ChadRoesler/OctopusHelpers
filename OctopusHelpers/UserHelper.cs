@@ -16,8 +16,8 @@ namespace OctopusHelpers
         /// Gathers a UserResource by Name.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="userName"></param>
-        /// <returns></returns>
+        /// <param name="userName">UserName to gather.</param>
+        /// <returns>UserResource</returns>
         public static UserResource GetUserFromUserName(OctopusRepository octRepository, string userName)
         {
             return octRepository.Users.FindOne(u => u.Username.Equals(userName, StringComparison.OrdinalIgnoreCase));
@@ -27,8 +27,8 @@ namespace OctopusHelpers
         /// Gathers a UserResource by Id.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="userName"></param>
-        /// <returns></returns>
+        /// <param name="userId">UserID to gather.</param>
+        /// <returns>UserResource</returns>
         public static UserResource GetUserFromUserId(OctopusRepository octRepository, string userId)
         {
 
@@ -47,7 +47,7 @@ namespace OctopusHelpers
         /// Returns a list of UserNames from UserResources
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <returns></returns>
+        /// <returns>Enumerable of UserNames as Strings</returns>
         public static IEnumerable<string> GetUserNames(OctopusRepository octRepository)
         {
             return octRepository.Users.FindAll().Select(x => x.Username);
@@ -57,7 +57,7 @@ namespace OctopusHelpers
         /// Returns a list of UserNames from UserResources
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <returns></returns>
+        /// <returns>Enumerable of UserIs as Strings</returns>
         public static IEnumerable<string> GetUserIds(OctopusRepository octRepository)
         {
             return octRepository.Users.FindAll().Select(x => x.Id);
@@ -67,9 +67,9 @@ namespace OctopusHelpers
         /// Creates an API Key for the passed user.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="user"></param>
-        /// <param name="keyNote"></param>
-        /// <returns></returns>
+        /// <param name="user">User To Create Key For.</param>
+        /// <param name="keyNote">Note regarding the key.</param>
+        /// <returns>ApiKeyResource</returns>
         public static ApiKeyResource CreateApiKeyForUser(OctopusRepository octRepository, UserResource user, string keyNote)
         {
             return octRepository.Users.CreateApiKey(user, keyNote);
@@ -79,7 +79,7 @@ namespace OctopusHelpers
         /// Removes the passed API key from the user it is attached to.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="apiKey"></param>
+        /// <param name="apiKey">ApiKey to Revoke.</param>
         public static void RevokeApiKey(OctopusRepository octRepository, ApiKeyResource apiKey)
         {
             octRepository.Users.RevokeApiKey(apiKey);
@@ -89,12 +89,19 @@ namespace OctopusHelpers
         /// Returns all API keys from the passed user, the actuall key text is not returned in this.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="user"></param>
+        /// <param name="user">User to gather from.</param>
+        /// <returns>Enumerable of ApiKeyResources</returns>
         public static IEnumerable<ApiKeyResource> GetUserApiKeys(OctopusRepository octRepository, UserResource user)
         {
             return octRepository.Users.GetApiKeys(user);
         }
 
+        /// <summary>
+        /// Returns the Teams a user is associated to.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="user">User to gather from.</param>
+        /// <returns>Enumerable of TeamResoureces</returns>
         public static IEnumerable<TeamResource> GetUserTeams(OctopusRepository octRepository, UserResource user)
         {
             var userTeams = new List<TeamResource>();

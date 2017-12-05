@@ -15,8 +15,8 @@ namespace OctopusHelpers
         /// Gathers a Lifecycle by Id.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="lifecycleId"></param>
-        /// <returns></returns>
+        /// <param name="lifecycleId">Id of the Lifecycke.</param>
+        /// <returns>LifecycleResource</returns>
         public static LifecycleResource GetLifecycleById(OctopusRepository octRepository, string lifecycleId)
         {
             var numberOnly = new int();
@@ -34,8 +34,8 @@ namespace OctopusHelpers
         /// Gathers a Lifecycle by Name.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="lifecycleName"></param>
-        /// <returns></returns>
+        /// <param name="lifecycleName">Name of the Lifecycle.</param>
+        /// <returns>LifecycleResource</returns>
         public static LifecycleResource GetLifecycleByName(OctopusRepository octRepository, string lifecycleName)
         {
             return octRepository.Lifecycles.FindByName(lifecycleName);
@@ -45,8 +45,8 @@ namespace OctopusHelpers
         /// Gathers the Lifecycle from a project
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="project"></param>
-        /// <returns></returns>
+        /// <param name="project">Project to gather from.</param>
+        /// <returns>LifecycleResource</returns>
         public static LifecycleResource GetProjectLifeCycle(OctopusRepository octRepository, ProjectResource project)
         {
             return octRepository.Lifecycles.Get(project.LifecycleId);
@@ -55,9 +55,9 @@ namespace OctopusHelpers
         /// <summary>
         /// Returns the Phase of a Lifecycle by Name.
         /// </summary>
-        /// <param name="lifecycle"></param>
-        /// <param name="phaseName"></param>
-        /// <returns></returns>
+        /// <param name="lifecycle">Lifecycle to gather phase from.</param>
+        /// <param name="phaseName">Phase Name to gather.</param>
+        /// <returns>PhaseResource</returns>
         public static PhaseResource GetPhaseByName(LifecycleResource lifecycle, string phaseName)
         {
             return lifecycle.Phases.Where(x => x.Name.Equals(phaseName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();

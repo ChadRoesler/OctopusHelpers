@@ -14,9 +14,9 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the VariableSet From a Project.
         /// </summary>
-        /// <param name="Repository"></param>
-        /// <param name="Project"></param>
-        /// <returns></returns>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="project">Project to gather from.</param>
+        /// <returns>VariableSetResource</returns>
         public static VariableSetResource GetVariableSetFromProject(OctopusRepository octRepository, ProjectResource project)
         {
             return octRepository.VariableSets.Get(project.VariableSetId);
@@ -25,9 +25,9 @@ namespace OctopusHelpers
         /// <summary>
         /// Gathers the VariableSet From a LibraryVariableSet.
         /// </summary>
-        /// <param name="Repository"></param>
-        /// <param name="Project"></param>
-        /// <returns></returns>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="libraryVariableSet">LibraryVariableSet to gather from.</param>
+        /// <returns>VariableSetResource</returns>
         public static VariableSetResource GetVariableSetFromLibraryVariableSet(OctopusRepository octRepository, LibraryVariableSetResource libraryVariableSet)
         {
             return octRepository.VariableSets.Get(libraryVariableSet.VariableSetId);
@@ -37,7 +37,7 @@ namespace OctopusHelpers
         /// Adds a Variable to a Project's VariableSet.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="project"></param>
+        /// <param name="project">Project to add to.</param>
         /// <param name="variable"></param>
         public static void AddVariableToProjectVariableSet(OctopusRepository octRepository, ProjectResource project, VariableResource variable)
         {
@@ -56,7 +56,7 @@ namespace OctopusHelpers
         /// Removes a Variable to a Project's VariableSet.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="project"></param>
+        /// <param name="project">Project to remove from.</param>
         /// <param name="variable"></param>
         public static void RemoveVariableFromProjectVariableSet(OctopusRepository octRepository, ProjectResource project, VariableResource variable)
         {
@@ -69,9 +69,9 @@ namespace OctopusHelpers
         /// <summary>
         /// Replace's a Project's VariableSet.
         /// </summary>
-        /// <param name="repository"></param>
-        /// <param name="project"></param>
-        /// <param name="variableSet"></param>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="project">Project to gather from.</param>
+        /// <param name="variableSet">VariableSet that will be entered.</param>
         public static void ReplaceVariablesInProjectVariableSet(OctopusRepository repository, ProjectResource project, VariableSetResource variableSet)
         {
             var newVariableList = new List<VariableResource>();
@@ -94,8 +94,8 @@ namespace OctopusHelpers
         /// Replaces a VariableSet Project from a passed file.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="project"></param>
-        /// <param name="variableSetText"></param>
+        /// <param name="project">Project to replace variables in.</param>
+        /// <param name="variableSetText">Variable set as JSON text.</param>
         public static void ReplaceProjectVariableSetFromFile(OctopusRepository octRepository, ProjectResource project, string variableSetText)
         {
             var variables = JsonConvert.DeserializeObject<List<VariableResource>>(variableSetText);
@@ -105,12 +105,12 @@ namespace OctopusHelpers
         }
 
         /// <summary>
-        /// Outputs a VariableSet Project from a passed file.
+        /// Outputs a VariableSet Project from a passed project to a JSON string.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="project"></param>
-        /// <returns></returns>
-        public static string OutputProjectVariableSetFromFile(OctopusRepository octRepository, ProjectResource project)
+        /// <param name="project">Project to gather from.</param>
+        /// <returns>String of Variables from Project</returns>
+        public static string OutputProjectVariableSetToString(OctopusRepository octRepository, ProjectResource project)
         {
             var variableSet = GetVariableSetFromProject(octRepository, project);
             return  JsonConvert.SerializeObject(variableSet.Variables, Formatting.Indented);
