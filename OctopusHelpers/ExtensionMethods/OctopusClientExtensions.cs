@@ -29,6 +29,27 @@ namespace OctopusHelpers.ExtensionMethods
         }
 
         /// <summary>
+        /// Clones one project from another.
+        /// </summary>
+        /// <param name="client">The Repository this is tacked on to.</param>
+        /// <param name="newProjectName">The new project's name.</param>
+        /// <param name="newProjectDescription">The new project's description,</param>
+        /// <param name="projectToClone">The project to clone from.</param>
+        /// <param name="projectGroupIdForNewProject">The group the project will be placed into [null will copy the group from the projectToClone].</param>
+        /// <param name="lifcycleId">The life cycle of the new project [null will copy the lifecycle from the projectToClone].</param>
+        internal static void CloneProject(this IOctopusClient client, string newProjectName, string newProjectDescription, ProjectResource projectToClone, string projectGroupIdForNewProject, string lifcycleId)
+        {
+            var projectToCreate = new ProjectResource
+            {
+                Name = newProjectName,
+                Description = newProjectDescription,
+                ProjectGroupId = projectGroupIdForNewProject,
+                LifecycleId = lifcycleId
+            };
+            client.Post(string.Format(ResourceStrings.CloneCommandApiFormat, projectToClone.Id), projectToCreate);
+        }
+    
+        /// <summary>
         /// Gathers the List of 
         /// </summary>
         /// <param name="client">The Repository this is tacked on to.</param>
