@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Bringing back Clone, lots of other things check the Git.</releaseNotes>
+    <releaseNotes>Addition of a Base BuildDeployment.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Octopus</tags>
   </metadata>

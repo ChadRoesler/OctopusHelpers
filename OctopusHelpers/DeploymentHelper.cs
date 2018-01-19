@@ -40,6 +40,28 @@ namespace OctopusHelpers
         }
 
         /// <summary>
+        /// Builds a base deployment with all steps enabled for the passed environment and release.
+        /// </summary>
+        /// <param name="release">Release to deploy.</param>
+        /// <param name="environment">Environment to deploy to.</param>
+        /// <param name="comment">Comment for the deployment.</param>
+        /// <param name="guidedFailure">Enable Guided Failure.</param>
+        /// <returns>DeploymentResource</returns>
+        public static DeploymentResource BuildDeployment(ReleaseResource release, EnvironmentResource environment, string comment, bool guidedFailure)
+        {
+            var deploymentResource = new DeploymentResource
+            {
+                EnvironmentId = environment.Id,
+                ReleaseId = release.Id,
+                ForcePackageDownload = false,
+                UseGuidedFailure = guidedFailure,
+                ForcePackageRedeployment = true,
+                Comments = comment
+            };
+            return deploymentResource;
+        }
+
+        /// <summary>
         /// Builds a DeploymentResource for the release and environment passed, creates what steps to skip based on a string list.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
@@ -49,7 +71,7 @@ namespace OctopusHelpers
         /// <param name="guidedFailure">Enable Guided Failure.</param>
         /// <param name="skippedSteps">Steps to skip.</param>
         /// <param name="dateToDeploy">Deployment Date.</param>
-        /// <returns>DeploymentResource.</returns>
+        /// <returns>DeploymentResource</returns>
         public static DeploymentResource BuildDeployment(OctopusRepository octRepository, ReleaseResource release, EnvironmentResource environment, Dictionary<string, string> formValues, bool guidedFailure, IEnumerable<string> skippedSteps, DateTimeOffset? dateToDeploy)
         {
             var machineIDs = new ReferenceCollection();
