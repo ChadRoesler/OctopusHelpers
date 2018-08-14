@@ -5,6 +5,7 @@ using Octopus.Client;
 using Octopus.Client.Model;
 using OctopusHelpers.Constants;
 using OctopusHelpers.ExtensionMethods;
+using Semver;
 
 namespace OctopusHelpers
 {
@@ -42,7 +43,7 @@ namespace OctopusHelpers
         /// <param name="project">Project to gather release from.</param>
         /// <param name="releaseVersion">Version to gather of release.</param>
         /// <returns>ReleaseResource</returns>
-        public static ReleaseResource GetProjectReleaseByVersion(OctopusRepository octRepository, ProjectResource project, Version releaseVersion)
+        public static ReleaseResource GetProjectReleaseByVersion(OctopusRepository octRepository, ProjectResource project, SemVersion releaseVersion)
         {
             var projectReleases = GetProjectReleases(octRepository, project);
             if (projectReleases != null && projectReleases.Count() > 0)
@@ -65,7 +66,7 @@ namespace OctopusHelpers
         /// <param name="stepAndVersionDictionary">StepName and Version for package steps.</param>
         /// <param name="releaseNotes">Release Notes.</param>
         /// <returns>Newly Created ReleaseResource</returns>
-        public static ReleaseResource CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, string releaseVersion, Dictionary<string, Version> stepAndVersionDictionary, string releaseNotes)
+        public static ReleaseResource CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, string releaseVersion, Dictionary<string, SemVersion> stepAndVersionDictionary, string releaseNotes)
         {
 
             var release = new ReleaseResource();
@@ -118,7 +119,7 @@ namespace OctopusHelpers
         /// <param name="stepAndVersionDictionary">StepName and Version for package steps.</param>
         /// <param name="releaseNotes">Release Notes.</param>
         /// <returns>Newly Created ReleaseResource</returns>
-        public static ReleaseResource CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, ChannelResource channel, string releaseVersion, Dictionary<string, Version> stepAndVersionDictionary, string releaseNotes)
+        public static ReleaseResource CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, ChannelResource channel, string releaseVersion, Dictionary<string, SemVersion> stepAndVersionDictionary, string releaseNotes)
         {
 
             var release = new ReleaseResource();
@@ -457,7 +458,7 @@ namespace OctopusHelpers
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="release"></param>
         /// <param name="packageStepDictionary"></param>
-        public static void UpdateReleasePackageVersionByStep(OctopusRepository octRepository, ReleaseResource release, Dictionary<string, Version> packageStepDictionary)
+        public static void UpdateReleasePackageVersionByStep(OctopusRepository octRepository, ReleaseResource release, Dictionary<string, SemVersion> packageStepDictionary)
         {
             var selectedPackageList = release.SelectedPackages.ToDictionary(x => x.ActionName);
             foreach(var packageStep in packageStepDictionary)
@@ -466,6 +467,32 @@ namespace OctopusHelpers
             }
             release.SelectedPackages = selectedPackageList.Values.ToList();
             octRepository.Releases.Modify(release);
+        }
+
+        /// <summary>
+        /// Gathers the last from the passed Project and Environment.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="project">Project to gather from.</param>
+        /// <param name="environment">Environment to gather from.</param>
+        /// <returns></returns>
+        public static ReleaseResource GetLastestDeployedReleaseFromProjectEnvironmentByStatus(OctopusRepository octRepository, ProjectResource project, EnvironmentResource environment, string Status)
+        {
+            var projectArray = new string[] { project.Id };
+            var environmentArray = new string[] { environment.Id };
+
+            var lastDeployedReleases = octRepository.Client.GetProjectEnvironmentDeployments(projectArray, environmentArray).ToList();
+            
+            if (lastDeployedReleases != null && lastDeployedReleases.Count > 0)
+            {
+                var lastDeployedReleaseId = lastDeployedReleases.OrderByDescending(p => p.Created).FirstOrDefault().ReleaseId;
+                var lastDeployedRelease = octRepository.Releases.Get(lastDeployedReleaseId);
+                return lastDeployedRelease;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
