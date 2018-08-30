@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>.net Updates and client updates.</releaseNotes>
+    <releaseNotes>SemVer all the things.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Octopus</tags>
   </metadata>
