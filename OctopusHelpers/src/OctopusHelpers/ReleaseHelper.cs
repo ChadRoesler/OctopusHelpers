@@ -48,6 +48,27 @@ namespace OctopusHelpers
             var projectReleases = GetProjectReleases(octRepository, project);
             if (projectReleases != null && projectReleases.Count() > 0)
             {
+                var releaseList = projectReleases.Where(r => r.GetSemVersionObject().Equals(releaseVersion)).FirstOrDefault();
+                return releaseList;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gather a Project's Release from the passed Version.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="project">Project to gather release from.</param>
+        /// <param name="releaseVersion">Version to gather of release.</param>
+        /// <returns>ReleaseResource</returns>
+        public static ReleaseResource GetProjectReleaseByVersion(OctopusRepository octRepository, ProjectResource project, Version releaseVersion)
+        {
+            var projectReleases = GetProjectReleases(octRepository, project);
+            if (projectReleases != null && projectReleases.Count() > 0)
+            {
                 var releaseList = projectReleases.Where(r => r.GetVersionObject().Equals(releaseVersion)).FirstOrDefault();
                 return releaseList;
             }
@@ -76,6 +97,40 @@ namespace OctopusHelpers
             foreach(var step in packageSteps)
             {
                 if(stepAndVersionDictionary.ContainsKey(step))
+                {
+                    package.Add(new SelectedPackage(step, stepAndVersionDictionary[step].ToString()));
+                }
+                else
+                {
+                    throw new ArgumentException(string.Format(ErrorStrings.MissingPackageStep, step), "stepAndVersionDictionary");
+                }
+            }
+            release.SelectedPackages = package;
+            release.ReleaseNotes = releaseNotes;
+            release.Version = releaseVersion;
+            release.ProjectId = project.Id;
+            return octRepository.Releases.Create(release);
+        }
+
+        /// <summary>
+        /// Creates a release for the passed Project.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="project">Project to create release for.</param>
+        /// <param name="releaseVersion">Release version to create.</param>
+        /// <param name="stepAndVersionDictionary">StepName and Version for package steps.</param>
+        /// <param name="releaseNotes">Release Notes.</param>
+        /// <returns>Newly Created ReleaseResource</returns>
+        public static ReleaseResource CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, string releaseVersion, Dictionary<string, Version> stepAndVersionDictionary, string releaseNotes)
+        {
+
+            var release = new ReleaseResource();
+            var projectDeploymentProcess = DeploymentProcessHelper.GetDeploymentProcessFromProject(octRepository, project);
+            var packageSteps = DeploymentProcessHelper.GetPackageSteps(projectDeploymentProcess);
+            var package = new List<SelectedPackage>();
+            foreach (var step in packageSteps)
+            {
+                if (stepAndVersionDictionary.ContainsKey(step))
                 {
                     package.Add(new SelectedPackage(step, stepAndVersionDictionary[step].ToString()));
                 }
@@ -384,8 +439,6 @@ namespace OctopusHelpers
             }
         }
 
-
-
         /// <summary>
         /// Gathers a list of undeployed Releases from the passed Project and Environment.
         /// </summary>
@@ -393,14 +446,15 @@ namespace OctopusHelpers
         /// <param name="project">Project to gather from.</param>
         /// <param name="environment">Environment to gather from.</param>
         /// <returns>Enumerable of ReleaseResources</returns>
-        public static IEnumerable<ReleaseResource> GetUndeployedReleasesFromProjectEnvironment(OctopusRepository octRepository, ProjectResource project, EnvironmentResource environment)
+        public static IEnumerable<ReleaseResource> GetUndeployedReleaseFromProjectEnvironment(OctopusRepository octRepository, ProjectResource project, EnvironmentResource environment)
         {
             var releaseList = new List<ReleaseResource>();
             var deployedReleases = GetDeployedReleasesFromProjectEnvironment(octRepository, project, environment);
             var projectReleases = GetProjectReleases(octRepository, project);
-            releaseList.AddRange(projectReleases.Where(r => !deployedReleases.Any(d => d.GetVersionObject().Equals(r.GetVersionObject()))).ToList());
+            releaseList.AddRange(projectReleases.Where(r => !deployedReleases.Any(d => d.Id.Equals(r.Id))).ToList());
             return releaseList;
         }
+
 
         /// <summary>
         /// Gathers a list of deployed Releases from the passed Project.
@@ -428,15 +482,15 @@ namespace OctopusHelpers
         /// <param name="project">Project to gather from.</param>
         /// <param name="phaseName">Environment to gather from.</param>
         /// <returns>Enumerable of ReleaseResources</returns>
-        public static IEnumerable<ReleaseResource> GetUndeployedReleasesFromProjectPhase(OctopusRepository octRepository, ProjectResource project, string phaseName)
+        public static IEnumerable<ReleaseResource> GetUndeployedReleaseFromProjectPhase(OctopusRepository octRepository, ProjectResource project, string phaseName)
         {
             var releaseList = new List<ReleaseResource>();
             var environmentList = EnvironmentHelper.GetProjectEnvironments(octRepository, project, phaseName);
             var deployedReleases = GetDeployedReleasesFromProjectPhase(octRepository, project, phaseName);
             foreach (var environment in environmentList)
             {
-                var deployedReleasesPerEnviornment = GetUndeployedReleasesFromProjectEnvironment(octRepository, project, environment);
-                releaseList.AddRange(deployedReleasesPerEnviornment.Where(x => !releaseList.Any(d => d.GetVersionObject().Equals(x.GetVersionObject())) && !deployedReleases.Any(d => d.GetVersionObject().Equals(x.GetVersionObject()))));
+                var deployedReleasesPerEnviornment = GetUndeployedReleaseFromProjectEnvironment(octRepository, project, environment);
+                releaseList.AddRange(deployedReleasesPerEnviornment.Where(x => !releaseList.Any(d => d.Id.Equals(x.Id)) && !deployedReleases.Any(d => d.Id.Equals(x.Id))));
             }
             return releaseList;
         }
@@ -447,9 +501,20 @@ namespace OctopusHelpers
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project">Project to gather from.</param>
         /// <returns>ReleaseResource</returns>
-        public static ReleaseResource GetLatestReleaseFromProject(OctopusRepository octRepository, ProjectResource project)
+        public static ReleaseResource GetLatestReleaseVersionFromProject(OctopusRepository octRepository, ProjectResource project)
         {
             return GetProjectReleases(octRepository, project).OrderByDescending(r => r.GetVersionObject()).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gathers the latest release from a project.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="project">Project to gather from.</param>
+        /// <returns>ReleaseResource</returns>
+        public static ReleaseResource GetLatestReleaseSemVersionFromProject(OctopusRepository octRepository, ProjectResource project)
+        {
+            return GetProjectReleases(octRepository, project).OrderByDescending(r => r.GetSemVersionObject()).FirstOrDefault();
         }
 
         /// <summary>
@@ -462,6 +527,23 @@ namespace OctopusHelpers
         {
             var selectedPackageList = release.SelectedPackages.ToDictionary(x => x.ActionName);
             foreach(var packageStep in packageStepDictionary)
+            {
+                selectedPackageList[packageStep.Key].Version = packageStep.Value.ToString();
+            }
+            release.SelectedPackages = selectedPackageList.Values.ToList();
+            octRepository.Releases.Modify(release);
+        }
+
+        /// <summary>
+        /// Update a Release's Package Step version with another version.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="release"></param>
+        /// <param name="packageStepDictionary"></param>
+        public static void UpdateReleasePackageVersionByStep(OctopusRepository octRepository, ReleaseResource release, Dictionary<string, Version> packageStepDictionary)
+        {
+            var selectedPackageList = release.SelectedPackages.ToDictionary(x => x.ActionName);
+            foreach (var packageStep in packageStepDictionary)
             {
                 selectedPackageList[packageStep.Key].Version = packageStep.Value.ToString();
             }
