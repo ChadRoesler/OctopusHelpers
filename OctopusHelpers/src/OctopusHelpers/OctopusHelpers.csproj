@@ -107,7 +107,7 @@
   <PropertyGroup>
     <PostBuildEvent>IF "$(ConfigurationName)" == "Release" (
 del *.nupkg
-nuget pack $(ProjectPath) -properties Configuration=$(ConfigurationName) -output $(TargetDir)
+nuget pack $(ProjectPath) -properties Configuration=$(ConfigurationName) -outputdirectory $(TargetDir)
 )</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
