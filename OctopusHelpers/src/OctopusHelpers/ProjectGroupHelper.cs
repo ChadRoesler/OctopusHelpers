@@ -105,13 +105,13 @@ namespace OctopusHelpers
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="projectGroupName">Name of the new Project Group.</param>
         /// <returns>Newly Created ProjectGroup</returns>
-        public static ProjectGroupResource CreateProjectGroup(OctopusRepository octopusRepository, string projectGroupName)
+        public static ProjectGroupResource CreateProjectGroup(OctopusRepository octRepository, string projectGroupName)
         {
             var newProjectGroup = new ProjectGroupResource()
             {
                 Name = projectGroupName
             };
-            return octopusRepository.ProjectGroups.Create(newProjectGroup);
+            return octRepository.ProjectGroups.Create(newProjectGroup);
         }
     }
 }

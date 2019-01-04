@@ -45,6 +45,7 @@ namespace OctopusHelpers
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project">Project to gather from.</param>
+        /// <param name="phaseName">name of the phase to gather.</param>
         /// <returns>Enumerable of EnvironmentResources</returns>
         public static IEnumerable<EnvironmentResource> GetProjectEnvironments(OctopusRepository octRepository, ProjectResource project, string phaseName)
         {

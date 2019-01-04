@@ -16,12 +16,20 @@ namespace OctopusHelpers.Models
         private OctopusRepository octRepositoryToManage;
         private DeploymentResource deploymentToManage;
         private TaskResource taskToManage;
-        private InterruptionResource currentInterruptionToProcess;
-        private InterruptionResource previousInterruptionToProcess;
         private ActivityElement[] activitySteps = new ActivityElement[0];
         private Dictionary<string, string> printedLog = new Dictionary<string, string>();
         private bool CancellationSent = false;
         private bool CancellationRequested = false;
+
+        /// <summary>
+        /// Allows for inspection of the current interruption.
+        /// </summary>
+        public InterruptionResource currentInterruptionToProcess;
+
+        /// <summary>
+        /// Allows for inspection of the previous interruption.
+        /// </summary>
+        public InterruptionResource previousInterruptionToProcess;
 
         /// <summary>
         /// Allows base creation of the object.
@@ -123,7 +131,7 @@ namespace OctopusHelpers.Models
         /// <summary>
         /// Refreshes the current pending interruption, if one exists.
         /// </summary>
-        private void UpdateInterruption()
+        public void UpdateInterruption()
         {
             var updatedInterruption = InterruptionHelper.GetPendingInterruption(octRepositoryToManage, taskToManage);
             if (updatedInterruption != null && !updatedInterruption.Equals(currentInterruptionToProcess))
@@ -381,6 +389,17 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
+        /// Check if there there is a new interruption.
+        /// </summary>
+        public bool HasNewInterruption
+        {
+            get
+            {
+                return previousInterruptionToProcess != null && currentInterruptionToProcess.Id != previousInterruptionToProcess.Id;
+            }
+        }
+
+        /// <summary>
         /// Returns the server link to the deployment.
         /// </summary>
         /// <returns>Returns the server link to the deployment.</returns>
@@ -407,7 +426,6 @@ namespace OctopusHelpers.Models
                 if (taskToManage != null)
                 {
                     taskToManage = TaskHelper.GetTaskFromId(octRepositoryToManage, taskToManage.Id);
-                    UpdateInterruption();
                     if (taskToManage.HasPendingInterruptions && taskToManage.State == TaskState.Executing)
                     {
                         currentState = TaskManagerStatus.Interrupted;
@@ -425,6 +443,9 @@ namespace OctopusHelpers.Models
                                 break;
                             case TaskState.Queued:
                                 currentState = TaskManagerStatus.Queued;
+                                break;
+                            case TaskState.TimedOut:
+                                currentState = TaskManagerStatus.TimedOut;
                                 break;
                             case TaskState.Executing:
                                 currentState = TaskManagerStatus.Executing;

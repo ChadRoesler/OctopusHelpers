@@ -7,12 +7,18 @@ namespace OctopusHelpers
     /// This class is used for determining of a set of text contains a var in one of two distinct octopus ways of storing the var in the script.
     /// </summary>
     /// 
-    /// <Note>
+    /// <note>
     /// Not using Octostache since we want counts of things.  We are only doing basic var replacement not the advanced if or other things.
     /// Ill probably end up documenting this later as its use in conjunction with the VariableInfoResource
     /// </note>
     public static class VariableRegExHelper
     {
+        /// <summary>
+        /// Look some other time kid
+        /// </summary>
+        /// <param name="textToSearch">you dont wanna</param>
+        /// <param name="varName">live this life</param>
+        /// <returns></returns>
         public static bool VarTextContainsVariable(string textToSearch, string varName)
         {
             if (!string.IsNullOrWhiteSpace(textToSearch))
@@ -41,6 +47,13 @@ namespace OctopusHelpers
             }
         }
 
+        /// <summary>
+        /// nope
+        /// </summary>
+        /// <param name="textToReplace"></param>
+        /// <param name="varName"></param>
+        /// <param name="varValue"></param>
+        /// <returns></returns>
         public static string VariableValueWithReplacedText(string textToReplace, string varName, string varValue)
         {
             if (!string.IsNullOrWhiteSpace(textToReplace))

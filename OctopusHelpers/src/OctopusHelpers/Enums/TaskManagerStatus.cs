@@ -30,8 +30,12 @@
         /// </summary>
         Queued = 5,
         /// <summary>
+        /// The deployment has timed out.
+        /// </summary>
+        TimedOut =  6,
+        /// <summary>
         /// Not started yet, but not queued.
         /// </summary>
-        NotStarted = 6
+        NotStarted = 7
     }
 }

@@ -557,13 +557,14 @@ namespace OctopusHelpers
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project">Project to gather from.</param>
         /// <param name="environment">Environment to gather from.</param>
+        /// <param name="state">Task state to look for.</param>
         /// <returns></returns>
-        public static ReleaseResource GetLastestDeployedReleaseFromProjectEnvironmentByStatus(OctopusRepository octRepository, ProjectResource project, EnvironmentResource environment, string Status)
+        public static ReleaseResource GetLastestDeployedReleaseFromProjectEnvironmentByStatus(OctopusRepository octRepository, ProjectResource project, EnvironmentResource environment, TaskState state)
         {
             var projectArray = new string[] { project.Id };
             var environmentArray = new string[] { environment.Id };
 
-            var lastDeployedReleases = octRepository.Client.GetProjectEnvironmentDeployments(projectArray, environmentArray).ToList();
+            var lastDeployedReleases = octRepository.Client.GetProjectEnvironmentDeployments(projectArray, environmentArray).Where(r => TaskHelper.GetTaskFromId(octRepository, r.TaskId).State == state).ToList();
             
             if (lastDeployedReleases != null && lastDeployedReleases.Count > 0)
             {

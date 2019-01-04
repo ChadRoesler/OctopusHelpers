@@ -6,6 +6,9 @@ using OctopusHelpers.Constants;
 
 namespace OctopusHelpers.Models
 {
+    /// <summary>
+    /// Look some time this might be a real thing, i dont wanna you cant make me.
+    /// </summary>
     public class VariableInfoResource
     {
         /// <Note>
@@ -29,6 +32,12 @@ namespace OctopusHelpers.Models
         private VariableResource Variable;
         private OctopusRepository OctopusRepo;
 
+        /// <summary>
+        /// Gonna go out for a pack of smokes.
+        /// </summary>
+        /// <param name="octRepository">Ill be</param>
+        /// <param name="variable">back</param>
+        /// <param name="library">soon</param>
         public VariableInfoResource(OctopusRepository octRepository, VariableResource variable, LibraryVariableSetResource library)
         {
             Variable = variable;

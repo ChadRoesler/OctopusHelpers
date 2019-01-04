@@ -74,7 +74,7 @@ namespace OctopusHelpers
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project"></param>
-        /// <param name="sqlConnection"></param>
+        /// <param name="octDatabaseConnection"></param>
         public static void UpdateProjectReleaseDeploymentProcess(OctopusRepository octRepository, ProjectResource project, SqlConnection octDatabaseConnection)
         {
             var projectIdParameter = new SqlParameter(ResourceStrings.ProjectIdParameter, project.Id);

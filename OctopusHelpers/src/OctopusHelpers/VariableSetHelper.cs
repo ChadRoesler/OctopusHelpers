@@ -72,7 +72,7 @@ namespace OctopusHelpers
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project">Project to gather from.</param>
         /// <param name="variableSet">VariableSet that will be entered.</param>
-        public static void ReplaceVariablesInProjectVariableSet(OctopusRepository repository, ProjectResource project, VariableSetResource variableSet)
+        public static void ReplaceVariablesInProjectVariableSet(OctopusRepository octRepository, ProjectResource project, VariableSetResource variableSet)
         {
             var newVariableList = new List<VariableResource>();
             foreach (var variable in variableSet.Variables)
@@ -85,9 +85,9 @@ namespace OctopusHelpers
                 variableResource.Scope = variable.Scope;
                 newVariableList.Add(variableResource);
             }
-            var currentProjectVariables = GetVariableSetFromProject(repository, project);
+            var currentProjectVariables = GetVariableSetFromProject(octRepository, project);
             currentProjectVariables.Variables = newVariableList;
-            repository.VariableSets.Modify(currentProjectVariables);
+            octRepository.VariableSets.Modify(currentProjectVariables);
         }
 
         /// <summary>

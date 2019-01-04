@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>SemVer and Ver living side by side.</releaseNotes>
+    <releaseNotes>Bug Fixes and Clean up.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Octopus</tags>
   </metadata>
