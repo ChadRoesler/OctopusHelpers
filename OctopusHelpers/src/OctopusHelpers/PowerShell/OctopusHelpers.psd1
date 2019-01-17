@@ -58,7 +58,6 @@ RequiredAssemblies = @('Newtonsoft.Json.dll',
                        'Octopus.Client.dll', 
                        'OctopusHelpers.dll',
                        'Semver.dll',
-                       'Markdig.dll',
                        'Sprache.dll')
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
