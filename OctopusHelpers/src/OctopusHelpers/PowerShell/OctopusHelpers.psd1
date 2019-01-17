@@ -54,10 +54,10 @@ Copyright = '(c) 2017 Chad Roesler. All rights reserved.'
 # RequiredModules = @()
 
 # Assemblies that must be loaded prior to importing this module
-RequiredAssemblies = @('Newtonsoft.Json.dll', 
-                       'Octopus.Client.dll', 
-                       'OctopusHelpers.dll',
-                       'Semver.dll')
+RequiredAssemblies = @('..\Newtonsoft.Json.dll', 
+                       '..\Octopus.Client.dll', 
+                       '..\OctopusHelpers.dll',
+                       '..\Semver.dll')
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
 # ScriptsToProcess = @()
