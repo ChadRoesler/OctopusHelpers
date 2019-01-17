@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Bug Fixes and Clean up.</releaseNotes>
+    <releaseNotes>Project Creation and Posh handling.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Octopus</tags>
   </metadata>

@@ -27,7 +27,7 @@ namespace OctopusHelpers
         }
 
         /// <summary>
-        /// returns step names that gather packages from nuget feeds.
+        /// returns step names that gather packages.
         /// </summary>
         /// <param name="deploymentProcess"></param>
         /// <returns>Enumerable of Package Step Names</returns>

@@ -145,5 +145,55 @@ namespace OctopusHelpers
             project.IsDisabled = true;
             octRepository.Projects.Modify(project);
         }
+
+        /// <summary>
+        /// Creates a Project
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="projectName">The project to create.</param>
+        /// <returns>ProjectResource</returns>
+        public static ProjectResource CreateProject(OctopusRepository octRepository, string projectName)
+        {
+            var newProject = new ProjectResource()
+            {
+                Name = projectName
+            };
+            return octRepository.Projects.Create(newProject);
+        }
+
+        /// <summary>
+        /// Creates a Project
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="projectName">The project to create.</param>
+        /// <param name="projectGroupName">The name of the project group to add the project to</param>
+        /// <returns>ProjectResource</returns>
+        public static ProjectResource CreateProject(OctopusRepository octRepository, string projectName, string projectGroupName)
+        {
+            var projectGroup = ProjectGroupHelper.GetProjectGroupByName(octRepository, projectGroupName);
+            var newProject = new ProjectResource()
+            {
+                Name = projectName,
+                ProjectGroupId = projectGroup.Id
+            };
+            return octRepository.Projects.Create(newProject);
+        }
+
+        /// <summary>
+        /// Creates a Project
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="projectName">The project to create.</param>
+        /// <param name="projectGroup">The name of the project group to add the project to</param>
+        /// <returns>ProjectResource</returns>
+        public static ProjectResource CreateProject(OctopusRepository octRepository, string projectName, ProjectGroupResource projectGroup)
+        {
+            var newProject = new ProjectResource()
+            {
+                Name = projectName,
+                ProjectGroupId = projectGroup.Id
+            };
+            return octRepository.Projects.Create(newProject);
+        }
     }
 }
