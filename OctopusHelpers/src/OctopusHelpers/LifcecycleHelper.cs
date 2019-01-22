@@ -30,6 +30,15 @@ namespace OctopusHelpers
             }
         }
 
+        public static LifecycleResource CreateLifeCycle(OctopusRepository octRepository, string lifecycleName)
+        {
+            var lifecycle = new LifecycleResource()
+            {
+                Name = lifecycleName
+            };
+            return octRepository.Lifecycles.Create(lifecycle);
+        }
+
         /// <summary>
         /// Gathers a Lifecycle by Name.
         /// </summary>
