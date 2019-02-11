@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>you can now create dre.</releaseNotes>
+    <releaseNotes>Custom Ver to SemVer handling for when  you dont want to change all versions.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Octopus</tags>
   </metadata>

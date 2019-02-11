@@ -47,6 +47,7 @@ namespace OctopusHelpers
             variableResource.Name = variable.Name;
             variableResource.Prompt = variable.Prompt;
             variableResource.Scope = variable.Scope;
+            variableResource.Value = variable.Value;
             var currentProjectVariables = GetVariableSetFromProject(octRepository, project);
             currentProjectVariables.Variables.Add(variableResource);
             octRepository.VariableSets.Modify(currentProjectVariables);
@@ -83,6 +84,7 @@ namespace OctopusHelpers
                 variableResource.Name = variable.Name;
                 variableResource.Prompt = variable.Prompt;
                 variableResource.Scope = variable.Scope;
+                variableResource.Value = variable.Value;
                 newVariableList.Add(variableResource);
             }
             var currentProjectVariables = GetVariableSetFromProject(octRepository, project);
