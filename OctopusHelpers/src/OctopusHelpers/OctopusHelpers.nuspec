@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Custom Ver to SemVer handling for when  you dont want to change all versions.</releaseNotes>
+    <releaseNotes>Ignore the last one, now we allow Octopus's SemanticVersion models as well.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Octopus</tags>
   </metadata>

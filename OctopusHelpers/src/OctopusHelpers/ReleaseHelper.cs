@@ -64,6 +64,27 @@ namespace OctopusHelpers
         /// <param name="project">Project to gather release from.</param>
         /// <param name="releaseVersion">Version to gather of release.</param>
         /// <returns>ReleaseResource</returns>
+        public static ReleaseResource GetProjectReleaseByVersion(OctopusRepository octRepository, ProjectResource project, SemanticVersion releaseVersion)
+        {
+            var projectReleases = GetProjectReleases(octRepository, project);
+            if (projectReleases != null && projectReleases.Count() > 0)
+            {
+                var releaseList = projectReleases.Where(r => r.GetSemanticVerionObject().Equals(releaseVersion)).FirstOrDefault();
+                return releaseList;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gather a Project's Release from the passed Version.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="project">Project to gather release from.</param>
+        /// <param name="releaseVersion">Version to gather of release.</param>
+        /// <returns>ReleaseResource</returns>
         public static ReleaseResource GetProjectReleaseByVersion(OctopusRepository octRepository, ProjectResource project, Version releaseVersion)
         {
             var projectReleases = GetProjectReleases(octRepository, project);
@@ -152,6 +173,40 @@ namespace OctopusHelpers
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="project">Project to create release for.</param>
         /// <param name="releaseVersion">Release version to create.</param>
+        /// <param name="stepAndVersionDictionary">StepName and Version for package steps.</param>
+        /// <param name="releaseNotes">Release Notes.</param>
+        /// <returns>Newly Created ReleaseResource</returns>
+        public static ReleaseResource CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, string releaseVersion, Dictionary<string, SemanticVersion> stepAndVersionDictionary, string releaseNotes)
+        {
+
+            var release = new ReleaseResource();
+            var projectDeploymentProcess = DeploymentProcessHelper.GetDeploymentProcessFromProject(octRepository, project);
+            var packageSteps = DeploymentProcessHelper.GetPackageSteps(projectDeploymentProcess);
+            var package = new List<SelectedPackage>();
+            foreach (var step in packageSteps)
+            {
+                if (stepAndVersionDictionary.ContainsKey(step))
+                {
+                    package.Add(new SelectedPackage(step, stepAndVersionDictionary[step].ToString()));
+                }
+                else
+                {
+                    throw new ArgumentException(string.Format(ErrorStrings.MissingPackageStep, step), "stepAndVersionDictionary");
+                }
+            }
+            release.SelectedPackages = package;
+            release.ReleaseNotes = releaseNotes;
+            release.Version = releaseVersion;
+            release.ProjectId = project.Id;
+            return octRepository.Releases.Create(release);
+        }
+
+        /// <summary>
+        /// Creates a release for the passed Project.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="project">Project to create release for.</param>
+        /// <param name="releaseVersion">Release version to create.</param>
         /// <param name="releaseNotes">Release Notes.</param>
         /// <returns>Newly Created ReleaseResource</returns>
         public static ReleaseResource CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, string releaseVersion, string releaseNotes)
@@ -175,6 +230,42 @@ namespace OctopusHelpers
         /// <param name="releaseNotes">Release Notes.</param>
         /// <returns>Newly Created ReleaseResource</returns>
         public static ReleaseResource CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, ChannelResource channel, string releaseVersion, Dictionary<string, SemVersion> stepAndVersionDictionary, string releaseNotes)
+        {
+
+            var release = new ReleaseResource();
+            var projectDeploymentProcess = DeploymentProcessHelper.GetDeploymentProcessFromProject(octRepository, project);
+            var packageSteps = DeploymentProcessHelper.GetPackageSteps(projectDeploymentProcess);
+            var package = new List<SelectedPackage>();
+            foreach (var step in packageSteps)
+            {
+                if (stepAndVersionDictionary.ContainsKey(step))
+                {
+                    package.Add(new SelectedPackage(step, stepAndVersionDictionary[step].ToString()));
+                }
+                else
+                {
+                    throw new ArgumentException(string.Format(ErrorStrings.MissingPackageStep, step), "stepAndVersionDictionary");
+                }
+            }
+            release.ChannelId = channel.Id;
+            release.SelectedPackages = package;
+            release.ReleaseNotes = releaseNotes;
+            release.Version = releaseVersion;
+            release.ProjectId = project.Id;
+            return octRepository.Releases.Create(release);
+        }
+
+        /// <summary>
+        /// Creates a release for the passed Project.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="project">Project to create release for.</param>
+        /// <param name="channel">Channel to create release for.</param>
+        /// <param name="releaseVersion">Release version to create.</param>
+        /// <param name="stepAndVersionDictionary">StepName and Version for package steps.</param>
+        /// <param name="releaseNotes">Release Notes.</param>
+        /// <returns>Newly Created ReleaseResource</returns>
+        public static ReleaseResource CreateProjectRelease(OctopusRepository octRepository, ProjectResource project, ChannelResource channel, string releaseVersion, Dictionary<string, SemanticVersion> stepAndVersionDictionary, string releaseNotes)
         {
 
             var release = new ReleaseResource();
@@ -518,6 +609,17 @@ namespace OctopusHelpers
         }
 
         /// <summary>
+        /// Gathers the latest release from a project.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="project">Project to gather from.</param>
+        /// <returns>ReleaseResource</returns>
+        public static ReleaseResource GetLatestReleaseSemanticVersionFromProject(OctopusRepository octRepository, ProjectResource project)
+        {
+            return GetProjectReleases(octRepository, project).OrderByDescending(r => r.GetSemanticVerionObject()).FirstOrDefault();
+        }
+
+        /// <summary>
         /// Update a Release's Package Step version with another version.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
@@ -541,6 +643,23 @@ namespace OctopusHelpers
         /// <param name="release"></param>
         /// <param name="packageStepDictionary"></param>
         public static void UpdateReleasePackageVersionByStep(OctopusRepository octRepository, ReleaseResource release, Dictionary<string, Version> packageStepDictionary)
+        {
+            var selectedPackageList = release.SelectedPackages.ToDictionary(x => x.ActionName);
+            foreach (var packageStep in packageStepDictionary)
+            {
+                selectedPackageList[packageStep.Key].Version = packageStep.Value.ToString();
+            }
+            release.SelectedPackages = selectedPackageList.Values.ToList();
+            octRepository.Releases.Modify(release);
+        }
+
+        /// <summary>
+        /// Update a Release's Package Step version with another version.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="release"></param>
+        /// <param name="packageStepDictionary"></param>
+        public static void UpdateReleasePackageVersionByStep(OctopusRepository octRepository, ReleaseResource release, Dictionary<string, SemanticVersion> packageStepDictionary)
         {
             var selectedPackageList = release.SelectedPackages.ToDictionary(x => x.ActionName);
             foreach (var packageStep in packageStepDictionary)

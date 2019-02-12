@@ -30,6 +30,12 @@ namespace OctopusHelpers
             }
         }
 
+        /// <summary>
+        /// Creates a LifeCycle
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="lifecycleName">Name of the Lifecycle to create.</param>
+        /// <returns></returns>
         public static LifecycleResource CreateLifeCycle(OctopusRepository octRepository, string lifecycleName)
         {
             var lifecycle = new LifecycleResource()

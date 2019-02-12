@@ -152,6 +152,7 @@ namespace OctopusHelpers
         /// <param name="octRepository">The repository to call against.</param>
         /// <param name="projectName">The project to create.</param>
         /// <param name="projectGroupName">The name of the project group to add the project to</param>
+        /// <param name="lifecycleName">The name of the lifecycle to add to the project.</param>
         /// <returns>ProjectResource</returns>
         public static ProjectResource CreateProject(OctopusRepository octRepository, string projectName, string projectGroupName, string lifecycleName)
         {
@@ -170,8 +171,9 @@ namespace OctopusHelpers
         /// Creates a Project
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="projectName">The project to create.</param>
-        /// <param name="projectGroup">The name of the project group to add the project to</param>
+        /// <param name="projectName">The anem project to create.</param>
+        /// <param name="projectGroup">The project group resource to add the project to</param>
+        /// <param name="lifecycle">The lifecycle to add to the project.</param>
         /// <returns>ProjectResource</returns>
         public static ProjectResource CreateProject(OctopusRepository octRepository, string projectName, ProjectGroupResource projectGroup, LifecycleResource lifecycle)
         {

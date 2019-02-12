@@ -33,6 +33,12 @@ namespace OctopusHelpers
             }
         }
 
+        /// <summary>
+        /// going out to get milk
+        /// </summary>
+        /// <param name="textToSearch">be back</param>
+        /// <param name="varName">in 10 years</param>
+        /// <returns>never</returns>
         public static bool OctScriptTextContainsVariable(string textToSearch, string varName)
         {
             if (!string.IsNullOrWhiteSpace(textToSearch))
@@ -50,10 +56,10 @@ namespace OctopusHelpers
         /// <summary>
         /// nope
         /// </summary>
-        /// <param name="textToReplace"></param>
-        /// <param name="varName"></param>
-        /// <param name="varValue"></param>
-        /// <returns></returns>
+        /// <param name="textToReplace">nuh-uh</param>
+        /// <param name="varName">no way</param>
+        /// <param name="varValue">jose</param>
+        /// <returns>get out</returns>
         public static string VariableValueWithReplacedText(string textToReplace, string varName, string varValue)
         {
             if (!string.IsNullOrWhiteSpace(textToReplace))
