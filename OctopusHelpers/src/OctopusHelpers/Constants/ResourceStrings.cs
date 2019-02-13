@@ -39,10 +39,15 @@
         internal const string DefaultMachinePolicyName = "Default Machine Policy";
         internal const string FormValuesArgException = "formValues";
 		internal const string InterruptionGuidanceKey = "Guidance";
-		internal const string InterruptionRetryValue = "Retry";
+        internal const string InterventionResultKey = "Result";
+        internal const string InterruptionRetryValue = "Retry";
 		internal const string InterruptionFailValue = "Fail";
 		internal const string InterruptionNoteKey = "Notes";
-		internal const string Return = @"
+        internal const string InterventionInstructions = "Instructions";
+        internal const string InterventionText = "Text";
+        internal const string InterventionNoteKey = "Notes";
+
+        internal const string Return = @"
 ";
 		internal const string LogPrinting = "{0}{1}";
 		internal const string MetaStepName = "MetaStep";

@@ -17,11 +17,22 @@ namespace OctopusHelpers
         /// Gathers the tasks current pending interruption.
         /// </summary>
         /// <param name="octRepository">The repository to call against.</param>
-        /// <param name="task"></param>
+        /// <param name="task">Task to Get interruption of.</param>
         /// <returns>InterruptionResource</returns>
         public static InterruptionResource GetPendingInterruption(OctopusRepository octRepository, TaskResource task)
         {
             return octRepository.Client.GetResourceInterruptions(task.Id, true).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gathers the tasks last interruption.
+        /// </summary>
+        /// <param name="octRepository">The repository to call against.</param>
+        /// <param name="task">Task to Get interruption of.</param>
+        /// <returns>InterruptionResource</returns>
+        public static InterruptionResource GetLastInterruption(OctopusRepository octRepository, TaskResource task)
+        {
+            return octRepository.Client.GetResourceInterruptions(task.Id, false).FirstOrDefault();
         }
 
         /// <summary>

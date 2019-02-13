@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using Octopus.Client;
 using Octopus.Client.Model;
 using OctopusHelpers.Enums;
@@ -22,14 +23,24 @@ namespace OctopusHelpers.Models
         private bool CancellationRequested = false;
 
         /// <summary>
-        /// Allows for inspection of the current interruption.
+        /// Allows for inspection of the current interruption and intervention.
         /// </summary>
         public InterruptionResource currentInterruptionToProcess;
 
         /// <summary>
-        /// Allows for inspection of the previous interruption.
+        /// Allows for inspection of the previous interruption and intervention.
         /// </summary>
         public InterruptionResource previousInterruptionToProcess;
+
+        /// <summary>
+        /// Allows for inspection of the current interruption and intervention.
+        /// </summary>
+        public InterruptionResource currentInterventionToProcess;
+
+        /// <summary>
+        /// Allows for inspection of the previous interruption and intervention.
+        /// </summary>
+        public InterruptionResource previousInterventionToProcess;
 
         /// <summary>
         /// Allows base creation of the object.
@@ -98,7 +109,7 @@ namespace OctopusHelpers.Models
             if (taskToManage != null)
             {
                 taskToManage = TaskHelper.GetTaskFromId(octRepositoryToManage, taskToManage.Id);
-                if (Status == TaskManagerStatus.Executing || Status == TaskManagerStatus.Interrupted || Status == TaskManagerStatus.Queued)
+                if (Status == TaskManagerStatus.Executing || Status == TaskManagerStatus.Interrupted || Status == TaskManagerStatus.Queued || Status == TaskManagerStatus.Intervention)
                 {
                     octRepositoryToManage.Tasks.Cancel(taskToManage);
 
@@ -141,12 +152,36 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
+        /// Refreshes the current pending intervention, if one exists.
+        /// </summary>
+        public void UpdateIntervention()
+        {
+            var updatedIntervention = InterruptionHelper.GetLastInterruption(octRepositoryToManage, taskToManage);
+            if (updatedIntervention != null && !updatedIntervention.Equals(currentInterventionToProcess))
+            {
+                currentInterruptionToProcess = updatedIntervention;
+            }
+        }
+
+        /// <summary>
         /// Refreshes the previous interruption, used for reporting on the guided interruption.
         /// </summary>
         private void UpdatePreviousInterruption()
         {
             previousInterruptionToProcess = octRepositoryToManage.Interruptions.Get(currentInterruptionToProcess.Id);
             while ((previousInterruptionToProcess.IsPending || previousInterruptionToProcess.ResponsibleUserId == null || previousInterruptionToProcess.Form == null || previousInterruptionToProcess.Form.Values[ResourceStrings.InterruptionGuidanceKey] == null) && Status != TaskManagerStatus.Canceled)
+            {
+                previousInterruptionToProcess = octRepositoryToManage.Interruptions.Get(currentInterruptionToProcess.Id);
+            }
+        }
+
+        /// <summary>
+        /// Refreshes the previous interruption, used for reporting on the guided interruption.
+        /// </summary>
+        private void UpdatePreviousIntervention()
+        {
+            previousInterruptionToProcess = octRepositoryToManage.Interruptions.Get(currentInterruptionToProcess.Id);
+            while ((previousInterruptionToProcess.IsPending || previousInterruptionToProcess.ResponsibleUserId == null || previousInterruptionToProcess.Form == null || previousInterruptionToProcess.Form.Values[ResourceStrings.InterventionResultKey] == null) && Status != TaskManagerStatus.Canceled)
             {
                 previousInterruptionToProcess = octRepositoryToManage.Interruptions.Get(currentInterruptionToProcess.Id);
             }
@@ -322,6 +357,18 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
+        /// Get the Step of the Manual Intervention... THIS IS MADNESS WHY IS IT SUCCESS AND NOT SOMETHING ELSE.
+        /// </summary>
+        /// <returns></returns>
+        public string GetManualInterventionStepInfo()
+        {
+            UpdateActivity();
+            var output = string.Empty;
+            output += activitySteps.Where(a => a.Status == ActivityStatus.Success).FirstOrDefault().Name + ResourceStrings.Return;
+            return output;
+        }
+
+        /// <summary>
         /// Returns the Last Step Executed.
         /// </summary>
         /// <returns>Returns the Last Step Executed</returns>
@@ -355,6 +402,23 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
+        /// Gets the Note of the Manual Intervention.
+        /// </summary>
+        /// <returns>Returns the Note of the manual intervention.</returns>
+        public string GetManualInterventionNote()
+        {
+            UpdatePreviousIntervention();
+            if (previousInterruptionToProcess != null)
+            {
+                return previousInterruptionToProcess.Form.Values[ResourceStrings.InterventionNoteKey];
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
         /// Gets the Guidance Taken of the Guided Interruption.
         /// </summary>
         /// <returns>Returns the value of the choice (retry, fail, or cancel) of the of the managed interruption.</returns>
@@ -372,12 +436,46 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
+        /// Gets the Guidance Taken of the Manual Intervention.
+        /// </summary>
+        /// <returns>Returns the value of the choice (proceed or abort) of the of the manual intervention.</returns>
+        public string GetManualInterventionGuidence()
+        {
+            UpdatePreviousIntervention();
+            if (previousInterruptionToProcess != null)
+            {
+                return previousInterruptionToProcess.Form.Values[ResourceStrings.InterventionResultKey];
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
         /// Gets the Guiding User of the Guided Interruption.
         /// </summary>
         /// <returns>Returns the Responsible UserResource of the interruption</returns>
         public UserResource GetManagedInterruptionResponsibleUser()
         {
             UpdatePreviousInterruption();
+            if (previousInterruptionToProcess != null)
+            {
+                return UserHelper.GetUserFromUserId(octRepositoryToManage, previousInterruptionToProcess.ResponsibleUserId);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Gets the Guiding User of the Manual Intervention.
+        /// </summary>
+        /// <returns>Returns the Responsible UserResource of the intervention</returns>
+        public UserResource GetManualInterventionResponsibleUser()
+        {
+            UpdatePreviousIntervention();
             if (previousInterruptionToProcess != null)
             {
                 return UserHelper.GetUserFromUserId(octRepositoryToManage, previousInterruptionToProcess.ResponsibleUserId);
@@ -426,33 +524,48 @@ namespace OctopusHelpers.Models
                 if (taskToManage != null)
                 {
                     taskToManage = TaskHelper.GetTaskFromId(octRepositoryToManage, taskToManage.Id);
-                    if (taskToManage.HasPendingInterruptions && taskToManage.State == TaskState.Executing)
+                    if (taskToManage.HasPendingInterruptions)
                     {
-                        currentState = TaskManagerStatus.Interrupted;
-                    }
-                    else if (taskToManage.IsCompleted && taskToManage.State != TaskState.Canceled)
-                    {
-                        currentState = TaskManagerStatus.Completed;
+                        //We have to wait since we cant tell if an interruption is a guided failure step, or a manual intervention
+                        Thread.Sleep(1000);
+                        taskToManage = TaskHelper.GetTaskFromId(octRepositoryToManage, taskToManage.Id);
+                        UpdateInterruption();
+                        if (taskToManage.HasPendingInterruptions && taskToManage.State == TaskState.Queued)
+                        {
+                            currentState = TaskManagerStatus.Intervention;
+                        }
+                        else if (taskToManage.HasPendingInterruptions && taskToManage.State == TaskState.Executing)
+                        {
+                            currentState = TaskManagerStatus.Interrupted;
+                        }
+
                     }
                     else
                     {
-                        switch (taskToManage.State)
+                        if (taskToManage.IsCompleted && taskToManage.State != TaskState.Canceled)
                         {
-                            case TaskState.Canceled:
-                                currentState = TaskManagerStatus.Canceled;
-                                break;
-                            case TaskState.Queued:
-                                currentState = TaskManagerStatus.Queued;
-                                break;
-                            case TaskState.TimedOut:
-                                currentState = TaskManagerStatus.TimedOut;
-                                break;
-                            case TaskState.Executing:
-                                currentState = TaskManagerStatus.Executing;
-                                break;
-                            case TaskState.Cancelling:
-                                currentState = TaskManagerStatus.Canceling;
-                                break;
+                            currentState = TaskManagerStatus.Completed;
+                        }
+                        else
+                        {
+                            switch (taskToManage.State)
+                            {
+                                case TaskState.Canceled:
+                                    currentState = TaskManagerStatus.Canceled;
+                                    break;
+                                case TaskState.Queued:
+                                    currentState = TaskManagerStatus.Queued;
+                                    break;
+                                case TaskState.TimedOut:
+                                    currentState = TaskManagerStatus.TimedOut;
+                                    break;
+                                case TaskState.Executing:
+                                    currentState = TaskManagerStatus.Executing;
+                                    break;
+                                case TaskState.Cancelling:
+                                    currentState = TaskManagerStatus.Canceling;
+                                    break;
+                            }
                         }
                     }
                 }

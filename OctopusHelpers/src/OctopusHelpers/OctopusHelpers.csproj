@@ -71,6 +71,7 @@
     <Compile Include="Enums\CancellationStatus.cs" />
     <Compile Include="Enums\ErrorStatus.cs" />
     <Compile Include="Enums\InterruptionResponse.cs" />
+    <Compile Include="Enums\InterventionResponse.cs" />
     <Compile Include="Enums\TaskManagerStatus.cs" />
     <Compile Include="EventHelper.cs" />
     <Compile Include="InterruptionHelper.cs" />

@@ -36,6 +36,10 @@
         /// <summary>
         /// Not started yet, but not queued.
         /// </summary>
-        NotStarted = 7
+        NotStarted = 7,
+        /// <summary>
+        /// Needing a manual intervention.
+        /// </summary>
+        Intervention = 8
     }
 }
