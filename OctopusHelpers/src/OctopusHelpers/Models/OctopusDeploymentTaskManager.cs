@@ -357,7 +357,7 @@ namespace OctopusHelpers.Models
         }
 
         /// <summary>
-        /// Get the Step of the Manual Intervention... THIS IS MADNESS WHY IS IT SUCCESS AND NOT SOMETHING ELSE.
+        /// Get the Step of the Manual Intervention.
         /// </summary>
         /// <returns></returns>
         public string GetManualInterventionStepInfo()
