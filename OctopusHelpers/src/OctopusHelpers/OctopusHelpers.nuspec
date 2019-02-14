@@ -7,7 +7,8 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <description>$description$</description>
     <releaseNotes>Revert OctopusClients to pre 5.0 we are maintaining with LTS versions.</releaseNotes>
     <copyright>Copyright 2017</copyright>
