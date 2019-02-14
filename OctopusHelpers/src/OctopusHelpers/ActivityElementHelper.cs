@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Octopus.Client.Model;
 using OctopusHelpers.Constants;
+using System.Linq;
 
 namespace OctopusHelpers
 {
@@ -20,7 +21,7 @@ namespace OctopusHelpers
         {
             var output = string.Empty;
             var tabCount = new string(' ', tabIndex * 5);
-            if (statusesToCheck == null)
+            if (statusesToCheck.Contains(activityElementToProcess.Status))
             {
                 output += activityElementToProcess.Name + ResourceStrings.Return;
                 foreach (var activityLogElement in activityElementToProcess.LogElements)
@@ -32,22 +33,56 @@ namespace OctopusHelpers
                     output += GetLogInfo(activityElement, tabIndex + 1, statusesToCheck);
                 }
             }
-            else
+            return output.TrimEnd();
+        }
+
+        /// </summary>
+        /// <param name="activityElementToProcess">The ActivityElement to gather info from.</param>
+        /// <param name="tabIndex">Tab Index for spacing sub ActivityElements</param>
+        /// <param name="statusesToCheck">Allotment to check for only specific Statuses</param>
+        /// <returns>Formatted Message text from activity elements. </returns>
+        public static string GetLogInfo(ActivityElement activityElementToProcess, int tabIndex)
+        {
+            var output = string.Empty;
+            var tabCount = new string(' ', tabIndex * 5);
+            output += activityElementToProcess.Name + ResourceStrings.Return;
+            foreach (var activityLogElement in activityElementToProcess.LogElements)
             {
-                if (statusesToCheck.Contains(activityElementToProcess.Status))
+                output += (string.Format(ResourceStrings.LogPrinting, tabCount, activityLogElement.MessageText.Replace(ResourceStrings.Return, string.Format(ResourceStrings.LogPrinting, ResourceStrings.Return, tabCount)))) + ResourceStrings.Return;
+            }
+            foreach (var activityElement in activityElementToProcess.Children)
+            {
+                output += GetLogInfo(activityElement, tabIndex + 1);
+            }
+            return output.TrimEnd();
+        }
+
+        public static string GetStepNameById(ActivityElement activityElementToProcess, string activityElementId)
+        {
+            var output = string.Empty;
+            var parentActivityElement = activityElementToProcess;
+            var childCheck = activityElementToProcess.Children.Where(c => c.Id.Equals(activityElementId)).FirstOrDefault();
+            if (childCheck == null)
+            {
+                foreach(var activityElement in activityElementToProcess.Children)
                 {
-                    output += activityElementToProcess.Name + ResourceStrings.Return;
-                    foreach (var activityLogElement in activityElementToProcess.LogElements)
+                    
+                    if(string.IsNullOrWhiteSpace(output))
                     {
-                        output += (string.Format(ResourceStrings.LogPrinting, tabCount, activityLogElement.MessageText.Replace(ResourceStrings.Return, string.Format(ResourceStrings.LogPrinting, ResourceStrings.Return, tabCount)))) + ResourceStrings.Return;
+                        return output;
                     }
-                    foreach (var activityElement in activityElementToProcess.Children)
+                    else
                     {
-                        output += GetLogInfo(activityElement, tabIndex + 1, statusesToCheck);
+                        output = GetStepNameById(activityElement, activityElementId);
                     }
                 }
             }
-            return output.TrimEnd();
+            else
+            {
+                output = parentActivityElement.Name;
+            }
+            
+            return output;
         }
     }
 }

@@ -9,7 +9,7 @@
     <projectUrl>https://github.com/ChadRoesler/OctopusHelpers</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Deployment Task Manager Changes to handle manual interventions, we cant get the instruction text just yet though.</releaseNotes>
+    <releaseNotes>Interruption changes, directly gather step and instructions.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Octopus</tags>
   </metadata>

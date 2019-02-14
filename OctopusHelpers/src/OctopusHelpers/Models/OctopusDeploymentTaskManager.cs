@@ -351,7 +351,7 @@ namespace OctopusHelpers.Models
         {
             UpdateActivity();
             var output = string.Empty;
-            output += activitySteps.Where(a => a.Status == ActivityStatus.Running).FirstOrDefault().Name + ResourceStrings.Return;
+            output += InterruptionHelper.GetInterruptedStepName(octRepositoryToManage, currentInterruptionToProcess);
             output += GetFailures(activitySteps.Where(a => a.Status == ActivityStatus.Running).FirstOrDefault().Children.LastOrDefault(), 0) + ResourceStrings.Return;
             return output.Trim();
         }
@@ -364,7 +364,7 @@ namespace OctopusHelpers.Models
         {
             UpdateActivity();
             var output = string.Empty;
-            output += activitySteps.Where(a => a.Status == ActivityStatus.Success).FirstOrDefault().Name + ResourceStrings.Return;
+            output = InterruptionHelper.GetInterruptedStepName(octRepositoryToManage, currentInterruptionToProcess);
             return output;
         }
 

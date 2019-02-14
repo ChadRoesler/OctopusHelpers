@@ -61,5 +61,43 @@ namespace OctopusHelpers
             octRepository.Interruptions.TakeResponsibility(interruption);
             octRepository.Interruptions.Submit(interruption);
         }
+
+        /// <summary>
+        /// Gathers the Step name of the interruption from the CorrelationId
+        /// </summary>
+        /// <param name="octRepository"></param>
+        /// <param name="interruption"></param>
+        /// <returns></returns>
+        public static string GetInterruptedStepName(OctopusRepository octRepository, InterruptionResource interruption)
+        {
+            var task = TaskHelper.GetTaskFromId(octRepository, interruption.TaskId);
+            var activityElements = TaskHelper.GetActivityElementList(octRepository, task);
+            var stepName = string.Empty;
+            foreach (var activityElement in activityElements)
+            {
+                if (string.IsNullOrEmpty(stepName))
+                {
+                    stepName = ActivityElementHelper.GetStepNameById(activityElement, interruption.CorrelationId);
+                }
+            }
+            return stepName;
+        }
+
+        /// <summary>
+        /// Gets the manual Intervention Step Instructions
+        /// </summary>
+        /// <param name="octRepository"></param>
+        /// <param name="interruption"></param>
+        /// <returns></returns>
+        public static string GetInterventionDirections(OctopusRepository octRepository, InterruptionResource interruption)
+        {
+            var instructions = string.Empty;
+            var interruptionformElement = interruption.Form.Elements.Where(e => e.Name.Equals(ResourceStrings.InterventionInstructions)).FirstOrDefault();
+            if(interruptionformElement != null && interruptionformElement.Control.GetType() == typeof(Octopus.Client.Model.Forms.Paragraph))
+            {
+                instructions = ((Octopus.Client.Model.Forms.Paragraph)interruptionformElement.Control).Text;
+            }
+            return instructions;
+        }
     }
 }
