@@ -362,9 +362,15 @@ namespace OctopusHelpers.Models
         /// <returns></returns>
         public string GetManualInterventionStepInfo()
         {
-            UpdateActivity();
             var output = string.Empty;
             output = InterruptionHelper.GetInterruptedStepName(octRepositoryToManage, currentInterruptionToProcess);
+            return output;
+        }
+
+        public string GetManualInterventionDirections()
+        {
+            var output = string.Empty;
+            output = InterruptionHelper.GetInterventionDirections(octRepositoryToManage, currentInterruptionToProcess);
             return output;
         }
 
