@@ -16,6 +16,7 @@
 		internal const string MachineIdFormat = "machines-{0}";
 		internal const string TaskIdFormat = "serverTasks-{0}";
         internal const string MachinePolicyIdFormat = "machinepolicies-{0}";
+        internal const string SpaceIdFormat = "spaces-{0}";
         internal const string ProjectNameApiFormat = "~/api/projects?name={0}";
 		internal const string MaintenanceConfigApi = "~/api/maintenanceconfiguration";
         internal const string CloneCommandApiFormat = "~/api/projects?clone={0}";
